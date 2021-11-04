@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/lab1.csproj": {}
+    "/home/szymon/Desktop/NTR/TRS/TRS.csproj": {}
   },
   "projects": {
-    "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/lab1.csproj": {
+    "/home/szymon/Desktop/NTR/TRS/TRS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/lab1.csproj",
-        "projectName": "lab1",
-        "projectPath": "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/lab1.csproj",
+        "projectUniqueName": "/home/szymon/Desktop/NTR/TRS/TRS.csproj",
+        "projectName": "TRS",
+        "projectPath": "/home/szymon/Desktop/NTR/TRS/TRS.csproj",
         "packagesPath": "/home/szymon/.nuget/packages/",
-        "outputPath": "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/obj/",
+        "outputPath": "/home/szymon/Desktop/NTR/TRS/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/szymon/.nuget/NuGet/NuGet.Config"
