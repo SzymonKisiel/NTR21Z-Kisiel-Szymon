@@ -1,0 +1,46 @@
+@model Projects
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class = "table">
+    @* public string code { get; set; }
+        public string manager { get; set; }
+        public string name { get; set; }
+        public int budget { get; set; }
+        public bool active { get; set; }
+        public List<string> subactivities { get; set; } *@
+    <thead>
+        <tr>
+            <td>Code</td>
+            <td>Manager</td>
+            <td>Name</td>
+            <td>Budget</td>
+            <td>Active</td>
+            <td>Subactivities</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.projects) {
+            <tr>
+                <td>@project.code</td>
+                <td>@project.manager</td>
+                <td>@project.name</td>
+                <td>@project.budget</td>
+                <td>@project.active</td>
+                <td>
+                    @foreach (var subcode in project.subactivities) {
+                        <p>@subcode</p>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form>
+    <button class = "btn btn-primary" asp-controller = "Activities" asp-action = "NewProject">Add new project</button>
+</form>

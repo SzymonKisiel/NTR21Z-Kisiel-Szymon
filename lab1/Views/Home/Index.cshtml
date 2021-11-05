@@ -3,76 +3,14 @@
 
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Time Reporting System";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Time Reporting System</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
 
-
-
-<form>
+@* <form>
     <button class = "btn btn-primary" asp-controller = "Activities" asp-action = "DayActivities">Day</button>
     <button class = "btn btn-primary" asp-controller = "Activities" asp-action = "MonthActivities">Month</button>
-</form>
-
-<!--
-
-<table class = "table">
-    <thead>
-        <tr>
-            <td>User</td>
-            <td>Date</td>
-            <td>Code</td>
-            <td>Subcode</td>
-            <td>Time</td>
-            <td>Description</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var report in Model.reports) {
-            @foreach (var entry in report.entries) {
-                <tr>
-                    <td>@report.username</td>
-                    <td>@entry.date.ToShortDateString()</td>
-                    <td>@entry.code</td>
-                    <td>@entry.subcode</td>
-                    <td>@entry.time</td>
-                    <td>@entry.description</td>
-
-                    <td><button class = "btn btn-primary" asp-route-id = "@entry.code">Zmien</button></td>
-                    <td><button class = "btn btn-primary">Skasuj</button></td>
-                </tr>   
-            }   
-        }
-    </tbody>
-</table>
-
-<form>
-    <input type = "date"></input>
-    <button class = "btn btn-primary">Obejrzyj</button>
-</form>
-<form>
-    <button class = "btn btn-primary" asp-action = "Privacy">Privacy</button>
-    <button class = "btn btn-primary" asp-controller = "Entry">Dodaj aktywnosc</button>
-</form>
-
--->
-
-
-
-<!-- TESTY
-<form>
-    <h1>TESTY</h1>
-    <input type = "date" name = "testy" placeholder = "11/02/2021"></input>
-    <button class = "btn btn-primary" asp-action = "Test">Testuj</button>
-</form>
-
-<form>
-    <h1>TESTY 2</h1>
-    <input type = "date" name = "testy" placeholder = "11/02/2021"></input>
-    <button class = "btn btn-primary" asp-action = "Test">Testuj</button>
-</form>
--->
+</form> *@

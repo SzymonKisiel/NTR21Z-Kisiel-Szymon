@@ -17,6 +17,15 @@ namespace TRS.Controllers
     public class ActivitiesController : Controller
     {
         public Reports reports = new Reports();
+        public ProjectsViewModel projectsModel = new ProjectsViewModel();
+        public string username {
+            get {
+                return HttpContext.Session.GetString("username");
+            } 
+            set {
+                HttpContext.Session.SetString("username", value);
+            }
+        }
 
         private readonly ILogger<HomeController> _logger;
 
@@ -25,17 +34,11 @@ namespace TRS.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            reports.LoadFromFiles(2021, 10);
-            return View(reports);
-        }
-
         public IActionResult Day() {
             var dateNow = DateTime.Now;
             reports.LoadDayActivities(dateNow.Year, dateNow.Month, dateNow.Day); 
             ViewBag.Reports = reports;
-            return View("Day");
+            return View();
         }
 
         [HttpPost]
@@ -43,14 +46,14 @@ namespace TRS.Controllers
             var date = model.date;
             reports.LoadDayActivities(date.Year, date.Month, date.Day); 
             ViewBag.Reports = reports;
-            return View("Day");
+            return View();
         }
 
         public IActionResult Month() {
             var dateNow = DateTime.Now;
             reports.LoadFromFiles(dateNow.Year, dateNow.Month); 
             ViewBag.Reports = reports;
-            return View("Month");
+            return View();
         }
 
         [HttpPost]
@@ -58,22 +61,53 @@ namespace TRS.Controllers
             var date = model.date;
             reports.LoadFromFiles(date.Year, date.Month);
             ViewBag.Reports = reports;
-            return View("Month");
+            return View();
         }
 
-        // TODO
-        // public IActionResult DayActivity(DateTime date) {
-        //     var reports = this.reports;
-        //     //reports.getDayActivity(date);
-        //     return View("Index", reports);
-        // }
+        public IActionResult UserDay() {
+            return View();
+        }
 
-        // TODO
-        // public IActionResult MonthActivity(DateTime date) {
-        //     var reports = this.reports;
-        //     //reports.getMonthActivity(date);
-        //     return View(reports);
-        // }
+        public IActionResult UserMonth() {
+            return View();
+        }
+
+        public IActionResult Projects() {
+            var test = projectsModel.GetProjects();
+            return View(projectsModel.GetProjects());
+        }
+
+        public IActionResult NewActivity() {
+            return View();
+        }
+
+        public IActionResult NewProject() {
+            var username = this.username;
+            if (username == null) 
+                return RedirectToAction("Index", "Login");
+            ViewData["username"] = username;
+            return View(new Project());
+        }
+
+        [HttpPost]
+        public IActionResult NewProjectAddSubactivity(Project project) {
+            var username = this.username;
+            if (username == "") 
+                return RedirectToAction("Index", "Login");
+            ViewData["username"] = username;
+            return View("NewProject", project);
+        }
+
+        [HttpPost]
+        public IActionResult NewProject(Project project) {
+            var username = this.username;
+            
+            project.manager = username;
+
+            projectsModel.AddProject(project);
+
+            return RedirectToAction("Projects");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

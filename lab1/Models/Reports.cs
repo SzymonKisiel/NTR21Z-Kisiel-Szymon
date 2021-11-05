@@ -68,33 +68,12 @@ namespace TRS.Models
             foreach (var report in this.reports)
             {
                 string filename = $"{directory}{report.username}-{report.month.ToString("yyyy-MM")}.json";
-                // string filename = directory;
-                // filename += report.username;
-                // filename += "-";
-                // filename += report.month.ToString("yyyy-MM");
-                // filename += ".json";
                 Console.WriteLine(filename);
 
                 string jsonString = JsonSerializer.Serialize<Report>(report);
                 System.IO.File.WriteAllText(filename, jsonString);
             }
         }
-
-        // public List<Report> GetDayActivities(int year, int month, int day) {
-        //     List<Report> result = new List<Report>;
-        //     LoadFromFiles(year, month);
-        //     foreach (var report in reports) {
-        //         result.Add(report.GetDayEntries());
-        //     }
-        // }
-        // public List<ActivityEntry> GetDayActivities(int year, int month, int day) {
-        //     List<ActivityEntry> result = new List<ActivityEntry>();
-        //     LoadFromFiles(year, month);
-        //     foreach (var report in reports) {
-        //         result.AddRange(report.GetDayEntries(year, month, day));
-        //     }
-        //     return result;
-        // }
 
         public void LoadDayActivities(int year, int month, int day) {
             LoadFromFiles(year, month);

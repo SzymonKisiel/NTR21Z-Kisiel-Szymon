@@ -9,7 +9,7 @@ namespace TRS.Models
         public string manager { get; set; }
         public string name { get; set; }
         public int budget { get; set; }
-        public bool active { get; set; }
-        public List<string> subactivities { get; set; }
+        public bool active { get; set; } = true;
+        public List<string> subactivities { get; set; } = new List<string>();
     }
 }

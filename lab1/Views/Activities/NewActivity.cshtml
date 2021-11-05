@@ -1,0 +1,14 @@
+@using TRS.Models
+@model ActivityEntry
+@{
+    ViewData["Title"] = "New activity";
+}
+
+<div class="text-center">
+    <h1 class="display-4">ViewData["Title"]</h1>
+</div>
+
+<div class = "form-group">
+    @Html.LabelFor(model => model.code)
+    @* @Html.DropDownListFor(model => model.code, ViewData["Projects"]) *@
+</div>

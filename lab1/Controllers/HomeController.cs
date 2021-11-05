@@ -51,37 +51,8 @@ namespace TRS.Controllers
 
         public IActionResult Index()
         {
-            reports.LoadFromFiles(2021, 10);
-            return View(reports);
-        }
-        // [HttpPost]
-        // public IActionResult Index(DateForm testy)
-        // {
-        //     Console.WriteLine($"Test = {testy.date}");
-        //     return View();
-        // }
-
-
-        //[HttpPost]
-        public IActionResult Test(DateViewModel testy) {
-            //var reports = this.reports;
-            Console.WriteLine($"Test = {testy.date}");
-            //return View("Index", reports);
-            return RedirectToAction("Index");
-        }
-
-        // TODO
-        public IActionResult DayActivity(DateTime date) {
-            var reports = this.reports;
-            //reports.getDayActivity(date);
-            return View("Index", reports);
-        }
-
-        // TODO
-        public IActionResult MonthActivity(DateTime date) {
-            var reports = this.reports;
-            //reports.getMonthActivity(date);
-            return View(reports);
+            return View();
+            //return RedirectToAction("Index", "Login");
         }
 
         public IActionResult Privacy()

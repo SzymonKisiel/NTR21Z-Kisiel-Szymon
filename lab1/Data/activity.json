@@ -6,7 +6,10 @@
             "name": "Argus",
             "budget": 125,
             "active": true,
-            "subactivities": ["database",  "other"]
+            "subactivities": [
+                "database",
+                "other"
+            ]
         },
         {
             "code": "OTHER",
