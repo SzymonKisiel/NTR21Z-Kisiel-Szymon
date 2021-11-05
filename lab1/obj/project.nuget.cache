@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MUHp5sLMyERJcbVjrvNbl360LxFENppr+QtNqg1N9dGYoUR81aIFKROPQfC0tsC+fKizXE8OuvPGmnN+F9IZ9A==",
+  "dgSpecHash": "ebeb69wPhCMItmQ1Cw+qS1vzsaU5wvd1EMSu2uBFmmEWeHg4AkhOIdMZpAhTnHU+ZYtTp7xC1OHYGYxuFnH4Rg==",
   "success": true,
-  "projectFilePath": "/home/szymon/Desktop/NTR/TRS/TRS.csproj",
+  "projectFilePath": "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/TRS.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

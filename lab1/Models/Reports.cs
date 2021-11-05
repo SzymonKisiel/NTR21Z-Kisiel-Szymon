@@ -54,11 +54,6 @@ namespace TRS.Models
             LoadFromFiles($"{username}-{year}-{month}.json");
         }
 
-        public void LoadFromFiles(int year, int month, int day)
-        {
-            //TODO
-        }  
-
         public void SaveToFiles()
         {
             Console.WriteLine("Reports.saveToFiles()");
@@ -68,6 +63,11 @@ namespace TRS.Models
             foreach (var report in this.reports)
             {
                 string filename = $"{directory}{report.username}-{report.month.ToString("yyyy-MM")}.json";
+                // string filename = directory;
+                // filename += report.username;
+                // filename += "-";
+                // filename += report.month.ToString("yyyy-MM");
+                // filename += ".json";
                 Console.WriteLine(filename);
 
                 string jsonString = JsonSerializer.Serialize<Report>(report);
@@ -77,6 +77,13 @@ namespace TRS.Models
 
         public void LoadDayActivities(int year, int month, int day) {
             LoadFromFiles(year, month);
+            foreach (var report in reports) {
+                report.ToDayReport(year, month, day);
+            }
+        }
+
+        public void LoadDayActivities(string username, int year, int month, int day) {
+            LoadFromFiles(username, year, month);
             foreach (var report in reports) {
                 report.ToDayReport(year, month, day);
             }

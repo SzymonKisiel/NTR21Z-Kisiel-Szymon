@@ -65,11 +65,42 @@ namespace TRS.Controllers
         }
 
         public IActionResult UserDay() {
-            return View();
+            if (this.username == null) 
+                return RedirectToAction("Index", "Login");
+            var dateNow = DateTime.Now;
+            reports.LoadDayActivities(this.username, dateNow.Year, dateNow.Month, dateNow.Day); 
+            ViewBag.Reports = reports;
+            return View("Day");
         }
 
+        [HttpPost]
+        public IActionResult UserDay(DateViewModel model) {
+            if (this.username == null) 
+                return RedirectToAction("Index", "Login");
+            var date = model.date;
+            reports.LoadDayActivities(this.username, date.Year, date.Month, date.Day); 
+            ViewBag.Reports = reports;
+            return View("Day");
+        }
+        
+
         public IActionResult UserMonth() {
-            return View();
+            if (this.username == null) 
+                return RedirectToAction("Index", "Login");
+            var dateNow = DateTime.Now;
+            reports.LoadFromFiles(this.username, dateNow.Year, dateNow.Month);
+            ViewBag.Reports = reports;
+            return View("Month");
+        }
+
+        [HttpPost]
+        public IActionResult UserMonth(DateViewModel model) {
+            if (this.username == null) 
+                return RedirectToAction("Index", "Login");
+            var date = model.date;
+            reports.LoadFromFiles(this.username, date.Year, date.Month);
+            ViewBag.Reports = reports;
+            return View("Month");
         }
 
         public IActionResult Projects() {
@@ -82,28 +113,24 @@ namespace TRS.Controllers
         }
 
         public IActionResult NewProject() {
-            var username = this.username;
-            if (username == null) 
+            if (this.username == null) 
                 return RedirectToAction("Index", "Login");
-            ViewData["username"] = username;
+            ViewData["username"] = this.username;
             return View(new Project());
         }
 
         [HttpPost]
         public IActionResult NewProjectAddSubactivity(Project project) {
-            var username = this.username;
-            if (username == "") 
+            if (this.username == null) 
                 return RedirectToAction("Index", "Login");
-            ViewData["username"] = username;
+            ViewData["username"] = this.username;
             return View("NewProject", project);
         }
 
         [HttpPost]
         public IActionResult NewProject(Project project) {
             var username = this.username;
-            
             project.manager = username;
-
             projectsModel.AddProject(project);
 
             return RedirectToAction("Projects");

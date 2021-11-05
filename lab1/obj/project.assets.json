@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/szymon/Desktop/NTR/TRS/TRS.csproj",
+      "projectUniqueName": "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/TRS.csproj",
       "projectName": "TRS",
-      "projectPath": "/home/szymon/Desktop/NTR/TRS/TRS.csproj",
+      "projectPath": "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/TRS.csproj",
       "packagesPath": "/home/szymon/.nuget/packages/",
-      "outputPath": "/home/szymon/Desktop/NTR/TRS/obj/",
+      "outputPath": "/home/szymon/Desktop/NTR/Gitlab/ntr21z-kisiel-szymon/lab1/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/szymon/.nuget/NuGet/NuGet.Config"
