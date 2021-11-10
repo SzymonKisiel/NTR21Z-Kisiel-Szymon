@@ -36,6 +36,9 @@
                         <p>@subcode</p>
                     }
                 </td>
+                <form>
+                <td><button class = "btn btn-primary" asp-controller = "Activities" asp-action = "NewActivity" asp-route-id = "@project.code">Add activity</button></td>
+                </form>
             </tr>
         }
     </tbody>

@@ -39,10 +39,10 @@ namespace TRS.Models
         //     return result;
         // }
 
-        public void ToDayReport(int year, int month, int day) {
+        public void ToDayReport(DateTime date) {
             List<ActivityEntry> dayEntries = new List<ActivityEntry>();
             foreach (var entry in entries) {
-                if ((entry.date.Year, entry.date.Month, entry.date.Day) == (year, month, day)) {
+                if ((entry.date.Year, entry.date.Month, entry.date.Day) == (date.Year, date.Month, date.Day)) {
                     dayEntries.Add(entry);
                 }
             }

@@ -11,12 +11,13 @@ using System.Text.Json;
 using Microsoft.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.Dynamic;
 
 namespace TRS.Controllers
 {
     public class ActivitiesController : Controller
     {
-        public Reports reports = new Reports();
+        public ReportsViewModel reportsModel = new ReportsViewModel();
         public ProjectsViewModel projectsModel = new ProjectsViewModel();
         public string username {
             get {
@@ -35,41 +36,36 @@ namespace TRS.Controllers
         }
 
         public IActionResult Day() {
-            var dateNow = DateTime.Now;
-            reports.LoadDayActivities(dateNow.Year, dateNow.Month, dateNow.Day); 
-            ViewBag.Reports = reports;
+            var date = DateTime.Now;
+            ViewBag.Reports = reportsModel.GetDayReports(date);
             return View();
         }
 
         [HttpPost]
         public IActionResult Day(DateViewModel model) {
             var date = model.date;
-            reports.LoadDayActivities(date.Year, date.Month, date.Day); 
-            ViewBag.Reports = reports;
+            ViewBag.Reports = reportsModel.GetDayReports(date);
             return View();
         }
 
         public IActionResult Month() {
-            var dateNow = DateTime.Now;
-            reports.LoadFromFiles(dateNow.Year, dateNow.Month); 
-            ViewBag.Reports = reports;
+            var date = DateTime.Now;
+            ViewBag.Reports = reportsModel.GetMonthReports(date);
             return View();
         }
 
         [HttpPost]
         public IActionResult Month(DateViewModel model) {
             var date = model.date;
-            reports.LoadFromFiles(date.Year, date.Month);
-            ViewBag.Reports = reports;
+            ViewBag.Reports = reportsModel.GetMonthReports(date);
             return View();
         }
 
         public IActionResult UserDay() {
             if (this.username == null) 
                 return RedirectToAction("Index", "Login");
-            var dateNow = DateTime.Now;
-            reports.LoadDayActivities(this.username, dateNow.Year, dateNow.Month, dateNow.Day); 
-            ViewBag.Reports = reports;
+            var date = DateTime.Now;
+            ViewBag.Reports = reportsModel.GetDayReports(this.username, date);
             return View("Day");
         }
 
@@ -78,8 +74,7 @@ namespace TRS.Controllers
             if (this.username == null) 
                 return RedirectToAction("Index", "Login");
             var date = model.date;
-            reports.LoadDayActivities(this.username, date.Year, date.Month, date.Day); 
-            ViewBag.Reports = reports;
+            ViewBag.Reports = reportsModel.GetDayReports(this.username, date);
             return View("Day");
         }
         
@@ -87,9 +82,9 @@ namespace TRS.Controllers
         public IActionResult UserMonth() {
             if (this.username == null) 
                 return RedirectToAction("Index", "Login");
-            var dateNow = DateTime.Now;
-            reports.LoadFromFiles(this.username, dateNow.Year, dateNow.Month);
-            ViewBag.Reports = reports;
+            
+            var date = DateTime.Now;
+            ViewBag.Reports = reportsModel.GetMonthReports(this.username, date);
             return View("Month");
         }
 
@@ -97,19 +92,14 @@ namespace TRS.Controllers
         public IActionResult UserMonth(DateViewModel model) {
             if (this.username == null) 
                 return RedirectToAction("Index", "Login");
+            
             var date = model.date;
-            reports.LoadFromFiles(this.username, date.Year, date.Month);
-            ViewBag.Reports = reports;
+            ViewBag.Reports = reportsModel.GetMonthReports(this.username, date);
             return View("Month");
         }
 
         public IActionResult Projects() {
-            var test = projectsModel.GetProjects();
             return View(projectsModel.GetProjects());
-        }
-
-        public IActionResult NewActivity() {
-            return View();
         }
 
         public IActionResult NewProject() {
@@ -134,6 +124,24 @@ namespace TRS.Controllers
             projectsModel.AddProject(project);
 
             return RedirectToAction("Projects");
+        }
+
+        public IActionResult NewActivity(string id) {
+            var newActivity = new ActivityEntry();
+            newActivity.code = id;
+            // dynamic expando = new ExpandoObject();
+            // var model = expando as IDictionary<string, object>;
+
+            ViewData["Code"] = id;
+            ViewData["Subactivities"] = projectsModel.GetSubactivities(id);
+            //model.subactivities
+            return View(new ActivityEntry());
+        }
+        [HttpPost]
+        public IActionResult NewActivity(ActivityEntry activity, string id) {
+            reportsModel.AddActivity(activity);
+            ViewData["Code"] = id;
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

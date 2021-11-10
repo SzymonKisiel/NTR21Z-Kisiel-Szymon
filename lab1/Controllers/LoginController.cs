@@ -36,14 +36,16 @@ namespace TRS.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Username"] = this.username;
             return View(new LoginViewModel());
         }
         [HttpPost]
         public IActionResult Index(LoginViewModel model)
         {
-            ViewData["Username"] = model.username;
             this.username = model.username;
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Test() {
             return View();
         }
         // public IActionResult Login(LoginViewModel model, string returnUrl)

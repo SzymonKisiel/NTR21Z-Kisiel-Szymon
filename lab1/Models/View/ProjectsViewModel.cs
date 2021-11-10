@@ -9,16 +9,17 @@ namespace TRS.Models
     public class ProjectsViewModel
     {
         public const string filename = "Data/activity.json";
-        public Projects projects { get; set; }
+        //public Projects projects { get; set; }
 
-        private void LoadAllFromFile()
+        private Projects LoadFromFile()
         {
             string jsonString = System.IO.File.ReadAllText(filename);
             Console.WriteLine(jsonString);
-            projects = JsonSerializer.Deserialize<Projects>(jsonString);
+            Projects projects = JsonSerializer.Deserialize<Projects>(jsonString);
+            return projects;
         }
 
-        private void SaveToFile()
+        private void SaveToFile(Projects projects)
         {
             string jsonString = JsonSerializer.Serialize<Projects>(projects);
             System.IO.File.WriteAllText(filename, jsonString);
@@ -26,20 +27,31 @@ namespace TRS.Models
 
         public Projects GetProjects()
         {
-            LoadAllFromFile();
-            return projects;
+            return LoadFromFile();
+        }
+
+        public List<string> GetSubactivities(string code)
+        {
+            foreach (var project in GetProjects().projects)
+            {
+                if (project.code == code)
+                {
+                    return project.subactivities;
+                }
+            }
+            return new List<string>();
         }
 
         public void AddProject(Project project)
         {
-            LoadAllFromFile();
+            var projects = LoadFromFile();
             projects.AddProject(project);
-            SaveToFile();
+            SaveToFile(projects);
         }
 
         public void DeleteProject(string projectCode)
         {
-            projects.DeleteProject(projectCode);
+            //projects.DeleteProject(projectCode);
         }
     }
 }
