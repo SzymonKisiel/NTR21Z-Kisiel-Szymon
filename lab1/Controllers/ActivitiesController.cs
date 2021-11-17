@@ -135,13 +135,13 @@ namespace TRS.Controllers
             ViewData["Code"] = id;
             ViewData["Subactivities"] = projectsModel.GetSubactivities(id);
             //model.subactivities
-            return View(new ActivityEntry());
+            return View(newActivity);
         }
         [HttpPost]
-        public IActionResult NewActivity(ActivityEntry activity, string id) {
-            reportsModel.AddActivity(activity);
-            ViewData["Code"] = id;
-            return View();
+        public IActionResult NewActivity(ActivityEntry activity) {
+            reportsModel.AddActivity(activity, this.username);
+
+            return RedirectToAction("UserMonth");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

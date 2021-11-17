@@ -74,11 +74,11 @@ namespace TRS.Models
             return reports.ToDayReports(date);
         }
 
-        public void AddActivity(ActivityEntry activity)
+        public void AddActivity(ActivityEntry activity, string username)
         {
-            var test = activity;
-            // TODO
-            ;
+            var reports = GetMonthReports(username, activity.date);
+            reports.AddActivity(activity);
+            SaveToFile(reports);
         }
 
         public void RemoveActivity() {

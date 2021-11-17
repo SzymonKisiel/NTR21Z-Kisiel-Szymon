@@ -9,12 +9,24 @@ namespace TRS.Models
     public class Reports
     {
         public List<Report> reports = new List<Report>();
-        public List<Report> GetAll() {
+        public List<Report> GetAll()
+        {
             return reports;
         }
         public void AddReport(Report report)
         {
             reports.Add(report);
+        }
+        public void AddActivity(ActivityEntry activity)
+        {
+            if (reports.Count > 1)
+            {
+                throw new Exception();
+            }
+            foreach (var report in reports)
+            {
+                report.AddActivity(activity);
+            }
         }
         public Reports ToDayReports(DateTime date)
         {

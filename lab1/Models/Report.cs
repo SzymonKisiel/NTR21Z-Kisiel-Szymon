@@ -17,32 +17,18 @@ namespace TRS.Models
         public List<ActivityEntry> entries { get; set; }
         public List<AcceptedTime> accepted { get; set; }
 
-        // public List<ActivityEntry> GetDayEntries(int year, int month, int day) {
-        //     List<ActivityEntry> result = new List<ActivityEntry>();
-        //     foreach (var entry in entries) {
-        //         if ((entry.date.Year, entry.date.Month, entry.date.Day) == (year, month, day)) {
-        //             result.Add(entry);
-        //         }
-        //     }
-        //     return result;
-        // }
+        public void AddActivity(ActivityEntry activity)
+        {
+            entries.Add(activity);
+        }
 
-
-        // public Report GetDayReport(int year, int month, int day) {
-        //     Report result = this;
-        //     List<ActivityEntry> newEntries = new List<ActivityEntry>();
-        //     foreach (var entry in entries) {
-        //         if ((entry.date.Year, entry.date.Month, entry.date.Day) == (year, month, day)) {
-        //             result.Add(entry);
-        //         }
-        //     }
-        //     return result;
-        // }
-
-        public void ToDayReport(DateTime date) {
+        public void ToDayReport(DateTime date)
+        {
             List<ActivityEntry> dayEntries = new List<ActivityEntry>();
-            foreach (var entry in entries) {
-                if ((entry.date.Year, entry.date.Month, entry.date.Day) == (date.Year, date.Month, date.Day)) {
+            foreach (var entry in entries)
+            {
+                if ((entry.date.Year, entry.date.Month, entry.date.Day) == (date.Year, date.Month, date.Day))
+                {
                     dayEntries.Add(entry);
                 }
             }
