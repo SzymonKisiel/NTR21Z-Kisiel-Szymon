@@ -86,11 +86,12 @@ namespace TRS.Controllers
             return View(newActivity);
         }
         [HttpPost]
-        public IActionResult NewActivity(ActivityEntry activity)
+        public IActionResult NewActivity(ActivityEntry activity, string id)
         {
+            var test = activity;
             reportsModel.AddActivity(activity, this.username);
 
-            return RedirectToAction("UserMonth");
+            return RedirectToAction("Details", new {id = id});
         }
 
         public IActionResult Details(string id)
@@ -126,6 +127,33 @@ namespace TRS.Controllers
             return RedirectToAction("Details", new {id = id});
         }
 
+        public IActionResult DeleteActivity(string date, string code)
+        {
+            Console.WriteLine("Delete activity");
+            DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
+
+            reportsModel.DeleteActivity(code, this.username, dateTime);
+            return View();
+        }
+
+        public IActionResult UpdateActivity(string date, string code)
+        {
+            var newActivity = new ActivityEntry();
+
+            DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
+
+            reportsModel.DeleteActivity(code, this.username, dateTime);
+            return View(newActivity);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateActivity(ActivityEntry newActivity, string date, string code)
+        {
+            DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
+
+            reportsModel.DeleteActivity(code, this.username, dateTime);
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -26,7 +26,7 @@ namespace TRS
             services.AddDistributedMemoryCache();
 
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromSeconds(15); //short timeout 
+                options.IdleTimeout = TimeSpan.FromSeconds(600); //short timeout 
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -59,8 +59,12 @@ namespace TRS
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "activity",
+                    pattern: "{controller}/{action}/{code?}/{date?}");
+                    //defaults: new { controller = "", action = ""});
+                endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}"); 
             });
         }
     }

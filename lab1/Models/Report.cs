@@ -13,9 +13,9 @@ namespace TRS.Models
         public string username { get; set; }
         [JsonIgnore]
         public DateTime month { get; set; }
-        public bool frozen { get; set; }
-        public List<ActivityEntry> entries { get; set; }
-        public List<AcceptedTime> accepted { get; set; }
+        public bool frozen { get; set; } = false;
+        public List<ActivityEntry> entries { get; set; } = new List<ActivityEntry>();
+        public List<AcceptedTime> accepted { get; set; } = new List<AcceptedTime>();
 
         private int _reportedTimeSum = 0;
         [JsonIgnore]
@@ -38,6 +38,23 @@ namespace TRS.Models
         public void AddActivity(ActivityEntry activity)
         {
             entries.Add(activity);
+        }
+
+        public void DeleteActivity(string projectCode, DateTime date)
+        {
+            int index = entries.FindIndex(entry =>
+                entry.code == projectCode && entry.date == date
+            );
+            entries.RemoveAt(index);
+        }
+
+        public void UpdateActivity(string projectCode, DateTime date, ActivityEntry newActivity)
+        {
+            int index = entries.FindIndex(entry =>
+                entry.code == projectCode && entry.date == date
+            );
+            if (index != -1)
+                entries[index] = newActivity;
         }
 
         public void ToDayReport(DateTime date)

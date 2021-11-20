@@ -14,7 +14,7 @@ namespace TRS.Models
         private Projects LoadFromFile()
         {
             string jsonString = System.IO.File.ReadAllText(filename);
-            Console.WriteLine(jsonString);
+            //Console.WriteLine(jsonString);
             Projects projects = JsonSerializer.Deserialize<Projects>(jsonString);
             return projects;
         }

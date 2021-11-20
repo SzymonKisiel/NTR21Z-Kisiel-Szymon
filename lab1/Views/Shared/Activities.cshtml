@@ -24,7 +24,18 @@
                     <td>@entry.description</td>
 
                     <td><button class = "btn btn-primary" asp-route-id = "@entry.code">Zmien</button></td>
-                    <td><button class = "btn btn-primary">Skasuj</button></td>
+                    <form>
+                    
+                    @* <td><button class = "btn btn-primary" asp-controller = "Projects" asp-action = "DeleteActivity" asp-route-date = "@entry.date.ToString("dd-MM-yyyy")" asp-route-code = "@entry.code">Skasuj</button></td> *@
+                    <td>
+                    @Html.ActionLink(
+                        linkText: "Delete",
+                        controllerName: "Projects",
+                        actionName: "DeleteActivity",
+                        routeValues: new { date = @entry.date.ToString("dd-MM-yyyy"), code = @entry.code}
+                    )
+                    </td>
+                    </form>
                 </tr>   
             }
             <tr><td>@report.reportedTimeSum</td></tr>

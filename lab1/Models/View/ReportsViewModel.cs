@@ -15,7 +15,7 @@ namespace TRS.Models
 
         private Reports LoadFromFiles(string searchPattern)
         {
-            Console.WriteLine("Reports.loadFromFiles()");
+            //Console.WriteLine("Reports.loadFromFiles()");
             var reports = new Reports();
 
             foreach (string filename in Directory.GetFiles(directory, searchPattern))
@@ -50,6 +50,14 @@ namespace TRS.Models
                 string jsonString = JsonSerializer.Serialize<Report>(report);
                 System.IO.File.WriteAllText(filename, jsonString);
             }
+        }
+
+        private void CreateFile(string username, DateTime month)
+        {
+            string filename = $"{directory}{username}-{month.ToString("yyyy-MM")}.json";
+            System.IO.File.Create(filename).Close();
+            string jsonString = JsonSerializer.Serialize<Report>(new Report());
+            System.IO.File.WriteAllText(filename, jsonString);
         }
 
         public Reports GetMonthReports(DateTime date)
@@ -89,15 +97,29 @@ namespace TRS.Models
         public void AddActivity(ActivityEntry activity, string username)
         {
             var reports = GetMonthReports(username, activity.date);
+            if (reports.Count() == 0)
+            {
+                CreateFile(username, activity.date);
+                reports = GetMonthReports(username, activity.date);
+            }
             reports.AddActivity(activity);
             SaveToFile(reports);
         }
 
-        public void RemoveActivity()
+        public void DeleteActivity(string projectCode, string username, DateTime date)
         {
-            // TODO
-            ;
+            var reports = GetMonthReports(username, date);
+            reports.DeleteActivity(projectCode, date);
+            SaveToFile(reports);
         }
+
+        public void UpdateActivity(string projectCode, string username, DateTime date, ActivityEntry newActivity)
+        {
+            var reports = GetMonthReports(username, date);
+            reports.DeleteActivity(projectCode, date);
+            SaveToFile(reports);
+        }
+
         public void EditActivity()
         {
             // TODO

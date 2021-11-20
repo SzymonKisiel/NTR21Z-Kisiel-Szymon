@@ -28,6 +28,29 @@ namespace TRS.Models
                 report.AddActivity(activity);
             }
         }
+        public void DeleteActivity(string projectCode, DateTime date)
+        {
+            if (reports.Count > 1)
+            {
+                throw new Exception();
+            }
+            foreach (var report in reports)
+            {
+                report.DeleteActivity(projectCode, date);
+            }
+        }
+
+        public void UpdateActivity(string projectCode, DateTime date, ActivityEntry newActivity)
+        {
+            if (reports.Count > 1)
+            {
+                throw new Exception();
+            }
+            foreach (var report in reports)
+            {
+                report.UpdateActivity(projectCode, date, newActivity);
+            }
+        }
         public Reports ToDayReports(DateTime date)
         {
             foreach (var report in reports)
@@ -59,6 +82,10 @@ namespace TRS.Models
                 return report.frozen;
             }
             return true;
+        }
+        public int Count()
+        {
+            return reports.Count;
         }
     }
 }
