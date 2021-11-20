@@ -42,6 +42,7 @@ namespace TRS.Controllers
         public IActionResult Index(LoginViewModel model)
         {
             this.username = model.username;
+            TempData["Username"] = this.username;
             return RedirectToAction("Index", "Home");
         }
 

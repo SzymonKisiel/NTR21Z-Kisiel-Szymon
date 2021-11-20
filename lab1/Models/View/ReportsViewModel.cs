@@ -12,7 +12,7 @@ namespace TRS.Models
         private Func<string, string, string> removeSubstring =
             (value, substring) =>
             value.Remove(value.IndexOf(substring), substring.Length);
-        
+
         private Reports LoadFromFiles(string searchPattern)
         {
             Console.WriteLine("Reports.loadFromFiles()");
@@ -39,7 +39,7 @@ namespace TRS.Models
             }
             return reports;
         }
-        
+
         private void SaveToFile(Reports reports)
         {
             foreach (var report in reports.GetAll())
@@ -62,6 +62,18 @@ namespace TRS.Models
             return LoadFromFiles($"{username}-{date.Year}-{date.Month}.json");
         }
 
+        public Reports GetMonthReports(DateTime date, string projectCode)
+        {
+            var reports = GetMonthReports(date);
+            return reports.ToProjectReports(projectCode);
+        }
+
+        public Reports GetMonthReports(string username, DateTime date, string projectCode)
+        {
+            var reports = GetMonthReports(username, date);
+            return reports.ToProjectReports(projectCode);
+        }
+
         public Reports GetDayReports(DateTime date)
         {
             var reports = GetMonthReports(date);
@@ -81,7 +93,13 @@ namespace TRS.Models
             SaveToFile(reports);
         }
 
-        public void RemoveActivity() {
+        public void RemoveActivity()
+        {
+            // TODO
+            ;
+        }
+        public void EditActivity()
+        {
             // TODO
             ;
         }

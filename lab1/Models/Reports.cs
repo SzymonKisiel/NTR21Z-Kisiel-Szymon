@@ -36,6 +36,30 @@ namespace TRS.Models
             }
             return this;
         }
+        public Reports ToProjectReports(string projectCode)
+        {
+            foreach (var report in reports)
+            {
+                report.ToProjectReport(projectCode);
+            }
+            return this;
+        }
+        public bool IsFrozen()
+        {
+            if (reports.Count == 0)
+            {
+                return false;
+            }
+            if (reports.Count > 1)
+            {
+                throw new Exception();
+            }
+            foreach (var report in reports)
+            {
+                return report.frozen;
+            }
+            return true;
+        }
     }
 }
 

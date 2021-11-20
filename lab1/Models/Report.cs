@@ -17,6 +17,24 @@ namespace TRS.Models
         public List<ActivityEntry> entries { get; set; }
         public List<AcceptedTime> accepted { get; set; }
 
+        private int _reportedTimeSum = 0;
+        [JsonIgnore]
+        public int reportedTimeSum
+        {
+            get
+            {
+                _reportedTimeSum = 0;
+                foreach (var entry in entries)
+                {
+                    _reportedTimeSum += entry.time;
+                }
+                return _reportedTimeSum;
+            }
+            private set
+            {
+                _reportedTimeSum = value;
+            }
+        }
         public void AddActivity(ActivityEntry activity)
         {
             entries.Add(activity);
@@ -33,6 +51,19 @@ namespace TRS.Models
                 }
             }
             this.entries = dayEntries;
+        }
+
+        public void ToProjectReport(string projectCode)
+        {
+            List<ActivityEntry> projectEntries = new List<ActivityEntry>();
+            foreach (var entry in entries)
+            {
+                if (entry.code == projectCode)
+                {
+                    projectEntries.Add(entry);
+                }
+            }
+            this.entries = projectEntries;
         }
     }
 }

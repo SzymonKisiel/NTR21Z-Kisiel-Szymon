@@ -7,12 +7,6 @@
 <h1>@ViewData["Title"]</h1>
 
 <table class = "table">
-    @* public string code { get; set; }
-        public string manager { get; set; }
-        public string name { get; set; }
-        public int budget { get; set; }
-        public bool active { get; set; }
-        public List<string> subactivities { get; set; } *@
     <thead>
         <tr>
             <td>Code</td>
@@ -37,7 +31,7 @@
                     }
                 </td>
                 <form>
-                <td><button class = "btn btn-primary" asp-controller = "Activities" asp-action = "NewActivity" asp-route-id = "@project.code">Add activity</button></td>
+                <td><button class = "btn btn-primary" asp-controller = "Projects" asp-action = "Details" asp-route-id = "@project.code">Details</button></td>
                 </form>
             </tr>
         }
@@ -45,5 +39,5 @@
 </table>
 
 <form>
-    <button class = "btn btn-primary" asp-controller = "Activities" asp-action = "NewProject">Add new project</button>
+    <button class = "btn btn-primary" asp-controller = "Projects" asp-action = "NewProject">Add new project</button>
 </form>

@@ -30,6 +30,12 @@ namespace TRS.Models
             return LoadFromFile();
         }
 
+        public Projects GetProjects(string manager) {
+            var projects = LoadFromFile(); 
+            // todo
+            return projects;
+        }
+
         public List<string> GetSubactivities(string code)
         {
             foreach (var project in GetProjects().projects)
@@ -51,6 +57,7 @@ namespace TRS.Models
 
         public void DeleteProject(string projectCode)
         {
+            // TODO
             //projects.DeleteProject(projectCode);
         }
     }
