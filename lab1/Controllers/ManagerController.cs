@@ -38,8 +38,41 @@ namespace TRS.Controllers
         
         public IActionResult Projects()
         {
+            if (this.username == null)
+                return RedirectToAction("Index", "Login");
             var model = projectsModel.GetProjects();
             model.ToManagerProjects(this.username);
+            return View(model);
+        }
+
+        public IActionResult Details(string code)
+        {
+            var model = new ManagerDetailsViewModel();
+            model.date = DateTime.Now;
+            
+
+            var date = model.date;
+            var username = model.username;
+
+            ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
+            ViewBag.Users = reportsModel.GetUsers(code, date);
+            ViewBag.ProjectCode = code;
+            TempData["Month"] = date;
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Details(ManagerDetailsViewModel model, string code)
+        {
+            var date = model.date;
+            var username = model.username;
+
+            ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
+            ViewBag.Users = reportsModel.GetUsers(code, date);
+            ViewBag.ProjectCode = code;
+            TempData["Month"] = date;
+
             return View(model);
         }
 

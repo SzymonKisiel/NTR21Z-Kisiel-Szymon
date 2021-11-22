@@ -17,6 +17,20 @@ namespace TRS.Models
         {
             reports.Add(report);
         }
+
+        public ActivityEntry GetActivity(string projectCode, DateTime date)
+        {
+            if (reports.Count > 1)
+            {
+                throw new Exception();
+            }
+            foreach (var report in reports)
+            {
+                return report.GetActivity(projectCode, date);
+            }
+            return null;
+        }
+
         public void AddActivity(ActivityEntry activity)
         {
             if (reports.Count > 1)
@@ -51,6 +65,19 @@ namespace TRS.Models
                 report.UpdateActivity(projectCode, date, newActivity);
             }
         }
+
+        public void CloseMonth()
+        {
+            if (reports.Count > 1)
+            {
+                throw new Exception();
+            }
+            foreach (var report in reports)
+            {
+                report.CloseMonth();
+            }
+        }
+        
         public Reports ToDayReports(DateTime date)
         {
             foreach (var report in reports)
@@ -67,6 +94,16 @@ namespace TRS.Models
             }
             return this;
         }
+
+        // public Reports ToManagerReports(string manager)
+        // {
+        //     foreach (var report in reports)
+        //     {
+        //         report.ToManagerReport(manager);
+        //     }
+        //     return this;
+        // }
+
         public bool IsFrozen()
         {
             if (reports.Count == 0)
@@ -86,6 +123,16 @@ namespace TRS.Models
         public int Count()
         {
             return reports.Count;
+        }
+
+        public List<string> GetUsers()
+        {
+            List<string> users = new List<string>();
+            foreach (var report in reports)
+            {
+                users.Add(report.GetUser());
+            }
+            return users;
         }
     }
 }

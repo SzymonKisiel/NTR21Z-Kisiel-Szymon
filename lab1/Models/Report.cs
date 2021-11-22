@@ -35,6 +35,14 @@ namespace TRS.Models
                 _reportedTimeSum = value;
             }
         }
+
+        public ActivityEntry GetActivity(string projectCode, DateTime date)
+        {
+            return entries.Find(entry =>
+                entry.code == projectCode && entry.date == date
+            );
+        }
+
         public void AddActivity(ActivityEntry activity)
         {
             entries.Add(activity);
@@ -55,6 +63,11 @@ namespace TRS.Models
             );
             if (index != -1)
                 entries[index] = newActivity;
+        }
+
+        public void CloseMonth()
+        {
+            this.frozen = true;
         }
 
         public void ToDayReport(DateTime date)
@@ -82,5 +95,23 @@ namespace TRS.Models
             }
             this.entries = projectEntries;
         }
+
+        public string GetUser()
+        {
+            return username;
+        }
+
+        // public void ToManagerReport(string manager)
+        // {
+        //     List<ActivityEntry> managerEntries = new List<ActivityEntry>();
+        //     foreach (var entry in entries)
+        //     {
+        //         if (entry. == projectCode)
+        //         {
+        //             projectEntries.Add(entry);
+        //         }
+        //     }
+        //     this.entries = managerEntries;
+        // }
     }
 }

@@ -31,10 +31,10 @@
                     }
                 </td>
                 <form>
-                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "Details" asp-route-id = "@project.code">Details</button></td>
+                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "Details" asp-route-code = "@project.code">Details</button></td>
                 </form>
                 <form>
-                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "ProjectClose" asp-route-id = "@project.code">Close</button></td>
+                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "ProjectClose" asp-route-code = "@project.code">Close</button></td>
                 </form>
             </tr>
         }

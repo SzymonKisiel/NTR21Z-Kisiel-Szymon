@@ -1,0 +1,43 @@
+@using TRS.Models
+@model ManagerDetailsViewModel
+
+@{
+    ViewData["Title"] = "Project Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2>@ViewBag.ProjectCode</h2>
+
+
+@using(Html.BeginForm()) {
+    @Html.LabelFor(model => model.date)
+    @Html.TextBoxFor(model => model.date, new {type = "month"})
+
+    @Html.LabelFor(model => model.username)
+    @Html.DropDownListFor(model => model.username, new SelectList((List<string>)ViewBag.Users))
+
+    @Html.HiddenFor(model => model.accepted);
+
+    <input type = "submit" value = "Show"/>
+}
+
+@{
+    Html.RenderPartial("Activities", (Reports)ViewBag.Reports);
+}
+
+@using(Html.BeginForm()) {
+@if (ViewBag.Reports.IsFrozen())
+{
+    @Html.HiddenFor(model => model.date);
+
+    @Html.HiddenFor(model => model.username);
+
+    @Html.LabelFor(model => model.accepted);
+    @Html.TextBoxFor(model => model.accepted);
+    <input type = "submit" value = "Submit"/>
+}
+else
+{
+    
+}
+}

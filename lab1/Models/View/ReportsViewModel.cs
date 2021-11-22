@@ -94,6 +94,12 @@ namespace TRS.Models
             return reports.ToDayReports(date);
         }
 
+        public ActivityEntry GetActivity(string projectCode, string username, DateTime date)
+        {
+            var reports = GetMonthReports(username, date);
+            return reports.GetActivity(projectCode, date);
+        }
+
         public void AddActivity(ActivityEntry activity, string username)
         {
             var reports = GetMonthReports(username, activity.date);
@@ -116,14 +122,27 @@ namespace TRS.Models
         public void UpdateActivity(string projectCode, string username, DateTime date, ActivityEntry newActivity)
         {
             var reports = GetMonthReports(username, date);
-            reports.DeleteActivity(projectCode, date);
+            reports.UpdateActivity(projectCode, date, newActivity);
             SaveToFile(reports);
         }
 
-        public void EditActivity()
+        public void CloseMonth(string username, DateTime month)
         {
-            // TODO
-            ;
+            var reports = GetMonthReports(username, month);
+            reports.CloseMonth();
+            SaveToFile(reports);
         }
+
+        public List<string> GetUsers(string code, DateTime month)
+        {
+            var reports = GetMonthReports(month, code);
+            return reports.GetUsers();
+        }
+        // public Reports GetManagerReports(string projectCode, DateTime month)
+        // {
+        //     var reports = GetMonthReports(month);
+        //     reports.ToManagerReports(manager);
+        //     return reports;
+        // }
     }
 }

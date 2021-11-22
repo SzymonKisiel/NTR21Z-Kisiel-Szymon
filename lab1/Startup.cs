@@ -58,13 +58,13 @@ namespace TRS
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "activity",
-                    pattern: "{controller}/{action}/{code?}/{date?}");
+                // endpoints.MapControllerRoute(
+                //     name: "activity",
+                //     pattern: "{controller}/{action}/{code?}/{date?}");
                     //defaults: new { controller = "", action = ""});
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"); 
+                    pattern: "{controller=Home}/{action=Index}/{code?}/{date?}"); 
             });
         }
     }
