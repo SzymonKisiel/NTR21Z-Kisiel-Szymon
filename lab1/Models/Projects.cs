@@ -29,6 +29,11 @@ namespace TRS.Models
             projects[index].active = false;
         }
 
+        public bool IsActive(string projectCode)
+        {
+            return projects.Find(project => project.code == projectCode).active;
+        }
+
         public void ToManagerProjects(string manager)
         {
             List<Project> result = new List<Project>();

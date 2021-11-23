@@ -102,17 +102,10 @@ namespace TRS.Controllers
             var date = DateTime.Now;
             ViewBag.Reports = reportsModel.GetMonthReports(this.username, date, code);
             ViewBag.ProjectCode = code;
+            ViewBag.IsEditable = reportsModel.IsReportEditable(this.username, date, code);
+
             TempData["Month"] = date;
             return View(new DateViewModel());
-
-            // dynamic model = new ExpandoObject();
-            // var date = DateTime.Now;
-
-            // model.Date = date;
-            // model.Reports = reportsModel.GetMonthReports(this.username, date, code);
-            // model.ProjectCode = code;
-
-            // return View(model);
         }
         [HttpPost]
         public IActionResult Details(DateViewModel model, string code)
@@ -120,6 +113,8 @@ namespace TRS.Controllers
             var date = model.date;
             ViewBag.Reports = reportsModel.GetMonthReports(this.username, date, code);
             ViewBag.ProjectCode = code;
+            ViewBag.IsEditable = reportsModel.IsReportEditable(this.username, date, code);
+
             TempData["Month"] = date;
             return View(model);
         }

@@ -68,5 +68,11 @@ namespace TRS.Models
             projects.CloseProject(projectCode);
             SaveToFile(projects);
         }
+
+        public bool IsActive(string projectCode)
+        {
+            var projects = LoadFromFile();
+            return projects.IsActive(projectCode);
+        }
     }
 }

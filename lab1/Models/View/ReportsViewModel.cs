@@ -8,6 +8,8 @@ namespace TRS.Models
 {
     public class ReportsViewModel
     {
+        private ProjectsViewModel projects = new ProjectsViewModel();
+
         public readonly string directory = "Data/";
         private Func<string, string, string> removeSubstring =
             (value, substring) =>
@@ -102,6 +104,9 @@ namespace TRS.Models
 
         public void AddActivity(ActivityEntry activity, string username)
         {
+            if (!IsReportEditable(username, activity.date, activity.code))
+                return;
+
             var reports = GetMonthReports(username, activity.date);
             if (reports.Count() == 0)
             {
@@ -114,6 +119,9 @@ namespace TRS.Models
 
         public void DeleteActivity(string projectCode, string username, DateTime date)
         {
+            if (!IsReportEditable(username, date, projectCode))
+                return;
+            
             var reports = GetMonthReports(username, date);
             reports.DeleteActivity(projectCode, date);
             SaveToFile(reports);
@@ -121,6 +129,9 @@ namespace TRS.Models
 
         public void UpdateActivity(string projectCode, string username, DateTime date, ActivityEntry newActivity)
         {
+            if (!IsReportEditable(username, date, projectCode))
+                return;
+            
             var reports = GetMonthReports(username, date);
             reports.UpdateActivity(projectCode, date, newActivity);
             SaveToFile(reports);
@@ -131,6 +142,12 @@ namespace TRS.Models
             var reports = GetMonthReports(username, month);
             reports.CloseMonth();
             SaveToFile(reports);
+        }
+
+        public bool IsMonthClosed(string username, DateTime month)
+        {
+            var reports = GetMonthReports(username, month);
+            return reports.IsFrozen();
         }
 
         public List<string> GetUsers(string code, DateTime month)
@@ -150,6 +167,11 @@ namespace TRS.Models
             var reports = GetMonthReports(username, date);
             reports.SetAcceptedTime(projectCode, newAcceptedTime);
             SaveToFile(reports);
+        }
+
+        public bool IsReportEditable(string username, DateTime month, string code)
+        {
+            return projects.IsActive(code) && !IsMonthClosed(username, month);
         }
     }
 }

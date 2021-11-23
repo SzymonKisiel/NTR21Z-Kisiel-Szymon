@@ -23,8 +23,7 @@
                     <td>@entry.time</td>
                     <td>@entry.description</td>
 
-                    @* <td><button class = "btn btn-primary" asp-route-code = "@entry.code">Zmien</button></td> *@
-                    @* <td><button class = "btn btn-primary" asp-controller = "Projects" asp-action = "DeleteActivity" asp-route-date = "@entry.date.ToString("dd-MM-yyyy")" asp-route-code = "@entry.code">Skasuj</button></td> *@
+                    @if (ViewBag.IsEditable == null || ViewBag.IsEditable) {
                     <form><td>
                     @Html.ActionLink(
                         linkText: "Edit",
@@ -41,6 +40,7 @@
                         routeValues: new { date = @entry.date.ToString("dd-MM-yyyy"), code = @entry.code}
                     )
                     </td></form>
+                    }
                 </tr>   
             }
             <tr>
