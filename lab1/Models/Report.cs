@@ -101,17 +101,30 @@ namespace TRS.Models
             return username;
         }
 
-        // public void ToManagerReport(string manager)
-        // {
-        //     List<ActivityEntry> managerEntries = new List<ActivityEntry>();
-        //     foreach (var entry in entries)
-        //     {
-        //         if (entry. == projectCode)
-        //         {
-        //             projectEntries.Add(entry);
-        //         }
-        //     }
-        //     this.entries = managerEntries;
-        // }
+        public int GetAcceptedTime(string projectCode)
+        {
+            foreach (var acceptedTime in accepted)
+            {
+                if (acceptedTime.code == projectCode)
+                {
+                    var test = acceptedTime.time;
+                    return acceptedTime.time;
+                }
+            }
+            return 0;
+        }
+
+        public void SetAcceptedTime(string projectCode, int newAcceptedTime)
+        {
+            int index = accepted.FindIndex(acceptedTime =>
+                acceptedTime.code == projectCode
+            );
+            if (index == -1)
+                accepted.Add(new AcceptedTime(projectCode, newAcceptedTime));
+            else
+                accepted[index].time = newAcceptedTime;
+            
+            var test = accepted;
+        }
     }
 }

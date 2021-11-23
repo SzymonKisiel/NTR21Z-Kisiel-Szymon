@@ -7,5 +7,11 @@ namespace TRS.Models
     {
         public string code { get; set; }
         public int time { get; set; }
+
+        public AcceptedTime(string code, int time)
+        {
+            this.code = code;
+            this.time = time;
+        }
     }
 }

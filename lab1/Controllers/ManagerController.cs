@@ -45,17 +45,27 @@ namespace TRS.Controllers
             return View(model);
         }
 
+        public IActionResult ProjectClose(string code)
+        {
+            projectsModel.CloseProject(code);
+            return RedirectToAction("Projects");
+        }
+
         public IActionResult Details(string code)
         {
             var model = new ManagerDetailsViewModel();
             model.date = DateTime.Now;
-            
 
             var date = model.date;
-            var username = model.username;
+
+            var users = reportsModel.GetUsers(code, date);
+
+            var username = users != null ? users[0] : "";
+
+            model.accepted = reportsModel.GetAcceptedTime(code, username, date);
 
             ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
-            ViewBag.Users = reportsModel.GetUsers(code, date);
+            ViewBag.Users = users;
             ViewBag.ProjectCode = code;
             TempData["Month"] = date;
             
@@ -63,17 +73,33 @@ namespace TRS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Details(ManagerDetailsViewModel model, string code)
+        public IActionResult Details(ManagerDetailsViewModel model, string code, string submitButton)
         {
             var date = model.date;
             var username = model.username;
+            switch (submitButton) {
+                case "Submit":
+                    reportsModel.SetAcceptedTime(code, username, date, model.accepted);
 
-            ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
-            ViewBag.Users = reportsModel.GetUsers(code, date);
-            ViewBag.ProjectCode = code;
-            TempData["Month"] = date;
+                    ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
+                    ViewBag.Users = reportsModel.GetUsers(code, date);
+                    ViewBag.ProjectCode = code;
+                    TempData["Month"] = date;
 
-            return View(model);
+                    return View(model);
+                case "Show":
+                    model.accepted = reportsModel.GetAcceptedTime(code, username, date);
+
+                    ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
+                    ViewBag.Users = reportsModel.GetUsers(code, date);
+                    ViewBag.ProjectCode = code;
+                    TempData["Month"] = date;
+
+                    ModelState.Clear();
+                    return View(model);
+                default:
+                    return View(new ManagerDetailsViewModel());
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

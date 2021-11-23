@@ -55,10 +55,18 @@ namespace TRS.Models
             SaveToFile(projects);
         }
 
-        public void DeleteProject(string projectCode)
-        {
-            // TODO
+        // public void DeleteProject(string projectCode)
+        // {
+            //var projects = LoadFromFile();
             //projects.DeleteProject(projectCode);
+            //SaveToFile(projects);
+        // }
+
+        public void CloseProject(string projectCode)
+        {
+            var projects = LoadFromFile();
+            projects.CloseProject(projectCode);
+            SaveToFile(projects);
         }
     }
 }

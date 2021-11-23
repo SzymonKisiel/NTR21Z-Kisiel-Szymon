@@ -11,14 +11,14 @@
 
 @using(Html.BeginForm()) {
     @Html.LabelFor(model => model.date)
-    @Html.TextBoxFor(model => model.date, new {type = "month"})
-
+    @Html.TextBoxFor(model => model.date, "{0:yyyy-MM-dd}", new {type = "month"})
+    
     @Html.LabelFor(model => model.username)
     @Html.DropDownListFor(model => model.username, new SelectList((List<string>)ViewBag.Users))
 
     @Html.HiddenFor(model => model.accepted);
 
-    <input type = "submit" value = "Show"/>
+    <input type = "submit" name = "submitButton" value = "Show"/>
 }
 
 @{
@@ -31,13 +31,9 @@
     @Html.HiddenFor(model => model.date);
 
     @Html.HiddenFor(model => model.username);
-
+    
     @Html.LabelFor(model => model.accepted);
     @Html.TextBoxFor(model => model.accepted);
-    <input type = "submit" value = "Submit"/>
-}
-else
-{
-    
+    <input type = "submit" name = "submitButton" value = "Submit"/>
 }
 }

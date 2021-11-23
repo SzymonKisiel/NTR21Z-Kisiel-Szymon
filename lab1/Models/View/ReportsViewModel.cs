@@ -138,11 +138,18 @@ namespace TRS.Models
             var reports = GetMonthReports(month, code);
             return reports.GetUsers();
         }
-        // public Reports GetManagerReports(string projectCode, DateTime month)
-        // {
-        //     var reports = GetMonthReports(month);
-        //     reports.ToManagerReports(manager);
-        //     return reports;
-        // }
+
+        public int GetAcceptedTime(string projectCode, string username, DateTime date)
+        {
+            var reports = GetMonthReports(username, date);
+            return reports.GetAcceptedTime(projectCode);
+        }
+
+        public void SetAcceptedTime(string projectCode, string username, DateTime date, int newAcceptedTime)
+        {
+            var reports = GetMonthReports(username, date);
+            reports.SetAcceptedTime(projectCode, newAcceptedTime);
+            SaveToFile(reports);
+        }
     }
 }
