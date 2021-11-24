@@ -67,6 +67,8 @@ namespace TRS.Controllers
             ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
             ViewBag.Users = users;
             ViewBag.ProjectCode = code;
+            ViewBag.Budget = projectsModel.GetBudget(code);
+            ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code, date);
             TempData["Month"] = date;
             
             return View(model);
@@ -84,6 +86,8 @@ namespace TRS.Controllers
                     ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
                     ViewBag.Users = reportsModel.GetUsers(code, date);
                     ViewBag.ProjectCode = code;
+                    ViewBag.Budget = projectsModel.GetBudget(code);
+                    ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code);
                     TempData["Month"] = date;
 
                     return View(model);
@@ -93,6 +97,8 @@ namespace TRS.Controllers
                     ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
                     ViewBag.Users = reportsModel.GetUsers(code, date);
                     ViewBag.ProjectCode = code;
+                    ViewBag.Budget = projectsModel.GetBudget(code);
+                    ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code);
                     TempData["Month"] = date;
 
                     ModelState.Clear();

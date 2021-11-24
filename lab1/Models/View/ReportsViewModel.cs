@@ -61,6 +61,11 @@ namespace TRS.Models
             System.IO.File.WriteAllText(filename, jsonString);
         }
 
+        public Reports GetAllReports()
+        {
+            return LoadFromFiles($"*-*-*.json");
+        }
+
         public Reports GetMonthReports(DateTime date)
         {
             return LoadFromFiles($"*-{date.Year}-{date.Month}.json");
@@ -173,6 +178,20 @@ namespace TRS.Models
             var test1 = projects.IsActive(code);
             var test2 = IsMonthClosed(username, month);
             return projects.IsActive(code) && !IsMonthClosed(username, month);
+        }
+
+        public int GetAcceptedTimeSum(string projectCode)
+        {
+            var reports = GetAllReports();
+            reports.ToProjectReports(projectCode);
+            return reports.GetAcceptedTimeSum(projectCode);
+        }
+
+        public int GetAcceptedTimeSum(string projectCode, DateTime month)
+        {
+            var reports = GetMonthReports(month);
+            reports.ToProjectReports(projectCode);
+            return reports.GetAcceptedTimeSum(projectCode);
         }
     }
 }

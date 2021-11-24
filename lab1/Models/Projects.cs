@@ -46,5 +46,10 @@ namespace TRS.Models
             }
             this.projects = result;
         }
+
+        public int GetBudget(string projectCode)
+        {
+            return projects.Find(project => project.code == projectCode).budget;
+        }
     }
 }

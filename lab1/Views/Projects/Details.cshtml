@@ -17,6 +17,17 @@
     Html.RenderPartial("Activities", (Reports)ViewBag.Reports);
 }
 
+@if (ViewBag.Frozen)
+{
+    <p>Month closed</p>
+    <p>Accepted time: @ViewBag.Accepted</p>
+}
+else
+{
+    <p>Month active</p>
+}
+    
+
 <form>
 @if (ViewBag.IsEditable) {
     <button class = "btn btn-primary" asp-controller = "Projects" asp-action = "NewActivity" asp-route-code = "@ViewBag.ProjectCode">Add Activity</button>

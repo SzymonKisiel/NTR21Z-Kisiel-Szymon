@@ -26,14 +26,28 @@
 }
 
 @using(Html.BeginForm()) {
-@if (ViewBag.Reports.IsFrozen())
-{
-    @Html.HiddenFor(model => model.date);
+    @if (ViewBag.Reports.IsFrozen())
+    {
+        @Html.HiddenFor(model => model.date);
 
-    @Html.HiddenFor(model => model.username);
-    
-    @Html.LabelFor(model => model.accepted);
-    @Html.TextBoxFor(model => model.accepted);
-    <input type = "submit" name = "submitButton" value = "Submit"/>
+        @Html.HiddenFor(model => model.username);
+        
+        @Html.LabelFor(model => model.accepted);
+        @Html.TextBoxFor(model => model.accepted);
+        <input type = "submit" name = "submitButton" value = "Submit"/>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.date);
+
+        @Html.HiddenFor(model => model.username);
+        
+        @Html.LabelFor(model => model.accepted);
+        @Html.TextBoxFor(model => model.accepted, new { disabled = "disabled"});
+        <input type = "submit" name = "submitButton" value = "Submit" disabled/>
+    }
 }
-}
+
+<p>Project budget: @ViewBag.Budget</p>
+<p>Accepted time sum: @ViewBag.AcceptedSum</p>
+<p>Balance: @(ViewBag.Budget - ViewBag.AcceptedSum)</p>

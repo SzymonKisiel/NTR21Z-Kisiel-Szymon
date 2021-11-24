@@ -30,11 +30,11 @@ namespace TRS.Models
             return LoadFromFile();
         }
 
-        public Projects GetProjects(string manager) {
-            var projects = LoadFromFile(); 
-            // todo
-            return projects;
-        }
+        // public Projects GetProjects(string manager) {
+        //     var projects = LoadFromFile(); 
+        //     // todo
+        //     return projects;
+        // }
 
         public List<string> GetSubactivities(string code)
         {
@@ -73,6 +73,12 @@ namespace TRS.Models
         {
             var projects = LoadFromFile();
             return projects.IsActive(projectCode);
+        }
+        
+        public int GetBudget(string projectCode)
+        {
+            var projects = LoadFromFile();
+            return projects.GetBudget(projectCode);
         }
     }
 }

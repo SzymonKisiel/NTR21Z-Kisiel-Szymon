@@ -131,5 +131,18 @@ namespace TRS.Models
             
             var test = accepted;
         }
+
+        public int GetAcceptedTimeSum(string projectCode)
+        {
+            var result = 0;
+            foreach (var acceptedTime in accepted)
+            {
+                if (acceptedTime.code == projectCode)
+                {
+                    result += acceptedTime.time;
+                }
+            }
+            return result;
+        }
     }
 }

@@ -149,5 +149,15 @@ namespace TRS.Models
                 report.SetAcceptedTime(projectCode, newAcceptedTime);
             }
         }
+
+        public int GetAcceptedTimeSum(string projectCode)
+        {
+            var result = 0;
+            foreach (var report in reports)
+            {
+                result += report.GetAcceptedTimeSum(projectCode);
+            }
+            return result;
+        }
     }
 }

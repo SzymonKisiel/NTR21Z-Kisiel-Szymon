@@ -116,6 +116,8 @@ namespace TRS.Controllers
             ViewBag.Reports = reportsModel.GetMonthReports(this.username, date, code);
             ViewBag.ProjectCode = code;
             ViewBag.IsEditable = reportsModel.IsReportEditable(this.username, date, code);
+            ViewBag.Accepted = reportsModel.GetAcceptedTime(code, this.username, date);
+            ViewBag.Frozen = reportsModel.IsMonthClosed(this.username, date);
 
             TempData["Month"] = date;
             return View(new DateViewModel());
@@ -127,6 +129,8 @@ namespace TRS.Controllers
             ViewBag.Reports = reportsModel.GetMonthReports(this.username, date, code);
             ViewBag.ProjectCode = code;
             ViewBag.IsEditable = reportsModel.IsReportEditable(this.username, date, code);
+            ViewBag.Accepted = reportsModel.GetAcceptedTime(code, this.username, date);
+            ViewBag.Frozen = reportsModel.IsMonthClosed(this.username, date);
 
             TempData["Month"] = date;
             return View(model);
