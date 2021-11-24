@@ -16,5 +16,22 @@
 @{
     Html.RenderPartial("Activities", (Reports)ViewBag.Reports);
 }
+@{
+    var date = Model.date.ToString("dd-MM-yyyy");
+}
 
-<button class = "btn btn-primary" asp-controller = "Projects" asp-action = "CloseMonth" asp-route-code = "@ViewBag.ProjectCode">Close month</button>
+@if (!ViewBag.IsClosed)
+{
+    <form>
+    @Html.ActionLink(
+        linkText: "Close month",
+        controllerName: "Projects",
+        actionName: "CloseMonth",
+        routeValues: new { code = "test", date = @Model.date.ToString("dd-MM-yyyy")}
+    )
+    </form>
+}
+else
+{
+    @Html.Label("Month closed");
+}

@@ -8,9 +8,6 @@
 <h1>@ViewData["Title"]</h1>
 <h2>@ViewBag.ProjectCode</h2>
 
-<h1>@ViewBag.IsEditable</h1>
-
-
 @using(Html.BeginForm()) {
     @Html.TextBoxFor(model => model.date, new {type = "month"})
     <input type = "submit" value = "Show"/>

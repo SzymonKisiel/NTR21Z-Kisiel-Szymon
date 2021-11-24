@@ -60,15 +60,28 @@ namespace TRS.Controllers
         }
 
         [HttpPost]
-        public IActionResult NewProject(Project project)
+        public IActionResult NewProject(Project project, string button, string subactivity, string code)
         {
             if (this.username == null)
                 return RedirectToAction("Index", "Login");
-            var username = this.username;
-            project.manager = username;
-            projectsModel.AddProject(project);
+            
+            switch (button)
+            {
+                case "+":
+                    project.AddSubactivity(subactivity);
+                    return View(project);
+                case "-":
+                    project.DeleteSubactivity(subactivity);
+                    return View(project);
+                case "Submit":
+                    var username = this.username;
+                    project.manager = username;
+                    projectsModel.AddProject(project);
 
-            return RedirectToAction("Projects");
+                    return RedirectToAction("Projects");
+                default:
+                    return RedirectToAction("Index", "Home");
+            }            
         }
 
         public IActionResult NewActivity(string code)
@@ -119,12 +132,12 @@ namespace TRS.Controllers
             return View(model);
         }
 
-        public IActionResult CloseMonth(string code)
+        public IActionResult CloseMonth(string date)
         {
-            DateTime month = (DateTime)TempData["Month"];
-            Console.WriteLine($"Close month {month} {code}");
-            reportsModel.CloseMonth(this.username, month);
-            return RedirectToAction("Details", new { code = code });
+            DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
+            Console.WriteLine($"Close month {date}");
+            reportsModel.CloseMonth(this.username, dateTime);
+            return RedirectToAction("UserMonth", "Activities");
         }
 
         public IActionResult DeleteActivity(string date, string code)

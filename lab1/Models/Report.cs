@@ -17,6 +17,11 @@ namespace TRS.Models
         public List<ActivityEntry> entries { get; set; } = new List<ActivityEntry>();
         public List<AcceptedTime> accepted { get; set; } = new List<AcceptedTime>();
 
+        public bool isEditable(string projectCode) { 
+            var projects = new ProjectsViewModel();
+            return !frozen && projects.IsActive(projectCode);
+        }
+
         private int _reportedTimeSum = 0;
         [JsonIgnore]
         public int reportedTimeSum

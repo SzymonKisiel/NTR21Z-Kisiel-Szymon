@@ -17,7 +17,6 @@ namespace TRS.Models
 
         private Reports LoadFromFiles(string searchPattern)
         {
-            //Console.WriteLine("Reports.loadFromFiles()");
             var reports = new Reports();
 
             foreach (string filename in Directory.GetFiles(directory, searchPattern))
@@ -171,6 +170,8 @@ namespace TRS.Models
 
         public bool IsReportEditable(string username, DateTime month, string code)
         {
+            var test1 = projects.IsActive(code);
+            var test2 = IsMonthClosed(username, month);
             return projects.IsActive(code) && !IsMonthClosed(username, month);
         }
     }

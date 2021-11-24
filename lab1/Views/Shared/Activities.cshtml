@@ -23,7 +23,7 @@
                     <td>@entry.time</td>
                     <td>@entry.description</td>
 
-                    @if (ViewBag.IsEditable == null || ViewBag.IsEditable) {
+                    @if (@report.isEditable(@entry.code)) {
                     <form><td>
                     @Html.ActionLink(
                         linkText: "Edit",

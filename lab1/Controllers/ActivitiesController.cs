@@ -74,7 +74,8 @@ namespace TRS.Controllers
                 return RedirectToAction("Index", "Login");
             var date = DateTime.Now;
             ViewBag.Reports = reportsModel.GetDayReports(this.username, date);
-            return View("Day");
+            ViewBag.IsClosed = reportsModel.IsMonthClosed(this.username, date);
+            return View("Day", new DateViewModel());
         }
 
         [HttpPost]
@@ -84,7 +85,8 @@ namespace TRS.Controllers
                 return RedirectToAction("Index", "Login");
             var date = model.date;
             ViewBag.Reports = reportsModel.GetDayReports(this.username, date);
-            return View("Day");
+            ViewBag.IsClosed = reportsModel.IsMonthClosed(this.username, date);
+            return View("Day", model);
         }
 
         public IActionResult UserMonth()
@@ -94,7 +96,8 @@ namespace TRS.Controllers
 
             var date = DateTime.Now;
             ViewBag.Reports = reportsModel.GetMonthReports(this.username, date);
-            return View("Month");
+            ViewBag.IsClosed = reportsModel.IsMonthClosed(this.username, date);
+            return View("Month", new DateViewModel());
         }
 
         [HttpPost]
@@ -105,7 +108,8 @@ namespace TRS.Controllers
 
             var date = model.date;
             ViewBag.Reports = reportsModel.GetMonthReports(this.username, date);
-            return View("Month");
+            ViewBag.IsClosed = reportsModel.IsMonthClosed(this.username, date);
+            return View("Month", model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
