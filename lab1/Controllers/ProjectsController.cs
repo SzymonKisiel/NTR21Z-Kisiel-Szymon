@@ -84,13 +84,14 @@ namespace TRS.Controllers
             }            
         }
 
-        public IActionResult NewActivity(string code)
+        public IActionResult NewActivity(string code, string date)
         {
+            DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
+
             var newActivity = new ActivityEntry();
             newActivity.code = code;
 
-            DateTime month = (DateTime)TempData["Month"];
-            var firstDay = new DateTime(month.Year, month.Month, 1);
+            var firstDay = new DateTime(dateTime.Year, dateTime.Month, 1);
             var lastDay = firstDay.AddMonths(1).AddDays(-1);
 
             ViewData["Code"] = code;
@@ -115,11 +116,11 @@ namespace TRS.Controllers
             var date = DateTime.Now;
             ViewBag.Reports = reportsModel.GetMonthReports(this.username, date, code);
             ViewBag.ProjectCode = code;
+            ViewBag.Date = date.ToString("dd-MM-yyyy");
             ViewBag.IsEditable = reportsModel.IsReportEditable(this.username, date, code);
             ViewBag.Accepted = reportsModel.GetAcceptedTime(code, this.username, date);
             ViewBag.Frozen = reportsModel.IsMonthClosed(this.username, date);
-
-            TempData["Month"] = date;
+            
             return View(new DateViewModel());
         }
         [HttpPost]
@@ -128,11 +129,11 @@ namespace TRS.Controllers
             var date = model.date;
             ViewBag.Reports = reportsModel.GetMonthReports(this.username, date, code);
             ViewBag.ProjectCode = code;
+            ViewBag.Date = date.ToString("dd-MM-yyyy");
             ViewBag.IsEditable = reportsModel.IsReportEditable(this.username, date, code);
             ViewBag.Accepted = reportsModel.GetAcceptedTime(code, this.username, date);
             ViewBag.Frozen = reportsModel.IsMonthClosed(this.username, date);
-
-            TempData["Month"] = date;
+            
             return View(model);
         }
 

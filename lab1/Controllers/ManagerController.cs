@@ -54,12 +54,11 @@ namespace TRS.Controllers
         public IActionResult Details(string code)
         {
             var model = new ManagerDetailsViewModel();
-            model.date = DateTime.Now;
 
+            model.date = DateTime.Now;
             var date = model.date;
 
             var users = reportsModel.GetUsers(code, date);
-
             var username = users != null ? users[0] : "";
 
             model.accepted = reportsModel.GetAcceptedTime(code, username, date);
@@ -69,7 +68,8 @@ namespace TRS.Controllers
             ViewBag.ProjectCode = code;
             ViewBag.Budget = projectsModel.GetBudget(code);
             ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code, date);
-            TempData["Month"] = date;
+            ViewBag.IsFrozen = reportsModel.IsMonthClosed(username, date);
+            ViewBag.IsActive = projectsModel.IsActive(code);
             
             return View(model);
         }
@@ -88,7 +88,8 @@ namespace TRS.Controllers
                     ViewBag.ProjectCode = code;
                     ViewBag.Budget = projectsModel.GetBudget(code);
                     ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code);
-                    TempData["Month"] = date;
+                    ViewBag.IsFrozen = reportsModel.IsMonthClosed(username, date);
+                    ViewBag.IsActive = projectsModel.IsActive(code);
 
                     return View(model);
                 case "Show":
@@ -99,7 +100,8 @@ namespace TRS.Controllers
                     ViewBag.ProjectCode = code;
                     ViewBag.Budget = projectsModel.GetBudget(code);
                     ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code);
-                    TempData["Month"] = date;
+                    ViewBag.IsFrozen = reportsModel.IsMonthClosed(username, date);
+                    ViewBag.IsActive = projectsModel.IsActive(code);
 
                     ModelState.Clear();
                     return View(model);

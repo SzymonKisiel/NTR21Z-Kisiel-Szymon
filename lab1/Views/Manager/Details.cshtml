@@ -26,8 +26,9 @@
 }
 
 @using(Html.BeginForm()) {
-    @if (ViewBag.Reports.IsFrozen())
+    @if (ViewBag.IsFrozen && ViewBag.IsActive)
     {
+        <p>User's month closed</p>
         @Html.HiddenFor(model => model.date);
 
         @Html.HiddenFor(model => model.username);
@@ -38,6 +39,15 @@
     }
     else
     {
+        @if (!ViewBag.IsFrozen)
+        {
+            <p>User's month not closed yet</p>
+        }
+        else
+        {
+            <p>Project is closed</p>
+        }
+        
         @Html.HiddenFor(model => model.date);
 
         @Html.HiddenFor(model => model.username);
