@@ -1,0 +1,30 @@
+@using TRS.Models
+@model ActivityEntry
+
+<form method = "post">
+    @Html.HiddenFor(model => model.code)
+    <div class = "form-group row">
+        @Html.LabelFor(model => model.subcode)
+        @Html.DropDownListFor(model => model.subcode, new SelectList((List<string>)ViewData["Subactivities"]))
+        @Html.ValidationMessageFor(model => model.subcode)
+    </div>
+    <div class = "form-group row">
+        @Html.LabelFor(model => model.date)
+        @Html.TextBoxFor(model => model.date, "{0:yyyy-MM-dd}", new {type = "date", min = ViewData["FirstDay"], max = ViewData["LastDay"]})
+        @Html.ValidationMessageFor(model => model.date)
+    </div>
+    <div class = "form-group row">
+        @Html.LabelFor(model => model.time)
+        @Html.TextBoxFor(model => model.time)
+        @Html.ValidationMessageFor(model => model.time)
+    </div>
+    <div class = "form-group row">
+        @Html.LabelFor(model => model.description)
+        @Html.TextBoxFor(model => model.description)
+        @Html.ValidationMessageFor(model => model.description)
+    </div>
+
+    <div class = "form-group row">
+        <button type = "submit">Submit</button>
+    </div>
+</form>

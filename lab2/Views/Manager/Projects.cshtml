@@ -1,0 +1,46 @@
+@model Projects
+
+@{
+    ViewData["Title"] = "My Projects";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class = "table">
+    <thead>
+        <tr>
+            <td>Code</td>
+            <td>Manager</td>
+            <td>Name</td>
+            <td>Budget</td>
+            <td>Active</td>
+            <td>Subactivities</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.projects) {
+            <tr>
+                <td>@project.code</td>
+                <td>@project.manager</td>
+                <td>@project.name</td>
+                <td>@project.budget</td>
+                <td>@project.active</td>
+                <td>
+                    @foreach (var subcode in project.subactivities) {
+                        <p>@subcode</p>
+                    }
+                </td>
+                <form>
+                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "Details" asp-route-code = "@project.code">Details</button></td>
+                </form>
+                <form>
+                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "ProjectClose" asp-route-code = "@project.code">Close</button></td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form>
+    <button class = "btn btn-primary" asp-controller = "Projects" asp-action = "NewProject">Add new project</button>
+</form>

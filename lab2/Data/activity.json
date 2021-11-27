@@ -1,0 +1,1 @@
+{"activities":[{"code":"ARGUS-123","manager":"nowak","name":"Argus","budget":125,"active":true,"subactivities":["database","other"]},{"code":"OTHER","manager":"smith","name":"Other","budget":-1,"active":true,"subactivities":[]},{"code":"TEST","manager":"nowak","name":"Test","budget":25,"active":true,"subactivities":[]}]}

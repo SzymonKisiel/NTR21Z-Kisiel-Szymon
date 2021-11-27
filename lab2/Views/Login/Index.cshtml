@@ -1,0 +1,17 @@
+@using Microsoft.AspNetCore.Http
+@using TRS.Models
+
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2>username: @ViewData["Username"]</h2>
+
+<form method = "post">
+    @Html.EditorFor(model => model.username)
+    <input type = "submit" value = "Login"/>
+</form>
+
