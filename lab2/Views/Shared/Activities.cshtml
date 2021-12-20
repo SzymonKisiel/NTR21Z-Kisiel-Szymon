@@ -1,5 +1,5 @@
 @using TRS.Models
-@model Reports
+@model IEnumerable<Report>
 
 <table class = "table">
     <thead>
@@ -13,23 +13,23 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(Report report in Model.reports) {
-            @foreach (var entry in report.entries) {
+        @foreach(Report report in Model) {
+            @foreach (var entry in report.Activities) {
                 <tr>
-                    <td>@report.username</td>
-                    <td>@entry.date.ToShortDateString()</td>
-                    <td>@entry.code</td>
-                    <td>@entry.subcode</td>
-                    <td>@entry.time</td>
-                    <td>@entry.description</td>
+                    <td>@report.Username</td>
+                    <td>@entry.Date.ToShortDateString()</td>
+                    <td>@entry.Code</td>
+                    <td>@entry.Subcode</td>
+                    <td>@entry.Time</td>
+                    <td>@entry.Description</td>
 
-                    @if (@report.isEditable(@entry.code)) {
+                    @if (true/*@report.isEditable(@entry.Code)*/) {
                     <form><td>
                     @Html.ActionLink(
                         linkText: "Edit",
                         controllerName: "Projects",
                         actionName: "UpdateActivity",
-                        routeValues: new { date = @entry.date.ToString("dd-MM-yyyy"), code = @entry.code}
+                        routeValues: new { code = @entry.ActivityEntryID}
                     )
                     </td></form>
                     <form><td>
@@ -37,7 +37,7 @@
                         linkText: "Delete",
                         controllerName: "Projects",
                         actionName: "DeleteActivity",
-                        routeValues: new { date = @entry.date.ToString("dd-MM-yyyy"), code = @entry.code}
+                        routeValues: new { code = @entry.ActivityEntryID}
                     )
                     </td></form>
                     }
@@ -48,7 +48,8 @@
                 <td></td>
                 <td></td>
                 <td>Reported time:</td>
-                <td>@report.reportedTimeSum</td>
+                <td>TODO</td>
+                @* <td>@report.reportedTimeSum</td> *@
             </tr>
         }
     </tbody>

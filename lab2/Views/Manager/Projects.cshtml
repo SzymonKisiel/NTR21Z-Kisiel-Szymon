@@ -1,4 +1,4 @@
-@model Projects
+@model IEnumerable<Project>
 
 @{
     ViewData["Title"] = "My Projects";
@@ -18,23 +18,23 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var project in Model.projects) {
+        @foreach (var project in Model) {
             <tr>
-                <td>@project.code</td>
-                <td>@project.manager</td>
-                <td>@project.name</td>
-                <td>@project.budget</td>
-                <td>@project.active</td>
+                <td>@project.Code</td>
+                <td>@project.Manager</td>
+                <td>@project.Name</td>
+                <td>@project.Budget</td>
+                <td>@project.Active</td>
                 <td>
-                    @foreach (var subcode in project.subactivities) {
-                        <p>@subcode</p>
+                    @foreach (var subactivity in project.Subactivities) {
+                        <p>@subactivity.Name</p>
                     }
                 </td>
                 <form>
-                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "Details" asp-route-code = "@project.code">Details</button></td>
+                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "Details" asp-route-code = "@project.Code">Details</button></td>
                 </form>
                 <form>
-                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "ProjectClose" asp-route-code = "@project.code">Close</button></td>
+                <td><button class = "btn btn-primary" asp-controller = "Manager" asp-action = "ProjectClose" asp-route-code = "@project.Code">Close</button></td>
                 </form>
             </tr>
         }

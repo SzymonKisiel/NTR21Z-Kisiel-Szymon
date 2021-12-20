@@ -18,8 +18,7 @@ namespace TRS.Controllers
     public class ProjectsController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public ReportsViewModel reportsModel = new ReportsViewModel();
-        public ProjectsViewModel projectsModel = new ProjectsViewModel();
+        public TRSViewModel viewModel = new TRSViewModel();
         public string username
         {
             get
@@ -39,7 +38,7 @@ namespace TRS.Controllers
 
         public IActionResult Projects()
         {
-            return View(projectsModel.GetProjects());
+            return View(viewModel.GetProjects());
         }
 
         public IActionResult NewProject()
@@ -51,15 +50,6 @@ namespace TRS.Controllers
         }
 
         [HttpPost]
-        public IActionResult NewProjectAddSubactivity(Project project)
-        {
-            if (this.username == null)
-                return RedirectToAction("Index", "Login");
-            ViewData["username"] = this.username;
-            return View("NewProject", project);
-        }
-
-        [HttpPost]
         public IActionResult NewProject(Project project, string button, string subactivity, string code)
         {
             if (this.username == null)
@@ -68,15 +58,15 @@ namespace TRS.Controllers
             switch (button)
             {
                 case "+":
-                    project.AddSubactivity(subactivity);
+                    project.Subactivities.Add(new Subactivity { Name = subactivity });
                     return View(project);
                 case "-":
-                    project.DeleteSubactivity(subactivity);
+                    project.Subactivities.Remove(project.Subactivities.First(a => a.Name == subactivity));
                     return View(project);
                 case "Submit":
                     var username = this.username;
-                    project.manager = username;
-                    projectsModel.AddProject(project);
+                    project.Manager = username;
+                    viewModel.AddProject(project);
 
                     return RedirectToAction("Projects");
                 default:
@@ -89,13 +79,13 @@ namespace TRS.Controllers
             DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
 
             var newActivity = new ActivityEntry();
-            newActivity.code = code;
+            newActivity.Code = code;
 
             var firstDay = new DateTime(dateTime.Year, dateTime.Month, 1);
             var lastDay = firstDay.AddMonths(1).AddDays(-1);
 
             ViewData["Code"] = code;
-            ViewData["Subactivities"] = projectsModel.GetSubactivities(code);
+            ViewData["Subactivities"] = viewModel.GetSubactivities(code);
 
             ViewData["FirstDay"] = firstDay.ToString("yyyy-MM-dd");
             ViewData["LastDay"] = lastDay.ToString("yyyy-MM-dd");
@@ -106,20 +96,20 @@ namespace TRS.Controllers
         public IActionResult NewActivity(ActivityEntry activity, string code)
         {
             var test = activity;
-            reportsModel.AddActivity(activity, this.username);
+            viewModel.AddActivity(activity, this.username);
 
-            return RedirectToAction("Details", new { code = code });
+            return RedirectToAction("Projects");
         }
 
         public IActionResult Details(string code)
         {
             var date = DateTime.Now;
-            ViewBag.Reports = reportsModel.GetMonthReports(this.username, date, code);
+            ViewBag.Reports = viewModel.GetMonthReports(this.username, date, code);
             ViewBag.ProjectCode = code;
             ViewBag.Date = date.ToString("dd-MM-yyyy");
-            ViewBag.IsEditable = reportsModel.IsReportEditable(this.username, date, code);
-            ViewBag.Accepted = reportsModel.GetAcceptedTime(code, this.username, date);
-            ViewBag.Frozen = reportsModel.IsMonthClosed(this.username, date);
+            ViewBag.IsEditable = viewModel.IsReportEditable(this.username, date, code);
+            ViewBag.Accepted = viewModel.GetAcceptedTime(code, this.username, date);
+            ViewBag.Frozen = viewModel.IsMonthClosed(this.username, date);
             
             return View(new DateViewModel());
         }
@@ -127,12 +117,12 @@ namespace TRS.Controllers
         public IActionResult Details(DateViewModel model, string code)
         {
             var date = model.date;
-            ViewBag.Reports = reportsModel.GetMonthReports(this.username, date, code);
+            ViewBag.Reports = viewModel.GetMonthReports(this.username, date, code);
             ViewBag.ProjectCode = code;
             ViewBag.Date = date.ToString("dd-MM-yyyy");
-            ViewBag.IsEditable = reportsModel.IsReportEditable(this.username, date, code);
-            ViewBag.Accepted = reportsModel.GetAcceptedTime(code, this.username, date);
-            ViewBag.Frozen = reportsModel.IsMonthClosed(this.username, date);
+            ViewBag.IsEditable = viewModel.IsReportEditable(this.username, date, code);
+            ViewBag.Accepted = viewModel.GetAcceptedTime(code, this.username, date);
+            ViewBag.Frozen = viewModel.IsMonthClosed(this.username, date);
             
             return View(model);
         }
@@ -141,38 +131,37 @@ namespace TRS.Controllers
         {
             DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
             Console.WriteLine($"Close month {date}");
-            reportsModel.CloseMonth(this.username, dateTime);
+            viewModel.CloseMonth(this.username, dateTime);
             return RedirectToAction("UserMonth", "Activities");
         }
 
-        public IActionResult DeleteActivity(string date, string code)
+        public IActionResult DeleteActivity(int code) //code = activityID
         {
-            DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
-            reportsModel.DeleteActivity(code, this.username, dateTime);
+            viewModel.DeleteActivity(code);
 
-            return RedirectToAction("Details", new { code = code });
+            return RedirectToAction("Projects");
         }
 
-        public IActionResult UpdateActivity(string date, string code)
+        public IActionResult UpdateActivity(int code) //code = activityID
         {
-            DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
-            var newActivity = reportsModel.GetActivity(code, this.username, dateTime);
+            //DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", null);
+            var activity = viewModel.GetActivity(code);
 
-            DateTime month = dateTime;
-            var firstDay = new DateTime(month.Year, month.Month, 1);
+            DateTime dateTime = activity.Date;
+            var firstDay = new DateTime(dateTime.Year, dateTime.Month, 1);
             var lastDay = firstDay.AddMonths(1).AddDays(-1);
 
-            ViewData["Code"] = code;
-            ViewData["Subactivities"] = projectsModel.GetSubactivities(code);
+            var projectCode = activity.Code;
+            ViewData["Code"] = projectCode;
+            ViewData["Subactivities"] = viewModel.GetSubactivities(projectCode);
 
             ViewData["FirstDay"] = firstDay.ToString("yyyy-MM-dd");
             ViewData["LastDay"] = lastDay.ToString("yyyy-MM-dd");
             ViewData["DefaultDay"] = dateTime.ToString("yyyy-MM-dd");
 
             EditViewModel model = new EditViewModel();
-            model.activity = newActivity;
-            model.oldDate = dateTime;
-            model.oldCode = code;
+            model.activity = activity;
+            model.id = code;
 
             return View(model);
         }
@@ -180,12 +169,7 @@ namespace TRS.Controllers
         [HttpPost]
         public IActionResult UpdateActivity(EditViewModel model)
         {
-            DateTime date = model.oldDate;
-            string code = model.oldCode;
-            ActivityEntry newActivity = model.activity;
-            //string username = model.username;
-            
-            reportsModel.UpdateActivity(code, this.username, date, newActivity);
+            viewModel.UpdateActivity(model.id, model.activity);
             return RedirectToAction("Projects");
         }
 

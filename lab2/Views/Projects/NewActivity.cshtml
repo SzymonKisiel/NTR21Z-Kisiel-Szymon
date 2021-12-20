@@ -12,26 +12,26 @@
 <form method = "post">
     @* @Html.LabelFor(model => model.code) *@
     @* @Html.DropDownListFor(model => model.code, ViewData["Projects"]) *@
-    @Html.HiddenFor(model => model.code)
+    @Html.HiddenFor(model => model.Code)
     <div class = "form-group row">
-        @Html.LabelFor(model => model.subcode)
-        @Html.DropDownListFor(model => model.subcode, new SelectList((List<string>)ViewData["Subactivities"]))
-        @Html.ValidationMessageFor(model => model.subcode)
+        @Html.LabelFor(model => model.Subcode)
+        @Html.DropDownListFor(model => model.Subcode, new SelectList((List<string>)ViewData["Subactivities"]))
+        @Html.ValidationMessageFor(model => model.Subcode)
     </div>
     <div class = "form-group row">
-        @Html.LabelFor(model => model.date)
-        @Html.TextBoxFor(model => model.date, "{0:d}", new {type = "date", min = ViewData["FirstDay"], max = ViewData["LastDay"]})
-        @Html.ValidationMessageFor(model => model.date)
+        @Html.LabelFor(model => model.Date)
+        @Html.TextBoxFor(model => model.Date, "{0:d}", new {type = "date", min = ViewData["FirstDay"], max = ViewData["LastDay"]})
+        @Html.ValidationMessageFor(model => model.Date)
     </div>
     <div class = "form-group row">
-        @Html.LabelFor(model => model.time)
-        @Html.TextBoxFor(model => model.time)
-        @Html.ValidationMessageFor(model => model.time)
+        @Html.LabelFor(model => model.Time)
+        @Html.TextBoxFor(model => model.Time)
+        @Html.ValidationMessageFor(model => model.Time)
     </div>
     <div class = "form-group row">
-        @Html.LabelFor(model => model.description)
-        @Html.TextBoxFor(model => model.description)
-        @Html.ValidationMessageFor(model => model.description)
+        @Html.LabelFor(model => model.Description)
+        @Html.TextBoxFor(model => model.Description)
+        @Html.ValidationMessageFor(model => model.Description)
     </div>
 
     <div class = "form-group row">

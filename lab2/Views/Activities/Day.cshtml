@@ -12,5 +12,5 @@
 </form>
 
 @{
-    Html.RenderPartial("Activities", (Reports)ViewBag.Reports);
+    Html.RenderPartial("Activities", (IEnumerable<Report>)ViewBag.Reports);
 }

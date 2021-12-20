@@ -1,17 +1,13 @@
-using System;
 using System.Collections.Generic;
+using System;
 
 namespace TRS.Models
 {
     public class AcceptedTime
     {
-        public string code { get; set; }
-        public int time { get; set; }
-
-        public AcceptedTime(string code, int time)
-        {
-            this.code = code;
-            this.time = time;
-        }
+        public int AcceptedTimeID { get; set; }
+        public int Time { get; set; }
+        public virtual Report Report { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

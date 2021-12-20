@@ -9,9 +9,7 @@ namespace TRS.Models
 {
     public class EditViewModel
     {
-        public string oldCode { get; set; } = "";
-        //public string username { get; set; } = "";
-        public DateTime oldDate { get; set; } = DateTime.Now;
+        public int id { get; set; }
         public ActivityEntry activity { get; set; }
     }   
 }

@@ -17,8 +17,7 @@ namespace TRS.Controllers
     public class ManagerController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public ReportsViewModel reportsModel = new ReportsViewModel();
-        public ProjectsViewModel projectsModel = new ProjectsViewModel();
+        public TRSViewModel viewModel = new TRSViewModel();
         public string username
         {
             get
@@ -40,14 +39,13 @@ namespace TRS.Controllers
         {
             if (this.username == null)
                 return RedirectToAction("Index", "Login");
-            var model = projectsModel.GetProjects();
-            model.ToManagerProjects(this.username);
-            return View(model);
+            var projects = viewModel.GetProjects(this.username);
+            return View(projects);
         }
 
         public IActionResult ProjectClose(string code)
         {
-            projectsModel.CloseProject(code);
+            viewModel.CloseProject(code);
             return RedirectToAction("Projects");
         }
 
@@ -58,18 +56,18 @@ namespace TRS.Controllers
             model.date = DateTime.Now;
             var date = model.date;
 
-            var users = reportsModel.GetUsers(code, date);
+            var users = viewModel.GetUsers(code, date);
             var username = users != null ? users[0] : "";
 
-            model.accepted = reportsModel.GetAcceptedTime(code, username, date);
+            model.accepted = viewModel.GetAcceptedTime(code, username, date);
 
-            ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
+            ViewBag.Reports = viewModel.GetMonthReports(username, date, code);
             ViewBag.Users = users;
             ViewBag.ProjectCode = code;
-            ViewBag.Budget = projectsModel.GetBudget(code);
-            ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code, date);
-            ViewBag.IsFrozen = reportsModel.IsMonthClosed(username, date);
-            ViewBag.IsActive = projectsModel.IsActive(code);
+            ViewBag.Budget = viewModel.GetBudget(code);
+            ViewBag.AcceptedSum = viewModel.GetAcceptedTimeSum(code, date);
+            ViewBag.IsFrozen = viewModel.IsMonthClosed(username, date);
+            ViewBag.IsActive = viewModel.IsActive(code);
             
             return View(model);
         }
@@ -81,27 +79,27 @@ namespace TRS.Controllers
             var username = model.username;
             switch (submitButton) {
                 case "Submit":
-                    reportsModel.SetAcceptedTime(code, username, date, model.accepted);
+                    viewModel.SetAcceptedTime(code, username, date, model.accepted);
 
-                    ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
-                    ViewBag.Users = reportsModel.GetUsers(code, date);
+                    ViewBag.Reports = viewModel.GetMonthReports(username, date, code);
+                    ViewBag.Users = viewModel.GetUsers(code, date);
                     ViewBag.ProjectCode = code;
-                    ViewBag.Budget = projectsModel.GetBudget(code);
-                    ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code);
-                    ViewBag.IsFrozen = reportsModel.IsMonthClosed(username, date);
-                    ViewBag.IsActive = projectsModel.IsActive(code);
+                    ViewBag.Budget = viewModel.GetBudget(code);
+                    ViewBag.AcceptedSum = viewModel.GetAcceptedTimeSum(code);
+                    ViewBag.IsFrozen = viewModel.IsMonthClosed(username, date);
+                    ViewBag.IsActive = viewModel.IsActive(code);
 
                     return View(model);
                 case "Show":
-                    model.accepted = reportsModel.GetAcceptedTime(code, username, date);
+                    model.accepted = viewModel.GetAcceptedTime(code, username, date);
 
-                    ViewBag.Reports = reportsModel.GetMonthReports(username, date, code);
-                    ViewBag.Users = reportsModel.GetUsers(code, date);
+                    ViewBag.Reports = viewModel.GetMonthReports(username, date, code);
+                    ViewBag.Users = viewModel.GetUsers(code, date);
                     ViewBag.ProjectCode = code;
-                    ViewBag.Budget = projectsModel.GetBudget(code);
-                    ViewBag.AcceptedSum = reportsModel.GetAcceptedTimeSum(code);
-                    ViewBag.IsFrozen = reportsModel.IsMonthClosed(username, date);
-                    ViewBag.IsActive = projectsModel.IsActive(code);
+                    ViewBag.Budget = viewModel.GetBudget(code);
+                    ViewBag.AcceptedSum = viewModel.GetAcceptedTimeSum(code);
+                    ViewBag.IsFrozen = viewModel.IsMonthClosed(username, date);
+                    ViewBag.IsActive = viewModel.IsActive(code);
 
                     ModelState.Clear();
                     return View(model);

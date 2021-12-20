@@ -18,7 +18,7 @@ namespace TRS.Controllers
     public class ActivitiesController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public ReportsViewModel reportsModel = new ReportsViewModel();
+        public TRSViewModel viewModel = new TRSViewModel();
         public string username
         {
             get
@@ -39,7 +39,7 @@ namespace TRS.Controllers
         public IActionResult Day()
         {
             var date = DateTime.Now;
-            ViewBag.Reports = reportsModel.GetDayReports(date);
+            ViewBag.Reports = viewModel.GetDayReports(date);
             return View();
         }
 
@@ -47,14 +47,14 @@ namespace TRS.Controllers
         public IActionResult Day(DateViewModel model)
         {
             var date = model.date;
-            ViewBag.Reports = reportsModel.GetDayReports(date);
+            ViewBag.Reports = viewModel.GetDayReports(date);
             return View();
         }
 
         public IActionResult Month()
         {
             var date = DateTime.Now;
-            ViewBag.Reports = reportsModel.GetMonthReports(date);
+            ViewBag.Reports = viewModel.GetMonthReports(date);
 
             return View(new DateViewModel());
         }
@@ -64,7 +64,7 @@ namespace TRS.Controllers
         {
 
             var date = model.date;
-            ViewBag.Reports = reportsModel.GetMonthReports(date);
+            ViewBag.Reports = viewModel.GetMonthReports(date);
             return View();
         }
 
@@ -73,8 +73,8 @@ namespace TRS.Controllers
             if (this.username == null)
                 return RedirectToAction("Index", "Login");
             var date = DateTime.Now;
-            ViewBag.Reports = reportsModel.GetDayReports(this.username, date);
-            ViewBag.IsClosed = reportsModel.IsMonthClosed(this.username, date);
+            ViewBag.Reports = viewModel.GetDayReports(this.username, date);
+            ViewBag.IsClosed = viewModel.IsMonthClosed(this.username, date);
             return View("Day", new DateViewModel());
         }
 
@@ -84,8 +84,8 @@ namespace TRS.Controllers
             if (this.username == null)
                 return RedirectToAction("Index", "Login");
             var date = model.date;
-            ViewBag.Reports = reportsModel.GetDayReports(this.username, date);
-            ViewBag.IsClosed = reportsModel.IsMonthClosed(this.username, date);
+            ViewBag.Reports = viewModel.GetDayReports(this.username, date);
+            ViewBag.IsClosed = viewModel.IsMonthClosed(this.username, date);
             return View("Day", model);
         }
 
@@ -95,8 +95,8 @@ namespace TRS.Controllers
                 return RedirectToAction("Index", "Login");
 
             var date = DateTime.Now;
-            ViewBag.Reports = reportsModel.GetMonthReports(this.username, date);
-            ViewBag.IsClosed = reportsModel.IsMonthClosed(this.username, date);
+            ViewBag.Reports = viewModel.GetMonthReports(this.username, date);
+            ViewBag.IsClosed = viewModel.IsMonthClosed(this.username, date);
             return View("Month", new DateViewModel());
         }
 
@@ -107,8 +107,8 @@ namespace TRS.Controllers
                 return RedirectToAction("Index", "Login");
 
             var date = model.date;
-            ViewBag.Reports = reportsModel.GetMonthReports(this.username, date);
-            ViewBag.IsClosed = reportsModel.IsMonthClosed(this.username, date);
+            ViewBag.Reports = viewModel.GetMonthReports(this.username, date);
+            ViewBag.IsClosed = viewModel.IsMonthClosed(this.username, date);
             return View("Month", model);
         }
 
