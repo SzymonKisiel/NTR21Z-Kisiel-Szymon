@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TRS.Models
 {
@@ -17,6 +18,7 @@ namespace TRS.Models
         public int Time { get; set; }
         public string Description { get; set; }
 
-        public byte[] Timestamp { get; set; }
+        // [Timestamp]
+        public DateTime Timestamp { get; set; }
     }
 }

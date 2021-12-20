@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TRS.Models
 {
@@ -9,6 +10,7 @@ namespace TRS.Models
         public string Name { get; set; }
         public virtual Project Project { get; set; }
 
-        public byte[] Timestamp { get; set; }
+        // [Timestamp]
+        public DateTime Timestamp { get; set; }
     }
 }

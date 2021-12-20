@@ -32,8 +32,10 @@ namespace TRS.Migrations
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Timestamp")
-                        .HasColumnType("varbinary(4000)");
+                    b.Property<DateTime>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime");
 
                     b.HasKey("AcceptedTimeID");
 
@@ -68,8 +70,10 @@ namespace TRS.Migrations
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Timestamp")
-                        .HasColumnType("varbinary(4000)");
+                    b.Property<DateTime>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime");
 
                     b.HasKey("ActivityEntryID");
 
@@ -97,8 +101,10 @@ namespace TRS.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("Timestamp")
-                        .HasColumnType("varbinary(4000)");
+                    b.Property<DateTime>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime");
 
                     b.HasKey("Code");
 
@@ -117,8 +123,10 @@ namespace TRS.Migrations
                     b.Property<DateTime>("Month")
                         .HasColumnType("datetime");
 
-                    b.Property<byte[]>("Timestamp")
-                        .HasColumnType("varbinary(4000)");
+                    b.Property<DateTime>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Username")
                         .HasColumnType("text");
@@ -140,8 +148,10 @@ namespace TRS.Migrations
                     b.Property<string>("ProjectCode")
                         .HasColumnType("varchar(767)");
 
-                    b.Property<byte[]>("Timestamp")
-                        .HasColumnType("varbinary(4000)");
+                    b.Property<DateTime>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime");
 
                     b.HasKey("SubactivityID");
 

@@ -20,7 +20,6 @@ namespace TRS.Models
                 context.AcceptedTime.RemoveRange(context.AcceptedTime);
                 context.ActivityEntry.RemoveRange(context.ActivityEntry);
                 context.Subactivity.RemoveRange(context.Subactivity);
-                //context.TestEntity.RemoveRange(context.TestEntity);
 
                 context.SaveChanges();
             }
@@ -315,8 +314,7 @@ namespace TRS.Models
                 var report = context.Report.FirstOrDefault(r => r.Month.Year == activity.Date.Year && r.Month.Month == activity.Date.Month && r.Username == username);
                 if (report == null)
                 {
-                    // create report if does not exists
-
+                    // create report if not exists
                     report = new Report {
                         Username = username,
                         Month = new DateTime(activity.Date.Year, activity.Date.Month, 1)
@@ -338,23 +336,6 @@ namespace TRS.Models
             }
         }
 
-        // public void DeleteActivity(string projectCode, string username, DateTime date)
-        // {
-        //     using (var context = new TRSContext())
-        //     {
-        //         //Creates the database if not exists 
-        //         context.Database.Migrate();
-        //         // check if report editable
-        //         if (!IsReportEditable(username, date, projectCode))
-        //             return;
-        //         // delete activity and add to reports and project
-        //         var query = from activity in context.ActivityEntry
-        //                     where activity.Code == projectCode && activity.Date == date
-        //                     join 
-        //                     select activity;
-        //         context.SaveChanges();
-        //     }
-        // }
         public void DeleteActivity(int activityID)
         {
             using (var context = new TRSContext())
@@ -384,28 +365,18 @@ namespace TRS.Models
                 // check if report editable
                 // if (!IsReportEditable(username, date, projectCode))
                 //     return;
-                // update activity and add to reports and project
-                // var query = from a in context.ActivityEntry
-                //             where a.ActivityEntryID == activityID
-                //             select a;
-                // var activity = query.Single();
                 context.Update(newActivity);
 
-                context.SaveChanges();
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
-
-        // public void UpdateActivity(string projectCode, string username, DateTime date, ActivityEntry newActivity)
-        // {
-        //     using (var context = new TRSContext())
-        //     {
-        //         //Creates the database if not exists 
-        //         context.Database.Migrate();
-        //         // check if report editable
-        //         // update activity and add to reports and project
-        //         context.SaveChanges();
-        //     }
-        // }
 
         public void CloseMonth(string username, DateTime month)
         {
@@ -462,12 +433,6 @@ namespace TRS.Models
             int result = 0;
             using (var context = new TRSContext())
             {
-                // var query = from report in context.Report
-                //             where report.Username == username && report.Month.Month == month.Month //month I year!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //             join accepted in context.AcceptedTime on report.Accepted equals accepted
-                //             // join project in context.Project on accepted
-                //             // where accepted.Project 
-                //             select report;
                 var query = from accepted in context.AcceptedTime
                             join report in context.Report on accepted.Report equals report
                             where report.Username == username && report.Month.Year == month.Year && report.Month.Month == month.Month
@@ -488,7 +453,7 @@ namespace TRS.Models
         {
             using (var context = new TRSContext())
             {
-                //
+                //Creates the database if not exists 
                 context.Database.Migrate();
 
                 var query = from accepted in context.AcceptedTime

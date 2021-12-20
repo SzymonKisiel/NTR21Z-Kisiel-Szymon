@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TRS.Models
 {
@@ -14,6 +15,7 @@ namespace TRS.Models
         public virtual ICollection<ActivityEntry> Activities { get; set; }
         public virtual ICollection<AcceptedTime> AcceptedTimes { get; set; }
 
-        public byte[] Timestamp { get; set; }
+        // [Timestamp]
+        public DateTime Timestamp { get; set; }
     }
 }

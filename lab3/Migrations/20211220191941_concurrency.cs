@@ -1,36 +1,42 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace TRS.Migrations
 {
-    public partial class timestamps : Migration
+    public partial class concurrency : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<byte[]>(
+            migrationBuilder.AddColumn<DateTime>(
                 name: "Timestamp",
                 table: "Subactivity",
-                nullable: true);
+                nullable: false)
+                .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn);
 
-            migrationBuilder.AddColumn<byte[]>(
+            migrationBuilder.AddColumn<DateTime>(
                 name: "Timestamp",
                 table: "Report",
-                nullable: true);
+                nullable: false)
+                .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn);
 
-            migrationBuilder.AddColumn<byte[]>(
+            migrationBuilder.AddColumn<DateTime>(
                 name: "Timestamp",
                 table: "Project",
-                nullable: true);
+                nullable: false)
+                .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn);
 
-            migrationBuilder.AddColumn<byte[]>(
+            migrationBuilder.AddColumn<DateTime>(
                 name: "Timestamp",
                 table: "ActivityEntry",
-                nullable: true);
+                nullable: false)
+                .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn);
 
-            migrationBuilder.AddColumn<byte[]>(
+            migrationBuilder.AddColumn<DateTime>(
                 name: "Timestamp",
                 table: "AcceptedTime",
-                nullable: true);
+                nullable: false)
+                .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.ComputedColumn);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -27,13 +27,43 @@ namespace TRS.Models
             modelBuilder.Entity<Project>(entity =>
             {
                 entity.HasKey(e => e.Code);
+                entity
+                    .Property(entity => entity.Timestamp)
+                    .IsRowVersion();
             });
 
-            modelBuilder.Entity<ActivityEntry>()
-                .HasOne(a => a.Project)
-                .WithMany(p => p.Activities)
-                .IsRequired()
-                .HasForeignKey(a => a.Code);
+            modelBuilder.Entity<ActivityEntry>(entity =>
+            {
+                entity
+                    .HasOne(a => a.Project)
+                    .WithMany(p => p.Activities)
+                    .IsRequired()
+                    .HasForeignKey(a => a.Code);
+                entity
+                    .Property(entity => entity.Timestamp)
+                    .IsRowVersion();
+            });
+
+            modelBuilder.Entity<AcceptedTime>(entity =>
+            {
+                entity
+                    .Property(entity => entity.Timestamp)
+                    .IsRowVersion();
+            });
+
+            modelBuilder.Entity<Report>(entity =>
+            {
+                entity
+                    .Property(entity => entity.Timestamp)
+                    .IsRowVersion();
+            });
+
+            modelBuilder.Entity<Subactivity>(entity =>
+            {
+                entity
+                    .Property(entity => entity.Timestamp)
+                    .IsRowVersion();
+            });
         }
     }
 }
