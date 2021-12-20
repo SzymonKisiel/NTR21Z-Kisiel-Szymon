@@ -9,5 +9,7 @@ namespace TRS.Models
         public int Time { get; set; }
         public virtual Report Report { get; set; }
         public virtual Project Project { get; set; }
+
+        public byte[] Timestamp { get; set; }
     }
 }

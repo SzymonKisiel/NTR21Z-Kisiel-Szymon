@@ -8,5 +8,7 @@ namespace TRS.Models
         public int SubactivityID { get; set; }
         public string Name { get; set; }
         public virtual Project Project { get; set; }
+
+        public byte[] Timestamp { get; set; }
     }
 }

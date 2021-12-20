@@ -13,5 +13,7 @@ namespace TRS.Models
         public virtual List<Subactivity> Subactivities { get; set; } = new List<Subactivity>();
         public virtual ICollection<ActivityEntry> Activities { get; set; }
         public virtual ICollection<AcceptedTime> AcceptedTimes { get; set; }
+
+        public byte[] Timestamp { get; set; }
     }
 }

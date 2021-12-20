@@ -11,5 +11,7 @@ namespace TRS.Models
         public bool Frozen { get; set; } = false;
         public virtual ICollection<ActivityEntry> Activities { get; set; }
         public virtual ICollection<AcceptedTime> Accepted { get; set; }
+
+        public byte[] Timestamp { get; set; }
     }
 }
