@@ -1,0 +1,46 @@
+@using TRS.Models
+@model EditViewModel
+@{
+    ViewData["Title"] = "New activity";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <h2>@ViewData["Code"]</h2>
+    <h2>@ViewData["DefaultDay"]</h2>
+</div>
+
+@* (niepotrzebne) @{
+    Html.RenderPartial("Activity", Model.activity);
+} *@
+
+<form method = "post">
+    @Html.HiddenFor(model => model.id)
+    @Html.HiddenFor(model => model.activity.ActivityEntryID)
+    @Html.HiddenFor(model => model.activity.Code)
+    <div class = "form-group row">
+        @Html.LabelFor(model => model.activity.Subcode)
+        @Html.DropDownListFor(model => model.activity.Subcode, new SelectList((List<string>)ViewData["Subactivities"]))
+        @Html.ValidationMessageFor(model => model.activity.Subcode)
+    </div>
+    <div class = "form-group row">
+        @Html.LabelFor(model => model.activity.Date)
+        @Html.TextBoxFor(model => model.activity.Date, "{0:yyyy-MM-dd}", new {type = "date", min = ViewData["FirstDay"], max = ViewData["LastDay"]})
+        @Html.ValidationMessageFor(model => model.activity.Date)
+    </div>
+    <div class = "form-group row">
+        @Html.LabelFor(model => model.activity.Time)
+        @Html.TextBoxFor(model => model.activity.Time)
+        @Html.ValidationMessageFor(model => model.activity.Time)
+    </div>
+    <div class = "form-group row">
+        @Html.LabelFor(model => model.activity.Description)
+        @Html.TextBoxFor(model => model.activity.Description)
+        @Html.ValidationMessageFor(model => model.activity.Description)
+    </div>
+
+    <div class = "form-group row">
+        <button type = "submit">Submit</button>
+    </div>
+</form>

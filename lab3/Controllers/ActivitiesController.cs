@@ -1,0 +1,121 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using TRS.Models;
+
+using System.Text.Json;
+using Microsoft.Extensions.Http;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Dynamic;
+
+namespace TRS.Controllers
+{
+    public class ActivitiesController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
+        public TRSViewModel viewModel = new TRSViewModel();
+        public string username
+        {
+            get
+            {
+                return HttpContext.Session.GetString("username");
+            }
+            set
+            {
+                HttpContext.Session.SetString("username", value);
+            }
+        }
+
+        public ActivitiesController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
+        public IActionResult Day()
+        {
+            var date = DateTime.Now;
+            ViewBag.Reports = viewModel.GetDayReports(date);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Day(DateViewModel model)
+        {
+            var date = model.date;
+            ViewBag.Reports = viewModel.GetDayReports(date);
+            return View();
+        }
+
+        public IActionResult Month()
+        {
+            var date = DateTime.Now;
+            ViewBag.Reports = viewModel.GetMonthReports(date);
+
+            return View(new DateViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult Month(DateViewModel model)
+        {
+
+            var date = model.date;
+            ViewBag.Reports = viewModel.GetMonthReports(date);
+            return View();
+        }
+
+        public IActionResult UserDay()
+        {
+            if (this.username == null)
+                return RedirectToAction("Index", "Login");
+            var date = DateTime.Now;
+            ViewBag.Reports = viewModel.GetDayReports(this.username, date);
+            ViewBag.IsClosed = viewModel.IsMonthClosed(this.username, date);
+            return View("Day", new DateViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult UserDay(DateViewModel model)
+        {
+            if (this.username == null)
+                return RedirectToAction("Index", "Login");
+            var date = model.date;
+            ViewBag.Reports = viewModel.GetDayReports(this.username, date);
+            ViewBag.IsClosed = viewModel.IsMonthClosed(this.username, date);
+            return View("Day", model);
+        }
+
+        public IActionResult UserMonth()
+        {
+            if (this.username == null)
+                return RedirectToAction("Index", "Login");
+
+            var date = DateTime.Now;
+            ViewBag.Reports = viewModel.GetMonthReports(this.username, date);
+            ViewBag.IsClosed = viewModel.IsMonthClosed(this.username, date);
+            return View("Month", new DateViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult UserMonth(DateViewModel model)
+        {
+            if (this.username == null)
+                return RedirectToAction("Index", "Login");
+
+            var date = model.date;
+            ViewBag.Reports = viewModel.GetMonthReports(this.username, date);
+            ViewBag.IsClosed = viewModel.IsMonthClosed(this.username, date);
+            return View("Month", model);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+}

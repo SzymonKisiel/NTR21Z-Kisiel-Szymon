@@ -1,0 +1,16 @@
+@model DateViewModel
+
+@{
+    ViewData["Title"] = "Day activities";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method = "post">
+    @Html.EditorFor(model => model.date)
+    <input type = "submit" value = "Show"/>
+</form>
+
+@{
+    Html.RenderPartial("Activities", (IEnumerable<Report>)ViewBag.Reports);
+}

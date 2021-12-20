@@ -1,0 +1,43 @@
+@model IEnumerable<Project>
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class = "table">
+    <thead>
+        <tr>
+            <td>Code</td>
+            <td>Manager</td>
+            <td>Name</td>
+            <td>Budget</td>
+            <td>Active</td>
+            <td>Subactivities</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model) {
+            <tr>
+                <td>@project.Code</td>
+                <td>@project.Manager</td>
+                <td>@project.Name</td>
+                <td>@project.Budget</td>
+                <td>@project.Active</td>
+                <td>
+                    @foreach (var subactivity in project.Subactivities) {
+                        <p>@subactivity.Name</p>
+                    }
+                </td>
+                <form>
+                <td><button class = "btn btn-primary" asp-controller = "Projects" asp-action = "Details" asp-route-code = "@project.Code">Details</button></td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form>
+    <button class = "btn btn-primary" asp-controller = "Projects" asp-action = "NewProject">Add new project</button>
+</form>

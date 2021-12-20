@@ -1,0 +1,45 @@
+@using TRS.Models
+@model DateViewModel
+
+@{
+    ViewData["Title"] = "Project Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2>@ViewBag.ProjectCode</h2>
+
+@using(Html.BeginForm()) {
+    @Html.TextBoxFor(model => model.date, new {type = "month"})
+    <input type = "submit" value = "Show"/>
+}
+
+@{
+    Html.RenderPartial("Activities", (IEnumerable<Report>)ViewBag.Reports);
+}
+
+@if (ViewBag.Frozen)
+{
+    <p>Month closed</p>
+    <p>Accepted time: @ViewBag.Accepted</p>
+}
+else
+{
+    <p>Month active</p>
+}
+    
+
+<form>
+@if (ViewBag.IsEditable) {
+    <button 
+        class = "btn btn-primary"
+        asp-controller = "Projects"
+        asp-action = "NewActivity"
+        asp-route-code = "@ViewBag.ProjectCode" 
+        asp-route-date = "@ViewBag.Date">
+        Add Activity
+    </button>
+}
+else {
+    <button class = "btn btn-primary" disabled>Add Activity</button>
+}
+</form>

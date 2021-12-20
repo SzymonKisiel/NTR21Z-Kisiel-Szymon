@@ -1,0 +1,56 @@
+@using TRS.Models
+@model IEnumerable<Report>
+
+<table class = "table">
+    <thead>
+        <tr>
+            <td>User</td>
+            <td>Date</td>
+            <td>Code</td>
+            <td>Subcode</td>
+            <td>Time</td>
+            <td>Description</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Report report in Model) {
+            @foreach (var entry in report.Activities) {
+                <tr>
+                    <td>@report.Username</td>
+                    <td>@entry.Date.ToShortDateString()</td>
+                    <td>@entry.Code</td>
+                    <td>@entry.Subcode</td>
+                    <td>@entry.Time</td>
+                    <td>@entry.Description</td>
+
+                    @if (true/*@report.isEditable(@entry.Code)*/) {
+                    <form><td>
+                    @Html.ActionLink(
+                        linkText: "Edit",
+                        controllerName: "Projects",
+                        actionName: "UpdateActivity",
+                        routeValues: new { code = @entry.ActivityEntryID}
+                    )
+                    </td></form>
+                    <form><td>
+                    @Html.ActionLink(
+                        linkText: "Delete",
+                        controllerName: "Projects",
+                        actionName: "DeleteActivity",
+                        routeValues: new { code = @entry.ActivityEntryID}
+                    )
+                    </td></form>
+                    }
+                </tr>   
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Reported time:</td>
+                <td>TODO</td>
+                @* <td>@report.reportedTimeSum</td> *@
+            </tr>
+        }
+    </tbody>
+</table>

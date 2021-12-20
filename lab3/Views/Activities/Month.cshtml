@@ -1,0 +1,37 @@
+@using TRS.Models
+@model DateViewModel
+
+@{
+    ViewData["Title"] = "Month activities";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+@using(Html.BeginForm()) {
+    @Html.TextBoxFor(model => model.date, new {type = "month"})
+    <input type = "submit" value = "Show"/>
+}
+
+@{
+    Html.RenderPartial("Activities", (IEnumerable<Report>)ViewBag.Reports);
+}
+@{
+    var date = Model.date.ToString("dd-MM-yyyy");
+}
+
+@if (!ViewBag.IsClosed)
+{
+    <form>
+    @Html.ActionLink(
+        linkText: "Close month",
+        controllerName: "Projects",
+        actionName: "CloseMonth",
+        routeValues: new { code = "test", date = @Model.date.ToString("dd-MM-yyyy")}
+    )
+    </form>
+}
+else
+{
+    @Html.Label("Month closed");
+}
