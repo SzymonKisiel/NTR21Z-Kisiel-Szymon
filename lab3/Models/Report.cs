@@ -13,7 +13,16 @@ namespace TRS.Models
         public virtual ICollection<ActivityEntry> Activities { get; set; }
         public virtual ICollection<AcceptedTime> Accepted { get; set; }
 
-        // [Timestamp]
         public DateTime Timestamp { get; set; }
+
+        public int GetReportedTimeSum()
+        {
+            var reportedTimeSum = 0;
+            foreach (var activity in Activities)
+            {
+                reportedTimeSum += activity.Time;
+            }
+            return reportedTimeSum;
+        }
     }
 }

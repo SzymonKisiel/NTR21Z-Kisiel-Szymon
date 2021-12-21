@@ -57,7 +57,7 @@ namespace TRS.Controllers
             var date = model.date;
 
             var users = viewModel.GetUsers(code, date);
-            var username = users != null ? users[0] : "";
+            var username = users != null && users.Count > 0 ? users[0] : "";
 
             model.accepted = viewModel.GetAcceptedTime(code, username, date);
 

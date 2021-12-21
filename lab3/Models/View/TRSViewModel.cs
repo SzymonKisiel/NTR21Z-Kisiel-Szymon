@@ -398,14 +398,15 @@ namespace TRS.Models
 
         public bool IsMonthClosed(string username, DateTime month)
         {
-            bool isFrozen = true;
+            bool isFrozen = false;
             using (var context = new TRSContext())
             {
                 var query = from r in context.Report
                             where r.Username == username && r.Month.Year == month.Year && r.Month.Month == month.Month
                             select r;
-
-                isFrozen = query.Single().Frozen;
+                var report = query.SingleOrDefault();
+                if (report != null)
+                    isFrozen = report.Frozen;
             }
 
             return isFrozen;
@@ -423,7 +424,7 @@ namespace TRS.Models
                             where report.Month.Year == month.Year && report.Month.Month == month.Month
                             select report.Username;
 
-                result = query.ToList();
+                result = query.Distinct().ToList(); // list of unique users
             }
             return result;
         }
@@ -463,8 +464,23 @@ namespace TRS.Models
                             where project.Code == projectCode
                             select accepted;
 
-                var acc = query.Single();
-                acc.Time = newAcceptedTime;
+                var acc = query.SingleOrDefault();
+                if (acc != null)
+                {
+                    acc.Time = newAcceptedTime;
+                }
+                else
+                {
+                    context.AcceptedTime.Add(new AcceptedTime {
+                        Time = newAcceptedTime,
+                        Code = projectCode,
+                        Report = context.Report
+                            .Where(report => 
+                                report.Username == username && report.Month.Year == month.Year && report.Month.Month == month.Month
+                            )
+                            .Single()
+                    });
+                }
 
                 context.SaveChanges();
 

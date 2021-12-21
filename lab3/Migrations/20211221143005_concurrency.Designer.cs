@@ -9,7 +9,7 @@ using TRS.Models;
 namespace TRS.Migrations
 {
     [DbContext(typeof(TRSContext))]
-    [Migration("20211220191941_concurrency")]
+    [Migration("20211221143005_concurrency")]
     partial class concurrency
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace TRS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ProjectCode")
+                    b.Property<string>("Code")
                         .HasColumnType("varchar(767)");
 
                     b.Property<int?>("ReportID")
@@ -41,7 +41,7 @@ namespace TRS.Migrations
 
                     b.HasKey("AcceptedTimeID");
 
-                    b.HasIndex("ProjectCode");
+                    b.HasIndex("Code");
 
                     b.HasIndex("ReportID");
 
@@ -144,11 +144,11 @@ namespace TRS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Code")
+                        .HasColumnType("varchar(767)");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<string>("ProjectCode")
-                        .HasColumnType("varchar(767)");
 
                     b.Property<DateTime>("Timestamp")
                         .IsConcurrencyToken()
@@ -157,7 +157,7 @@ namespace TRS.Migrations
 
                     b.HasKey("SubactivityID");
 
-                    b.HasIndex("ProjectCode");
+                    b.HasIndex("Code");
 
                     b.ToTable("Subactivity");
                 });
@@ -166,7 +166,9 @@ namespace TRS.Migrations
                 {
                     b.HasOne("TRS.Models.Project", "Project")
                         .WithMany("AcceptedTimes")
-                        .HasForeignKey("ProjectCode");
+                        .HasForeignKey("Code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TRS.Models.Report", "Report")
                         .WithMany("Accepted")
@@ -190,7 +192,9 @@ namespace TRS.Migrations
                 {
                     b.HasOne("TRS.Models.Project", "Project")
                         .WithMany("Subactivities")
-                        .HasForeignKey("ProjectCode");
+                        .HasForeignKey("Code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

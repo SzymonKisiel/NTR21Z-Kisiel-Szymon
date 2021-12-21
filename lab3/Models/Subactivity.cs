@@ -8,9 +8,9 @@ namespace TRS.Models
     {
         public int SubactivityID { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; } // foreign key
         public virtual Project Project { get; set; }
 
-        // [Timestamp]
         public DateTime Timestamp { get; set; }
     }
 }

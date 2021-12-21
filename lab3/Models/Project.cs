@@ -15,7 +15,6 @@ namespace TRS.Models
         public virtual ICollection<ActivityEntry> Activities { get; set; }
         public virtual ICollection<AcceptedTime> AcceptedTimes { get; set; }
 
-        // [Timestamp]
         public DateTime Timestamp { get; set; }
     }
 }

@@ -8,10 +8,12 @@ namespace TRS.Models
     {
         public int AcceptedTimeID { get; set; }
         public int Time { get; set; }
+
         public virtual Report Report { get; set; }
+
+        public string Code { get; set; } // foreign key
         public virtual Project Project { get; set; }
 
-        // [Timestamp]
         public DateTime Timestamp { get; set; }
     }
 }

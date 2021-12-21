@@ -17,13 +17,6 @@ namespace TRS.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // modelBuilder.Entity<Publisher>(entity => {
-            //     entity.HasKey(e => e.ID);
-            //     entity.Property(e => e.Name).IsRequired();
-            // });
-            // modelBuilder.Entity<Book>(entity => {
-            //     entity.HasKey(e => e.ISBN);
-            // });
             modelBuilder.Entity<Project>(entity =>
             {
                 entity.HasKey(e => e.Code);
@@ -35,10 +28,10 @@ namespace TRS.Models
             modelBuilder.Entity<ActivityEntry>(entity =>
             {
                 entity
-                    .HasOne(a => a.Project)
-                    .WithMany(p => p.Activities)
+                    .HasOne(activity => activity.Project)
+                    .WithMany(project => project.Activities)
                     .IsRequired()
-                    .HasForeignKey(a => a.Code);
+                    .HasForeignKey(activity => activity.Code);
                 entity
                     .Property(entity => entity.Timestamp)
                     .IsRowVersion();
@@ -46,6 +39,11 @@ namespace TRS.Models
 
             modelBuilder.Entity<AcceptedTime>(entity =>
             {
+                entity
+                    .HasOne(accepted => accepted.Project)
+                    .WithMany(project => project.AcceptedTimes)
+                    .IsRequired()
+                    .HasForeignKey(accepted => accepted.Code);
                 entity
                     .Property(entity => entity.Timestamp)
                     .IsRowVersion();
@@ -60,6 +58,11 @@ namespace TRS.Models
 
             modelBuilder.Entity<Subactivity>(entity =>
             {
+                entity
+                    .HasOne(subactivity => subactivity.Project)
+                    .WithMany(project => project.Subactivities)
+                    .IsRequired()
+                    .HasForeignKey(subactivity => subactivity.Code);
                 entity
                     .Property(entity => entity.Timestamp)
                     .IsRowVersion();

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TRS.Models;
 
 namespace TRS.Migrations
 {
     [DbContext(typeof(TRSContext))]
-    partial class TRSContextModelSnapshot : ModelSnapshot
+    [Migration("20211221142748_refactor")]
+    partial class refactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,11 +33,6 @@ namespace TRS.Migrations
 
                     b.Property<int>("Time")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime");
 
                     b.HasKey("AcceptedTimeID");
 
@@ -70,11 +67,6 @@ namespace TRS.Migrations
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime");
-
                     b.HasKey("ActivityEntryID");
 
                     b.HasIndex("Code");
@@ -101,11 +93,6 @@ namespace TRS.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime");
-
                     b.HasKey("Code");
 
                     b.ToTable("Project");
@@ -121,11 +108,6 @@ namespace TRS.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("Month")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime");
 
                     b.Property<string>("Username")
@@ -147,11 +129,6 @@ namespace TRS.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<DateTime>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime");
 
                     b.HasKey("SubactivityID");
 
