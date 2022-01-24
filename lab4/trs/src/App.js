@@ -35,7 +35,6 @@ function App() {
               ? <>
                 <Navbar.Text>Logged in as {username}</Navbar.Text>,
                 <Nav.Link onClick={logout}>Logout</Nav.Link>
-                {/* <input type="button" onClick={logout} value="Logout" /> */}
                 </>
               :
                 <>
@@ -47,7 +46,10 @@ function App() {
         </Navbar.Collapse>
         </Container>
       </Navbar>
-       <Outlet />
+      <div className="Content">
+        <Outlet />
+      </div>
+     
      </div>
   );
 };
