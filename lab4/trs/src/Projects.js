@@ -4,8 +4,7 @@ import Project from './Project';
 import { Table } from 'react-bootstrap';
 
 function Projects() {
-    let projects = [];
-    projects = getProjects();
+    let projects = getProjects();
     return (
         <div>
             <h1 className="Title">Projects</h1>
@@ -17,6 +16,7 @@ function Projects() {
                     <th>Name</th>
                     <th>Budget</th>
                     <th>Active</th>
+                    <th>Subactivities</th>
                     </tr>
                 </thead>
                 <tbody>
