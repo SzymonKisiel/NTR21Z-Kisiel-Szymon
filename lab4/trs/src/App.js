@@ -1,26 +1,18 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom'
+import React, { useEffect, useContext } from 'react';
+import { Outlet } from 'react-router-dom'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Button } from 'react'
+
+import UserContext from './UserContext';
 
 const title = "Time Reporting System";
 
 function App() {
-
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const { username, isLoggedIn, logout } = useContext(UserContext);
 
   useEffect(() => {
     document.title = title;
   }, []);
-
-  function logout() {
-    alert("test");
-    // console.log("logout");
-    // setUsername("");
-    // setLoggedIn(false);
-  };
 
   return (
     <div>
@@ -37,24 +29,27 @@ function App() {
               <NavDropdown.Item href="/activities/month">Month</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          {
-            isLoggedIn
-            ? <Nav>
-                <Nav.Link>Logged in as {username}</Nav.Link>,
+          <Nav variant="pills">
+            {
+              isLoggedIn
+              ? <>
+                <Navbar.Text>Logged in as {username}</Navbar.Text>,
                 <Nav.Link onClick={logout}>Logout</Nav.Link>
-                <input type="button" onClick={logout} value="Logout" />
-              </Nav>
-            : <Nav>
-                <Nav.Link>Not logged in</Nav.Link>
-                <Nav.Link>Login</Nav.Link>
-              </Nav>
-          }
+                {/* <input type="button" onClick={logout} value="Logout" /> */}
+                </>
+              :
+                <>
+                <Navbar.Text>Not logged in</Navbar.Text>
+                <Nav.Link href="/login">Login</Nav.Link>
+                </>
+            }
+          </Nav>
         </Navbar.Collapse>
         </Container>
       </Navbar>
        <Outlet />
      </div>
   );
-}
+};
 
 export default App;

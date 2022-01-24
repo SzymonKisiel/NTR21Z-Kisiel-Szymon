@@ -7,21 +7,32 @@ import './index.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
+import Projects from './Projects';
+import Manager from './Manager';
+import Activities from './Activities';
+import Login from './Login';
 import Logo from './Logo';
 
+import UserProvider from './UserProvider';
+
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element={<p>index</p>} />
-        <Route path="projects" element={<p>Projects</p>} />
-        <Route path="manager" element={<p>Manager Projects</p>} />
-        <Route path="activities" element={<p>Activities</p>} />
-        <Route path="logo" element={<Logo />} />
-        <Route path="*" element={<p>default</p>} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+  <UserProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<p>index</p>} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="manager" element={<Manager />} />
+          <Route path="activities" element={<Activities />}>
+            <Route path=":type" element={<Activities />} />
+          </Route>
+          <Route path="logo" element={<Logo />} />
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<p>default</p>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </UserProvider>,
   document.getElementById('root')
 );
 
