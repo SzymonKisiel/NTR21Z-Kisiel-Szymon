@@ -8,7 +8,7 @@ function Projects() {
     let projects = getProjects();
 
     function addProject() {
-        navigate("/logo");
+        navigate("/projects/add");
     };
 
     return (
