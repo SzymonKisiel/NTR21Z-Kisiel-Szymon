@@ -3,11 +3,14 @@ import { getActivities } from './Data';
 import ActivitiesContent from './ActivitiesContent';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
-function Activities() {
+function ProjectActivities() {
     let params = useParams();
-    let type = params.type || 'month';
-    // let navigate = useNavigate();
-    let activities = getActivities();
+
+    const projectCode = params.projectCode;
+
+    let type = 'month';
+    let navigate = useNavigate();
+    let activities = getActivities(); // getProjectActivities
 
     const dateNow = 
         type==="day" 
@@ -25,16 +28,13 @@ function Activities() {
 
     return (
         <div>
-            <h1 className="Title">{type==="day" ? <>Day</> : <>Month</>} Activities {date}</h1>
+            <h1 className="Title">{projectCode} Activities</h1>
             <form>
                 <input type={type==="day" ? "date" : "month"} onChange={handleDateChange} value={date} />    
             </form>
             <ActivitiesContent activities={activities} />
-            { type==="month" &&
-                <Link to="/logo">Close month</Link>
-            }
         </div>
     );
 };
 
-export default Activities;
+export default ProjectActivities;
