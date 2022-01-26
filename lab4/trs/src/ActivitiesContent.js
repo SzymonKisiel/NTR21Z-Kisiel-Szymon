@@ -20,7 +20,7 @@ function ActivitiesContent(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {activities.map(a => <ActivityItem activity={a} />)}
+                    {activities.map((a, index) => <ActivityItem key={"activity"+index} activity={a} />)}
                 </tbody>
             </Table>
         </div>

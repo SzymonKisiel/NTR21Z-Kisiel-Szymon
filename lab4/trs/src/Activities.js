@@ -13,9 +13,6 @@ function Activities() {
         type==="day" 
             ? new Date().toISOString().slice(0, 10)
             : new Date().toISOString().slice(0, 7);
-
-    console.log(dateNow);
-
     const [date, setDate] = useState(dateNow);
 
     function handleDateChange(e) {

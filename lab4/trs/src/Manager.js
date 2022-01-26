@@ -8,7 +8,7 @@ function Manager() {
     let projects = getProjects();
 
     function addProject() {
-        navigate("/logo");
+        navigate("/addproject");
     };
 
     return (

@@ -11,7 +11,7 @@ function ProjectsItem(props) {
             <td>{project.name}</td>
             <td>{project.budget}</td>
             <td>{project.active ? <p>Active</p> : <p>Inactive</p>}</td>
-            <td>{project.subactivities.map((s) => <p>{s}</p>)}</td>
+            <td>{project.subactivities.map((s, index) => <p key={"subact"+index}>{s}</p>)}</td>
             
             { isManager 
                 ?

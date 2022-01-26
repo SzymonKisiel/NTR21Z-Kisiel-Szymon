@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from './UserProvider';
 
 function ProjectForm(props) {
+    const { username, isLoggedIn } = useContext(UserContext);
+
     const [subactivity, setSubactivity] = useState('');
     const [inputField , setInputField] = useState(
         props.project || 
     {
         code: '',
-        manager: '',
+        manager: username,
         name: '',
         budget: 0,
         active: true,
@@ -16,20 +19,6 @@ function ProjectForm(props) {
     var editForm = false;
     if (props.project)
         editForm = true;
-
-    
-    // if (props.project) {
-    //     setInputField(props.project);
-    //     setInputField({
-    //         code: props.project.code,
-    //         manager: props.project.manager,
-    //         name: props.project.name,
-    //         budget: props.project.budget,
-    //         active: props.project.active,
-    //         subactivities: props.project.subactivities
-    //     });
-    //     editForm = true;
-    // }
   
     function handleAddSubactivity(e) {
         if (subactivity === '') {
@@ -86,14 +75,14 @@ function ProjectForm(props) {
 
             <br/>
 
-            <input 
+            {/* <input 
             name="manager" 
             type="text" 
             onChange={handleChange} 
             placeholder="Manager" 
             value={inputField.manager}/>
 
-            <br/>
+            <br/> */}
 
             <input 
             name="name" 

@@ -12,12 +12,7 @@ function ProjectActivities() {
     let navigate = useNavigate();
     let activities = getActivities(); // getProjectActivities
 
-    const dateNow = 
-        type==="day" 
-            ? new Date().toISOString().slice(0, 10)
-            : new Date().toISOString().slice(0, 7);
-
-    console.log(dateNow);
+    const dateNow = new Date().toISOString().slice(0, 7);
 
     const [date, setDate] = useState(dateNow);
 
@@ -26,13 +21,19 @@ function ProjectActivities() {
         setDate(value);
     }
 
+    function addActivity() {
+        // navigate("/addactivity", { test: "hej swiat!" });
+        navigate("/addactivity", { state: { test: "hej swiat!"} });
+    }
+
     return (
         <div>
-            <h1 className="Title">{projectCode} Activities</h1>
+            <h1 className="Title">{projectCode} Activities {date}</h1>
             <form>
-                <input type={type==="day" ? "date" : "month"} onChange={handleDateChange} value={date} />    
+                <input type="month" onChange={handleDateChange} value={date} />    
             </form>
             <ActivitiesContent activities={activities} />
+            <input type="button" onClick={addActivity} value="Add activity" />
         </div>
     );
 };

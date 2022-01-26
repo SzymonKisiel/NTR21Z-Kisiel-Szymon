@@ -21,7 +21,7 @@ return (
                 </tr>
             </thead>
             <tbody>
-                {projects.map(p => <ProjectsItem project={p} isManager={isManager} />)}
+                {projects.map((p, index) => <ProjectsItem key={p.code} project={p} isManager={isManager} />)}
             </tbody>
         </Table>
     );
