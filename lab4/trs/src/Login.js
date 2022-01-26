@@ -1,6 +1,6 @@
 import React from 'react';
-import UserContext from './UserContext';
-import { useState, useContext } from 'react';
+import { UserContext } from './UserProvider';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {

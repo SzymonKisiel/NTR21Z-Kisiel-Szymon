@@ -1,56 +1,48 @@
-import './App.css';
-import React, { useEffect, useContext } from 'react';
-import { Outlet } from 'react-router-dom'
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
 
-import UserContext from './UserContext';
+import './index.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-const title = "Time Reporting System";
+import Page from './Page';
+import Projects from './Projects';
+import Manager from './Manager';
+import Activities from './Activities';
+import Login from './Login';
+import Logo from './Logo';
+import ProjectAdd from './ProjectAdd';
+import ProjectEdit from './ProjectEdit';
+import ActivityAdd from './ActivityAdd';
+import ActivityEdit from './ActivityEdit';
+import ProjectActivities from './ProjectActivities';
+
+import { UserProvider } from './UserProvider';
 
 function App() {
-  const { username, isLoggedIn, logout } = useContext(UserContext);
-
-  useEffect(() => {
-    document.title = title;
-  }, []);
-
+  // const [user, setUser] = useState({username: "", isLoggedIn: false});
   return (
-    <div>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
-        <Navbar.Brand href="/">{title}</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/projects">Projects</Nav.Link>
-            <Nav.Link href="/manager">My Projects</Nav.Link>
-            <NavDropdown title="My Activities" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="/activities/day">Day</NavDropdown.Item>
-              <NavDropdown.Item href="/activities/month">Month</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Nav variant="pills">
-            {
-              isLoggedIn
-              ? <>
-                <Navbar.Text>Logged in as {username}</Navbar.Text>,
-                <Nav.Link onClick={logout}>Logout</Nav.Link>
-                </>
-              :
-                <>
-                <Navbar.Text>Not logged in</Navbar.Text>
-                <Nav.Link href="/login">Login</Nav.Link>
-                </>
-            }
-          </Nav>
-        </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <div className="Content">
-        <Outlet />
-      </div>
-     
-     </div>
+    <BrowserRouter><UserProvider>
+      <Routes>
+        <Route path="/" element={<Page />}>
+          <Route index element={<p>index</p>} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="details/:projectCode" element={<ProjectActivities />} />
+          <Route path="manager" element={<Manager />} />
+          <Route path="activities" element={<Activities />}>
+            <Route path=":type" element={<Activities />} />
+          </Route>
+          <Route path="logo" element={<Logo />} />
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<p>default</p>} />
+          <Route path="addactivity" element={<ActivityAdd />} />
+          <Route path="editactivity" element={<ActivityEdit />} />
+          <Route path="addproject" element={<ProjectAdd />} />
+          <Route path="editproject/:code" element={<ProjectEdit />} />
+        </Route>
+      </Routes>
+      </UserProvider></BrowserRouter>
   );
 };
 
