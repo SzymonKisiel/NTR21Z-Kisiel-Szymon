@@ -8,8 +8,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 
 ReactDOM.render(
-  <App />
-  ,
+  <App />,
   document.getElementById('root')
 );
 

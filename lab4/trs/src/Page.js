@@ -2,11 +2,7 @@ import './App.css';
 import React, { useEffect, useContext } from 'react';
 import { Outlet } from 'react-router-dom'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-
 import { UserContext } from './UserProvider';
-import { useState } from "react";
-import { createContext } from "react";
-
 
 const title = "Time Reporting System";
 

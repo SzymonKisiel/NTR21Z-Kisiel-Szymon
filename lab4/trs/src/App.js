@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals';
 
 import './index.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -21,12 +19,11 @@ import ProjectActivities from './ProjectActivities';
 import { UserProvider } from './UserProvider';
 
 function App() {
-  // const [user, setUser] = useState({username: "", isLoggedIn: false});
   return (
     <BrowserRouter><UserProvider>
       <Routes>
         <Route path="/" element={<Page />}>
-          <Route index element={<p>index</p>} />
+          <Route index element={<></>} />
           <Route path="projects" element={<Projects />} />
           <Route path="details/:projectCode" element={<ProjectActivities />} />
           <Route path="manager" element={<Manager />} />
