@@ -1,9 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ActivityItem(props) {
+    const navigate = useNavigate();
+
     let activity = props.activity;
     let editable = props.editable || true;
+
+    function editActivity() {
+        alert("edit");
+        navigate("/editactivity", { state: { oldActivity: activity }});
+    }
+    function deleteActivity() {
+        alert("delete");
+    }
+
     return (
         <tr>
             <td>{activity.date}</td>
@@ -13,8 +24,8 @@ function ActivityItem(props) {
             <td>{activity.description}</td>
             { editable &&
                 <>
-                <td><Link to="/logo">Edit</Link></td>
-                <td><Link to="/logo">Delete</Link></td>
+                <td><a href="" onClick={editActivity}>Edit</a></td>
+                <td><a href="" onClick={deleteActivity}>Delete</a></td>
                 </>
             }
         </tr>

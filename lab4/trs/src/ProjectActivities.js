@@ -23,7 +23,7 @@ function ProjectActivities() {
 
     function addActivity() {
         // navigate("/addactivity", { test: "hej swiat!" });
-        navigate("/addactivity", { state: { test: "hej swiat!"} });
+        navigate("/addactivity", { state: { month: date, projectCode: projectCode} });
     }
 
     return (
