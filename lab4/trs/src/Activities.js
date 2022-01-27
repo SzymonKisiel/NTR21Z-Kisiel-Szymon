@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getActivities } from './Data';
+import { backendGetActivities } from './Data';
 import ActivitiesContent from './ActivitiesContent';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
+import axios from 'axios';
+
 function Activities() {
+    const [activities, setActivities] = useState();
     let params = useParams();
     let type = params.type || 'month';
-    // let navigate = useNavigate();
-    let activities = getActivities();
+
+    useEffect(() => {
+        // console.log("USE EFFECT");
+        const fetchData = async () => {
+            const result = await axios('/getactivities');
+            setActivities(result.data);
+        };
+        fetchData();
+        // const temp = backendGetActivities();
+        // temp.then(a => console.log("then: " + a));
+        // console.log(temp);
+        // setActivities(temp);
+    }, []);
 
     const dateNow = 
         type==="day" 

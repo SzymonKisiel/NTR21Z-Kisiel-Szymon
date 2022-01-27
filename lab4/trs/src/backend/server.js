@@ -1,8 +1,27 @@
-import axios from 'axios';
-function getProjects() {
-    var data = require('./data/activity.json');
-    return data.projects;
-};
+const express = require('express');
+const app = express();
+// const cors = require("cors");
+
+const data = { "test": [ {"abc": "hej"}, {"abc": "niehej"}]}
+
+// app.use(cors());
+app.get('/hey', (req, res) => res.json(data));
+
+app.get('/express_backend', (req, res) => {
+    res.send({ express: 'Express backend contected to react.'});
+});
+
+app.get('/set', (req, res) => {
+    console.log("set");
+    console.log(JSON.stringify(req.query));
+    console.log(req.query.id);
+});
+
+app.get('/getactivities', (req, res) => {
+    console.log("getactivities");
+    const activities = getActivities();
+    res.json(activities);
+});
 
 function getActivities() {
     let activities = [
@@ -50,23 +69,7 @@ function getActivities() {
         //     description: "meeting"
         // }
     ];
-
-    console.log(activities);
-
     return activities;
 };
 
-function backendGetActivities() {
-    const fetchData = async () => {
-        const result = await axios('/getactivities').then(
-            (res) => {
-                return res.data;
-            }
-        );
-    };
-    const data = fetchData();
-    return data;
-}
-
-export { getProjects, getActivities, backendGetActivities };
-
+app.listen(5000);

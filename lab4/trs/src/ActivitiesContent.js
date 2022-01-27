@@ -5,8 +5,10 @@ import { Table } from 'react-bootstrap';
 import ActivityItem from './ActivityItem';
 
 function ActivitiesContent(props) {
-    let activities = props.activities;
-
+    let activities = props.activities || [];
+    
+    // console.log("ActivitiesContent");
+    // console.log(JSON.stringify(activities));
     return (
         <div>
             <Table striped bordered hover>
