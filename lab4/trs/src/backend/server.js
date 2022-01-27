@@ -26,15 +26,24 @@ app.get('/getmonthactivities', (req, res) => {
     const username = req.query.username;
     const month = req.query.month; 
 
-    console.log("back: " + username + " " + month);
     const activities = model.getMonthActivities(username, month);
+    res.json(activities);
+});
+
+app.get('/getdayactivities', (req, res) => {
+    const username = req.query.username;
+    const date = req.query.date; 
+    
+    console.log("frontend: " + username + " " + date);
+
+    const activities = model.getDayActivities(username, date);
     res.json(activities);
 });
 
 // debug
 // model.getMonthActivities("nowak", "2021-11");
 // model.getMonthActivities("2021-10");
-const test = model.getActivities();
+const test = model.getDayActivities("kowalski", "2021-11-07");
 console.log(JSON.stringify(test));
 
 app.listen(5000);

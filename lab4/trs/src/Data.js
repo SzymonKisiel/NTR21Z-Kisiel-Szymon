@@ -32,10 +32,18 @@ function getActivities(username, month) {
     // return axios('/getactivities');
 }
 
-// function getMonthActivities() {
+function getDayActivities(username, date) {
+    console.log("frontend: " + username + " " + date);
+    if (username && date) {
+        return axios('/getdayactivities', { 
+            params: {
+                username: username,
+                date: date
+            }
+        });
+    }
+}
 
-// }
 
-
-export { getProjects, getActivities, getManagerProjects };
+export { getProjects, getActivities, getDayActivities, getManagerProjects };
 

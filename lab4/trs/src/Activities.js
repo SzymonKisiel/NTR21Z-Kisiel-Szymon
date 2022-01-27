@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getActivities } from './Data';
+import { getActivities, getDayActivities } from './Data';
 import ActivitiesContent from './ActivitiesContent';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from './UserProvider';
@@ -18,22 +18,21 @@ function Activities() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await getActivities(username, date);
-            const report = result.data[0];
+            var result = {};
+            if (type === "day") {
+                result = await getDayActivities(username, date);
+            }
+            else {
+                result = await getActivities(username, date);
+            }
+            
+            const report = result.data;
             if (report && report.entries) {
-                // console.log(report.entries);
                 setActivities(report.entries);
             }
             else {
                 setActivities([]);
             }
-            
-            // console.log(result.data[0]);
-            // const test = JSON.parse(JSON.stringify(result.data));
-            // console.log(test);
-            // console.log(JSON.stringify(result.data));
-            // console.log(JSON.stringify(result.data)["entries"]);
-            // 
         };
         fetchData();
     }, [date]);

@@ -83,18 +83,26 @@ function getMonthActivities(month) {
 
 function getMonthActivities(username, month) {
     console.log(username + " " + month);
-    return loadFromFiles(`${username}-${month}`);
+    return loadFromFiles(`${username}-${month}`)[0];
 };
 
 // function getMonthActivities(month, projectCode) {}
 
-function getMonthActivities(username, month, projectCode) {
-    //TODO
-    return loadFromFiles(`${username}-${month}`);
-};
+// function getMonthActivities(username, month, projectCode) {
+//     //TODO
+//     return loadFromFiles(`${username}-${month}`);
+// };
 
 function getDayActivities(date) {};
-function getDayActivities(username, date) {};
+function getDayActivities(username, date) {
+    // TODO
+    const month = date.slice(0, 7);
+    console.log("month = " + month)
+
+    var report = getMonthActivities(username, month);
+    return toDayReport(report, date);
+    
+};
 
 function deleteActivity(username, date, projectCode) {};
 function updateActivity(username, date, projectCode, newActivity) {};
@@ -111,4 +119,20 @@ function isReportEditable(username, month, projectCode) {};
 function getAcceptedTimeSum(projectCode) {};
 function getAcceptedTimeSum(projectCode, month) {};
 
-module.exports = { getProjects, getActivities, getMonthActivities };
+
+function toDayReport(report, date) {
+    console.log(report);
+    console.log(date);
+    console.log(report.entries);
+    var result = { entries: [] };
+    for (const entry of report.entries) {
+
+    }
+    report.entries.forEach(entry => {
+        if (entry.date == date)
+            result.entries.push(entry);
+    });
+    return result;
+}
+
+module.exports = { getProjects, getActivities, getMonthActivities, getDayActivities };
