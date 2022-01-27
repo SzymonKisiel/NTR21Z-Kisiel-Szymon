@@ -86,7 +86,25 @@ function addActivity(username, activity) {
     return true;
 };
 
-function deleteActivity(username, date, projectCode) {};
+function deleteActivity(username, activity) {
+    console.log("activity:" + activity);
+    const month = activity.date.slice(0, 7);
+    var report = getMonthActivities(username, month);
+    // console.log(report.entries);
+    console.log(report.entries);
+    report.entries = report.entries.filter(function(entry) {
+        return entry.code !== activity.code ||
+        entry.date !== activity.date ||
+        entry.subcode !== activity.subcode ||
+        entry.time !== activity.time ||
+        entry.description !== activity.description
+    });
+    // console.log(report.entries);
+    saveReportToFile(username, month, report);
+
+    return true;
+};
+
 function updateActivity(username, date, projectCode, newActivity) {};
 
 function closeMonth(username, month) {};
@@ -123,4 +141,8 @@ function toProjectReport(report, projectCode) {
 }
     
 
-module.exports = { getProjects, getActivities, getMonthActivities, getDayActivities, getProjectActivities, addActivity, createReportFile, saveReportToFile };
+module.exports = { 
+    getProjects, getActivities, getMonthActivities, getDayActivities, getProjectActivities, 
+    addActivity, deleteActivity
+    // createReportFile, saveReportToFile 
+};

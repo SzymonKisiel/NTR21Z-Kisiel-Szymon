@@ -55,6 +55,13 @@ app.get('/addactivity', (req, res) => {
     res.json(result);
 });
 
+app.get('/deleteactivity', (req, res) => {
+    const username = req.query.username;
+    const activity = JSON.parse(req.query.activity);
+
+    const result = model.deleteActivity(username, activity);
+    res.json(result);
+});
 
 // debug
 // model.getMonthActivities("nowak", "2021-11");
@@ -80,5 +87,7 @@ app.get('/addactivity', (req, res) => {
 //     "description": "project meeting"
 // }
 // model.addActivity("tester", activity);
+
+// model.deleteActivity("tester", {"date":"2022-01-12","code":"ARGUS-123","subcode":"other","time":45,"description":"project meeting"});
 
 app.listen(5000);

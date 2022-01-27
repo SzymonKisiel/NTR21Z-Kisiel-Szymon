@@ -63,6 +63,19 @@ function addActivity(username, activity) {
     });
 }
 
+function deleteActivity(username, activity) {
+    return axios('/deleteactivity', { 
+        params: {
+            username: username,
+            activity: activity
+        }
+    });
+}
 
-export { getProjects, getActivities, getDayActivities, getManagerProjects, getProjectActivities, addActivity };
+
+export { 
+    getProjects, 
+    getActivities, getDayActivities, getManagerProjects, getProjectActivities, 
+    addActivity, deleteActivity 
+};
 

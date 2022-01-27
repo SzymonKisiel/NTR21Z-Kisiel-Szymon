@@ -1,1 +1,27 @@
-{"frozen":false,"entries":[{"date":"2022-01-13","code":"ARGUS-123","subcode":"other","time":50,"description":"project meeting"},{"date":"2022-01-13","code":"ARGUS-123","subcode":"other","time":50,"description":"project meeting"},{"date":"2022-01-12","code":"ARGUS-123","subcode":"other","time":45,"description":"project meeting"}],"accepted":[]}
+{
+    "frozen": false,
+    "entries": [
+        {
+            "date": "2022-01-13",
+            "code": "ARGUS-123",
+            "subcode": "other",
+            "time": 50,
+            "description": "project meeting"
+        },
+        {
+            "date": "2022-01-13",
+            "code": "ARGUS-123",
+            "subcode": "other",
+            "time": 50,
+            "description": "project meeting"
+        },
+        {
+            "date": "2022-01-12",
+            "code": "ARGUS-123",
+            "subcode": "other",
+            "time": 45,
+            "description": "project meeting"
+        }
+    ],
+    "accepted": []
+}
