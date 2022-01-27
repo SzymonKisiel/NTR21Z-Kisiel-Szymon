@@ -1,20 +1,43 @@
-import React, { useState } from 'react';
-import { getActivities } from './Data';
+import React, { useState, useEffect, useContext } from 'react';
+import { getProjectActivities } from './Data';
 import ActivitiesContent from './ActivitiesContent';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { UserContext } from './UserProvider';
 
 function ProjectActivities() {
-    let params = useParams();
-
+    const [activities, setActivities] = useState();
+    const { username } = useContext(UserContext);
+    const navigate = useNavigate();
+    const params = useParams();
+    let type = params.type || 'month';
     const projectCode = params.projectCode;
 
-    let type = 'month';
-    let navigate = useNavigate();
-    let activities = getActivities(); // getProjectActivities
-
-    const dateNow = new Date().toISOString().slice(0, 7);
-
+    const dateNow = 
+    type==="day" 
+        ? new Date().toISOString().slice(0, 10)
+        : new Date().toISOString().slice(0, 7);
     const [date, setDate] = useState(dateNow);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            var result = {};
+            if (type === "day") {
+                //result = await getDayActivities(username, date);
+            }
+            else {
+                result = await getProjectActivities(username, date, projectCode);
+            }
+            
+            const report = result.data;
+            if (report && report.entries) {
+                setActivities(report.entries);
+            }
+            else {
+                setActivities([]);
+            }
+        };
+        fetchData();
+    }, [date]);
 
     function handleDateChange(e) {
         const { value } = e.target;

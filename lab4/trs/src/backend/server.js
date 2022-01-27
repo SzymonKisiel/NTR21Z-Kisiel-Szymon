@@ -33,17 +33,24 @@ app.get('/getmonthactivities', (req, res) => {
 app.get('/getdayactivities', (req, res) => {
     const username = req.query.username;
     const date = req.query.date; 
-    
-    console.log("frontend: " + username + " " + date);
 
     const activities = model.getDayActivities(username, date);
+    res.json(activities);
+});
+
+app.get('/getprojectactivities', (req, res) => {
+    const username = req.query.username;
+    const month = req.query.month;
+    const projectCode = req.query.projectCode; 
+
+    const activities = model.getProjectActivities(username, month, projectCode);
     res.json(activities);
 });
 
 // debug
 // model.getMonthActivities("nowak", "2021-11");
 // model.getMonthActivities("2021-10");
-const test = model.getDayActivities("kowalski", "2021-11-07");
-console.log(JSON.stringify(test));
+// const test = model.getDayActivities("kowalski", "2021-11-07");
+// console.log(JSON.stringify(test));
 
 app.listen(5000);

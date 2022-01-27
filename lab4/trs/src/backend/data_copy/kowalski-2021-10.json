@@ -1,0 +1,18 @@
+{
+    "frozen": true,
+    "entries": [
+        {
+            "date": "2021-10-25",
+            "code": "ARGUS-123",
+            "subcode": "",
+            "time": 45,
+            "description": "data import"
+        }
+    ],
+    "accepted": [
+        {
+            "code": "ARGUS-123",
+            "time": 50
+        }
+    ]
+}
