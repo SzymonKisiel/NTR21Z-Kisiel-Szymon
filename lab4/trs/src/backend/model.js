@@ -1,7 +1,7 @@
 const glob = require("glob");
 const fs = require("fs");
 
-function loadFromFiles(searchPattern) {
+function loadReportsFromFiles(searchPattern) {
     let result = [];
     glob.sync(`./src/backend/data/${searchPattern}.json`).forEach((file) => {
         console.log(file);
@@ -12,9 +12,17 @@ function loadFromFiles(searchPattern) {
     return result;
 };
 
-function saveToFile() {};
-function createFile(username, month) {};
+function saveReportToFile(username, month, report) {
+    const filename = `${username}-${month}.json`;
+    fs.writeFileSync(`./src/backend/data/${filename}`, JSON.stringify(report));
+};
 
+function createReportFile(username, month) {
+    const filename = `${username}-${month}.json`;
+    const newReport = { "frozen": false, "entries": [], "accepted": [] };
+    fs.writeFileSync(`./src/backend/data/${filename}`, JSON.stringify(newReport));
+    return newReport;
+};
 
 function getProjects() {
     var data = require('./data/activity.json');
@@ -33,56 +41,18 @@ function getBudget(projectCode) {};
 
 function getActivities() {
     console.log("getall");
-    let test = loadFromFiles("*-*");
+    let test = loadReportsFromFiles("*-*");
     console.log(test);
     return test;
-    // let activities = [
-    //     {
-    //         "date": "2021-11-07",
-    //         "code": "ARGUS-123",
-    //         "subcode": "database",
-    //         "time": 45,
-    //         "description": "data import"
-    //     },
-    //     {
-    //         "date": "2021-11-07",
-    //         "code": "OTHER",
-    //         "subcode": "",
-    //         "time": 120,
-    //         "description": "picie kawy"
-    //     },
-    //     {
-    //         "date": "2021-11-08",
-    //         "code": "ARGUS-123",
-    //         "subcode": "",
-    //         "time": 45,
-    //         "description": "kompilacja"
-    //     },
-    //     {
-    //         "date": "2021-11-08",
-    //         "code": "OTHER",
-    //         "subcode": "",
-    //         "time": 120,
-    //         "description": "office arrangement"
-    //     },
-    //     {
-    //         "date": "2021-11-12",
-    //         "code": "ARGUS-123",
-    //         "subcode": "other",
-    //         "time": 45,
-    //         "description": "project meeting"
-    //     }
-    // ];
-    // return activities;
 };
 
 
 function getMonthActivities(month) {
-    return loadFromFiles(`*-${month}`);
+    return loadReportsFromFiles(`*-${month}`);
 };
 
 function getMonthActivities(username, month) {
-    return loadFromFiles(`${username}-${month}`)[0];
+    return loadReportsFromFiles(`${username}-${month}`)[0];
 };
 
 // function getMonthActivities(month, projectCode) {}
@@ -93,11 +63,27 @@ function getProjectActivities(username, month, projectCode) {
 };
 
 function getDayActivities(date) {};
+
 function getDayActivities(username, date) {
     const month = date.slice(0, 7);
     var report = getMonthActivities(username, month);
     return toDayReport(report, date);
     
+};
+
+function addActivity(username, activity) {
+    console.log("activity:" + activity);
+    console.log(activity.date);
+    const month = activity.date.slice(0, 7);
+    var report = getMonthActivities(username, month);
+    if (!report || report.length === 0) {
+        console.log("tworzy nowe");
+        report = createReportFile(username, month);
+    }
+    report.entries.push(activity);
+    saveReportToFile(username, month, report);
+
+    return true;
 };
 
 function deleteActivity(username, date, projectCode) {};
@@ -137,4 +123,4 @@ function toProjectReport(report, projectCode) {
 }
     
 
-module.exports = { getProjects, getActivities, getMonthActivities, getDayActivities, getProjectActivities };
+module.exports = { getProjects, getActivities, getMonthActivities, getDayActivities, getProjectActivities, addActivity, createReportFile, saveReportToFile };

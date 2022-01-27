@@ -47,10 +47,38 @@ app.get('/getprojectactivities', (req, res) => {
     res.json(activities);
 });
 
+app.get('/addactivity', (req, res) => {
+    const username = req.query.username;
+    const activity = JSON.parse(req.query.activity);
+
+    const result = model.addActivity(username, activity);
+    res.json(result);
+});
+
+
 // debug
 // model.getMonthActivities("nowak", "2021-11");
 // model.getMonthActivities("2021-10");
 // const test = model.getDayActivities("kowalski", "2021-11-07");
 // console.log(JSON.stringify(test));
+
+// model.createReportFile("tester", "2023-03");
+// model.saveReportToFile("tester", "2023-03", { "frozen": true, "entries": [], "accepted": [] });
+// const activity = {
+//     "date": "2022-01-12",
+//     "code": "ARGUS-123",
+//     "subcode": "other",
+//     "time": 45,
+//     "description": "project meeting"
+// }
+// model.addActivity("tester", activity);
+// const activity = {
+//     "date": "2022-01-13",
+//     "code": "ARGUS-123",
+//     "subcode": "other",
+//     "time": 50,
+//     "description": "project meeting"
+// }
+// model.addActivity("tester", activity);
 
 app.listen(5000);

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { addActivity } from "./Data";
+import { UserContext } from "./UserProvider";
 
 function ActivityForm(props) {
+    const { username } = useContext(UserContext);
     const month = props.month;
     const code = props.code;
 
@@ -11,7 +14,7 @@ function ActivityForm(props) {
             code: code,
             subcode: '',
             time: 0,
-            description: true
+            description: ''
         }
     );
 
@@ -30,9 +33,11 @@ function ActivityForm(props) {
     function handleSubmit(e) {
         if (editForm) {
             alert("Edit:\n" + JSON.stringify(inputField));
+
         }
         else {
             alert("Create:\n" + JSON.stringify(inputField));
+            addActivity(username, inputField);
         }
         
     };

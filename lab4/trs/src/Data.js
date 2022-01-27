@@ -54,6 +54,15 @@ function getProjectActivities(username, month, projectCode) {
     });
 }
 
+function addActivity(username, activity) {
+    return axios('/addactivity', { 
+        params: {
+            username: username,
+            activity: activity
+        }
+    });
+}
 
-export { getProjects, getActivities, getDayActivities, getManagerProjects, getProjectActivities };
+
+export { getProjects, getActivities, getDayActivities, getManagerProjects, getProjectActivities, addActivity };
 
