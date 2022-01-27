@@ -1,7 +1,44 @@
+const glob = require("glob");
+const fs = require("fs");
+
+function loadFromFiles(searchPattern) {
+    glob(`./src/backend/data/${searchPattern}.json`, {}, function(err, files) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            for (const file of files) {
+                console.log(file);
+                fs.readFile(file, function(err, data) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(data.toString());
+                    }
+                });
+            }
+        }
+    });
+};
+
+function saveToFile() {};
+function createFile(username, month) {};
+
+
 function getProjects() {
     var data = require('./data/activity.json');
     return data.projects;
 };
+
+function addProject(project) {};
+function editProject(projectCode, newProject) {};
+function deleteProject(projectCode) {};
+
+function getSubactivities(projectCode) {};
+
+function closeProject(projectCode) {};
+function isActive(projectCode) {};
+function getBudget(projectCode) {};
 
 function getActivities() {
     let activities = [
@@ -44,4 +81,38 @@ function getActivities() {
     return activities;
 };
 
-module.exports = { getActivities, getProjects };
+
+function getMonthActivities(month) {
+    return loadFromFiles(`*-${month}`);
+};
+
+function getMonthActivities(username, month) {
+    return loadFromFiles(`${username}-${month}`);
+};
+
+// function getMonthActivities(month, projectCode) {}
+
+function getMonthActivities(username, month, projectCode) {
+    //TODO
+    return loadFromFiles(`${username}-${month}`);
+};
+
+function getDayActivities(date) {};
+function getDayActivities(username, date) {};
+
+function deleteActivity(username, date, projectCode) {};
+function updateActivity(username, date, projectCode, newActivity) {};
+
+function closeMonth(username, month) {};
+function isMonthClosed(username, month) {};
+
+function getUsers(month, projectCode) {};
+
+function getAcceptedTime(username, month, projectCode) {};
+function setAcceptedTime(username, month, projectCode, newAcceptedTime) {};
+
+function isReportEditable(username, month, projectCode) {};
+function getAcceptedTimeSum(projectCode) {};
+function getAcceptedTimeSum(projectCode, month);
+
+module.exports = { getProjects, getActivities, getMonthActivities };

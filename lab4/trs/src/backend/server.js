@@ -12,14 +12,24 @@ app.get('/set', (req, res) => {
     console.log(req.query.id);
 });
 
+app.get('/getprojects', (req, res) => {
+    const activities = model.getProjects();
+    res.json(activities);
+});
+
 app.get('/getactivities', (req, res) => {
     const activities = model.getActivities();
     res.json(activities);
 });
 
-app.get('/getprojects', (req, res) => {
-    const activities = model.getProjects();
+app.get('/getmonthactivities', (req, res) => {
+    const month = req.query.month; 
+    const activities = model.getMonthActivities(month);
     res.json(activities);
 });
+
+// debug
+model.getMonthActivities("nowak", "2021-11");
+// model.getMonthActivities("2021-10");
 
 app.listen(5000);
