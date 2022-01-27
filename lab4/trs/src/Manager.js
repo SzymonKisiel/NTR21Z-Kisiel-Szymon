@@ -1,11 +1,21 @@
-import React from 'react';
-import { getProjects } from './Data';
+import React, { useState, useEffect, useContext } from 'react';
+import { getManagerProjects } from './Data';
 import ProjectsContent from './ProjectsContent';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from './UserProvider';
 
 function Manager() {
-    let navigate = useNavigate();
-    let projects = getProjects();
+    const [projects, setProjects] = useState();
+    const { username } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getManagerProjects(username);
+            setProjects(result.data);
+        };
+        fetchData();
+    }, []);
 
     function addProject() {
         navigate("/addproject");

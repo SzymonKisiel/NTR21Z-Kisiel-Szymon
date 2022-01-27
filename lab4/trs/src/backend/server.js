@@ -23,13 +23,18 @@ app.get('/getactivities', (req, res) => {
 });
 
 app.get('/getmonthactivities', (req, res) => {
+    const username = req.query.username;
     const month = req.query.month; 
-    const activities = model.getMonthActivities(month);
+
+    console.log("back: " + username + " " + month);
+    const activities = model.getMonthActivities(username, month);
     res.json(activities);
 });
 
 // debug
-model.getMonthActivities("nowak", "2021-11");
+// model.getMonthActivities("nowak", "2021-11");
 // model.getMonthActivities("2021-10");
+const test = model.getActivities();
+console.log(JSON.stringify(test));
 
 app.listen(5000);

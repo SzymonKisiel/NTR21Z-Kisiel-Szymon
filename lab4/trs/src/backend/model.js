@@ -2,23 +2,14 @@ const glob = require("glob");
 const fs = require("fs");
 
 function loadFromFiles(searchPattern) {
-    glob(`./src/backend/data/${searchPattern}.json`, {}, function(err, files) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            for (const file of files) {
-                console.log(file);
-                fs.readFile(file, function(err, data) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log(data.toString());
-                    }
-                });
-            }
-        }
+    let result = [];
+    glob.sync(`./src/backend/data/${searchPattern}.json`).forEach((file) => {
+        console.log(file);
+        const data = fs.readFileSync(file);
+        // return JSON.parse(data);
+        result.push(JSON.parse(data)); 
     });
+    return result;
 };
 
 function saveToFile() {};
@@ -41,44 +32,48 @@ function isActive(projectCode) {};
 function getBudget(projectCode) {};
 
 function getActivities() {
-    let activities = [
-        {
-            "date": "2021-11-07",
-            "code": "ARGUS-123",
-            "subcode": "database",
-            "time": 45,
-            "description": "data import"
-        },
-        {
-            "date": "2021-11-07",
-            "code": "OTHER",
-            "subcode": "",
-            "time": 120,
-            "description": "picie kawy"
-        },
-        {
-            "date": "2021-11-08",
-            "code": "ARGUS-123",
-            "subcode": "",
-            "time": 45,
-            "description": "kompilacja"
-        },
-        {
-            "date": "2021-11-08",
-            "code": "OTHER",
-            "subcode": "",
-            "time": 120,
-            "description": "office arrangement"
-        },
-        {
-            "date": "2021-11-12",
-            "code": "ARGUS-123",
-            "subcode": "other",
-            "time": 45,
-            "description": "project meeting"
-        }
-    ];
-    return activities;
+    console.log("getall");
+    let test = loadFromFiles("*-*");
+    console.log(test);
+    return test;
+    // let activities = [
+    //     {
+    //         "date": "2021-11-07",
+    //         "code": "ARGUS-123",
+    //         "subcode": "database",
+    //         "time": 45,
+    //         "description": "data import"
+    //     },
+    //     {
+    //         "date": "2021-11-07",
+    //         "code": "OTHER",
+    //         "subcode": "",
+    //         "time": 120,
+    //         "description": "picie kawy"
+    //     },
+    //     {
+    //         "date": "2021-11-08",
+    //         "code": "ARGUS-123",
+    //         "subcode": "",
+    //         "time": 45,
+    //         "description": "kompilacja"
+    //     },
+    //     {
+    //         "date": "2021-11-08",
+    //         "code": "OTHER",
+    //         "subcode": "",
+    //         "time": 120,
+    //         "description": "office arrangement"
+    //     },
+    //     {
+    //         "date": "2021-11-12",
+    //         "code": "ARGUS-123",
+    //         "subcode": "other",
+    //         "time": 45,
+    //         "description": "project meeting"
+    //     }
+    // ];
+    // return activities;
 };
 
 
@@ -87,6 +82,7 @@ function getMonthActivities(month) {
 };
 
 function getMonthActivities(username, month) {
+    console.log(username + " " + month);
     return loadFromFiles(`${username}-${month}`);
 };
 
@@ -113,6 +109,6 @@ function setAcceptedTime(username, month, projectCode, newAcceptedTime) {};
 
 function isReportEditable(username, month, projectCode) {};
 function getAcceptedTimeSum(projectCode) {};
-function getAcceptedTimeSum(projectCode, month);
+function getAcceptedTimeSum(projectCode, month) {};
 
 module.exports = { getProjects, getActivities, getMonthActivities };
