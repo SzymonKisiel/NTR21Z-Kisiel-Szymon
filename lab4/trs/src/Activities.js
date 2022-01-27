@@ -12,16 +12,11 @@ function Activities() {
     let type = params.type || 'month';
 
     useEffect(() => {
-        // console.log("USE EFFECT");
         const fetchData = async () => {
-            const result = await axios('/getactivities');
+            const result = await getActivities();
             setActivities(result.data);
         };
         fetchData();
-        // const temp = backendGetActivities();
-        // temp.then(a => console.log("then: " + a));
-        // console.log(temp);
-        // setActivities(temp);
     }, []);
 
     const dateNow = 

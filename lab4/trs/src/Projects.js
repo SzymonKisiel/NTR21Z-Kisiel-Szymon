@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getProjects } from './Data';
 import ProjectsContent from './ProjectsContent';
 import { useNavigate } from 'react-router-dom';
 
 function Projects() {
     let navigate = useNavigate();
-    let projects = getProjects();
+    const [projects, setProjects] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getProjects();
+            setProjects(result.data);
+        };
+        fetchData();
+    }, []);
 
     function addProject() {
         navigate("/addproject");

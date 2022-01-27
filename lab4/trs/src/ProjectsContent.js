@@ -5,7 +5,7 @@ import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function ProjectsContent(props) {
-    let projects = props.projects;
+    let projects = props.projects || [];
     let isManager = props.isManager || false;
 
 return (
