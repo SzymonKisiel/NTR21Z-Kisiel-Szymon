@@ -5,8 +5,8 @@ import { UserContext } from "./UserProvider";
 function ActivityForm(props) {
     const { username } = useContext(UserContext);
     const month = props.month;
-    const code = props.code;
     const oldActivity = props.activity;
+    const code = props.code || oldActivity.code;
 
     const defaultDay = new Date().toISOString().slice(0, 10);
 
@@ -65,14 +65,9 @@ function ActivityForm(props) {
 
             <br/>
 
-            {/* <input 
-            name="subcode" 
-            type="text" 
-            onChange={handleChange} 
-            placeholder="Subactivity" 
-            value={inputField.subcode}/> */}
-            <select value={inputField.subactivity}>
-                {subactivities.map(subactivity => <option key={subactivity}>{subactivity}</option>)}
+            <select name="subcode" value={inputField.subcode} onChange={handleChange} >
+                <option value="">-</option>
+                {subactivities.map(subactivity => <option key={subactivity} >{subactivity}</option>)}
             </select>
 
             <br/>
