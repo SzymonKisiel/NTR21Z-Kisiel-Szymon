@@ -8,11 +8,13 @@ function ActivityForm(props) {
     const code = props.code;
     const oldActivity = props.activity;
 
+    const defaultDay = new Date().toISOString().slice(0, 10);
+
     const [subactivities, setSubactivities] = useState([]);
     const [inputField , setInputField] = useState(
         oldActivity || 
         {
-            date: '',
+            date: defaultDay,
             code: code,
             subcode: '',
             time: 0,
