@@ -1,8 +1,16 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const model = require("./model");
 
 const data = { "test": [ {"test1": "abc"}, {"test2": "def"}]}
+
+const develop = process.argv[2] == "develop";
+
+if (!develop) {
+    console.log(path.join(__dirname, '../../build'));
+    app.use(express.static(path.join(__dirname, '../../build')));
+};
 
 app.get('/test', (req, res) => res.json(data));
 
@@ -68,8 +76,8 @@ app.get('/editactivity', (req, res) => {
     const oldActivity = JSON.parse(req.query.oldActivity);
     const newActivity = JSON.parse(req.query.newActivity);
 
-    console.log("old: "+JSON.stringify(oldActivity));
-    console.log("new: "+JSON.stringify(newActivity));
+    // console.log("old: "+JSON.stringify(oldActivity));
+    // console.log("new: "+JSON.stringify(newActivity));
 
     const result = model.updateActivity(username, oldActivity, newActivity);
     res.json(result);
@@ -102,4 +110,14 @@ app.get('/editactivity', (req, res) => {
 
 // model.deleteActivity("tester", {"date":"2022-01-12","code":"ARGUS-123","subcode":"other","time":45,"description":"project meeting"});
 
-app.listen(5000);
+if (!develop) {
+    console.log(path.join(__dirname, '../../build', 'index.html'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../../build', 'index.html'))
+    });
+};
+
+const initMsg = develop 
+    ? "Development server starting. Listening on port 5000." 
+    : "Production server starting. Listening on port 5000.";
+app.listen(5000, () => console.log(initMsg));
