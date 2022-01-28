@@ -55,7 +55,7 @@ app.get('/getprojectactivities', (req, res) => {
     res.json(activities);
 });
 
-app.get('/addactivity', (req, res) => {
+app.get('/createactivity', (req, res) => {
     const username = req.query.username;
     const activity = JSON.parse(req.query.activity);
 
@@ -71,7 +71,7 @@ app.get('/deleteactivity', (req, res) => {
     res.json(result);
 });
 
-app.get('/editactivity', (req, res) => {
+app.get('/updateactivity', (req, res) => {
     const username = req.query.username;
     const oldActivity = JSON.parse(req.query.oldActivity);
     const newActivity = JSON.parse(req.query.newActivity);

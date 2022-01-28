@@ -55,7 +55,7 @@ function getProjectActivities(username, month, projectCode) {
 }
 
 function addActivity(username, activity) {
-    return axios('/addactivity', { 
+    return axios('/createactivity', { 
         params: {
             username: username,
             activity: activity
@@ -73,7 +73,7 @@ function deleteActivity(username, activity) {
 }
 
 function editActivity(username, oldActivity, newActivity) {
-    return axios('/editactivity', { 
+    return axios('/updateactivity', { 
         params: {
             username: username,
             oldActivity: oldActivity,
