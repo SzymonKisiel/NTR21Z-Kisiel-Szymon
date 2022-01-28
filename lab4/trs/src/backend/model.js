@@ -6,7 +6,6 @@ function loadReportsFromFiles(searchPattern) {
     glob.sync(`./src/backend/data/${searchPattern}.json`).forEach((file) => {
         console.log(file);
         const data = fs.readFileSync(file);
-        // return JSON.parse(data);
         result.push(JSON.parse(data)); 
     });
     return result;
@@ -40,9 +39,7 @@ function isActive(projectCode) {};
 function getBudget(projectCode) {};
 
 function getActivities() {
-    console.log("getall");
     let test = loadReportsFromFiles("*-*");
-    console.log(test);
     return test;
 };
 
@@ -72,12 +69,9 @@ function getDayActivities(username, date) {
 };
 
 function addActivity(username, activity) {
-    console.log("activity:" + activity);
-    console.log(activity.date);
     const month = activity.date.slice(0, 7);
     var report = getMonthActivities(username, month);
     if (!report || report.length === 0) {
-        console.log("tworzy nowe");
         report = createReportFile(username, month);
     }
     report.entries.push(activity);
@@ -87,11 +81,8 @@ function addActivity(username, activity) {
 };
 
 function deleteActivity(username, activity) {
-    console.log("activity:" + activity);
     const month = activity.date.slice(0, 7);
     var report = getMonthActivities(username, month);
-    // console.log(report.entries);
-    console.log(report.entries);
     report.entries = report.entries.filter(function(entry) {
         return entry.code !== activity.code ||
         entry.date !== activity.date ||
@@ -99,13 +90,28 @@ function deleteActivity(username, activity) {
         entry.time !== activity.time ||
         entry.description !== activity.description
     });
-    // console.log(report.entries);
     saveReportToFile(username, month, report);
 
     return true;
 };
 
-function updateActivity(username, date, projectCode, newActivity) {};
+function updateActivity(username, oldActivity, newActivity) {
+    const month = oldActivity.date.slice(0, 7);
+    var report = getMonthActivities(username, month);
+    const index = report.entries.findIndex(function(entry) {
+        return entry.code == oldActivity.code &&
+        entry.date == oldActivity.date &&
+        entry.subcode == oldActivity.subcode &&
+        entry.time == oldActivity.time &&
+        entry.description == oldActivity.description
+    });
+    if (index !== -1) {
+        report.entries[index] = newActivity;
+        saveReportToFile(username, month, report);
+        return true;
+    }
+    return false;
+};
 
 function closeMonth(username, month) {};
 function isMonthClosed(username, month) {};
@@ -143,6 +149,6 @@ function toProjectReport(report, projectCode) {
 
 module.exports = { 
     getProjects, getActivities, getMonthActivities, getDayActivities, getProjectActivities, 
-    addActivity, deleteActivity
+    addActivity, deleteActivity, updateActivity
     // createReportFile, saveReportToFile 
 };

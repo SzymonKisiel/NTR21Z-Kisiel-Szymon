@@ -72,10 +72,19 @@ function deleteActivity(username, activity) {
     });
 }
 
+function editActivity(username, oldActivity, newActivity) {
+    return axios('/editactivity', { 
+        params: {
+            username: username,
+            oldActivity: oldActivity,
+            newActivity: newActivity
+        }
+    });
+}
 
 export { 
     getProjects, 
     getActivities, getDayActivities, getManagerProjects, getProjectActivities, 
-    addActivity, deleteActivity 
+    addActivity, deleteActivity, editActivity 
 };
 

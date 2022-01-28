@@ -63,6 +63,18 @@ app.get('/deleteactivity', (req, res) => {
     res.json(result);
 });
 
+app.get('/editactivity', (req, res) => {
+    const username = req.query.username;
+    const oldActivity = JSON.parse(req.query.oldActivity);
+    const newActivity = JSON.parse(req.query.newActivity);
+
+    console.log("old: "+JSON.stringify(oldActivity));
+    console.log("new: "+JSON.stringify(newActivity));
+
+    const result = model.updateActivity(username, oldActivity, newActivity);
+    res.json(result);
+});
+
 // debug
 // model.getMonthActivities("nowak", "2021-11");
 // model.getMonthActivities("2021-10");

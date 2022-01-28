@@ -11,11 +11,11 @@ function ActivityItem(props) {
     let editable = props.editable || true;
 
     function handleEdit() {
-        alert("edit");
+        // alert("edit");
         navigate("/editactivity", { state: { oldActivity: activity }});
     }
     function handleDelete() {
-        alert("delete");
+        // alert("delete");
         deleteActivity(username, activity);
     }
 
