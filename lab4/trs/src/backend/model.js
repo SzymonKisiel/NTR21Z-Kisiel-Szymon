@@ -4,7 +4,7 @@ const fs = require("fs");
 function loadReportsFromFiles(searchPattern) {
     let result = [];
     glob.sync(`./src/backend/data/${searchPattern}.json`).forEach((file) => {
-        console.log(file);
+        // console.log(file);
         const data = fs.readFileSync(file);
         result.push(JSON.parse(data)); 
     });
@@ -32,7 +32,17 @@ function addProject(project) {};
 function editProject(projectCode, newProject) {};
 function deleteProject(projectCode) {};
 
-function getSubactivities(projectCode) {};
+function getSubactivities(projectCode) {
+    const projects = getProjects();
+    const project = projects.find(
+        (project) => {
+            return project.code == projectCode;
+        }
+    );
+    if (project)
+        return project.subactivities;
+    return [];
+};
 
 function closeProject(projectCode) {};
 function isActive(projectCode) {};
@@ -148,7 +158,8 @@ function toProjectReport(report, projectCode) {
     
 
 module.exports = { 
-    getProjects, getActivities, getMonthActivities, getDayActivities, getProjectActivities, 
+    getProjects, getSubactivities,
+    getActivities, getMonthActivities, getDayActivities, getProjectActivities, 
     addActivity, deleteActivity, updateActivity
     // createReportFile, saveReportToFile 
 };

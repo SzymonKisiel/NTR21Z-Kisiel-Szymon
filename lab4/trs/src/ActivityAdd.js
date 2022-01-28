@@ -18,7 +18,7 @@ function ActivityAdd(props) {
     return (
         <>
         <h1 className="Title">Add Activity to {projectCode}</h1>
-        <ActivityForm code="ARGUS-123"/>
+        <ActivityForm code={projectCode}/>
         </>
         
     );

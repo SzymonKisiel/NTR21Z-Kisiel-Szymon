@@ -25,6 +25,13 @@ app.get('/getprojects', (req, res) => {
     res.json(activities);
 });
 
+app.get('/getsubactivities', (req, res) => {
+    const projectCode = req.query.projectCode;
+
+    const subactivities = model.getSubactivities(projectCode);
+    res.json(subactivities);
+});
+
 app.get('/getactivities', (req, res) => {
     const activities = model.getActivities();
     res.json(activities);
@@ -109,6 +116,9 @@ app.get('/updateactivity', (req, res) => {
 // model.addActivity("tester", activity);
 
 // model.deleteActivity("tester", {"date":"2022-01-12","code":"ARGUS-123","subcode":"other","time":45,"description":"project meeting"});
+
+// console.log(model.getSubactivities("ARGUS-123"));
+// console.log(model.getSubactivities("ARGUS-sd"));
 
 if (!develop) {
     console.log(path.join(__dirname, '../../build', 'index.html'));

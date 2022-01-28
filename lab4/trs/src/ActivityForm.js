@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { addActivity, editActivity } from "./Data";
+import React, { useState, useEffect, useContext } from "react";
+import { addActivity, editActivity, getSubactivities } from "./Data";
 import { UserContext } from "./UserProvider";
 
 function ActivityForm(props) {
@@ -8,6 +8,7 @@ function ActivityForm(props) {
     const code = props.code;
     const oldActivity = props.activity;
 
+    const [subactivities, setSubactivities] = useState([]);
     const [inputField , setInputField] = useState(
         oldActivity || 
         {
@@ -22,6 +23,14 @@ function ActivityForm(props) {
     let editForm = false;
     if (props.activity)
         editForm = true;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getSubactivities(code);
+            setSubactivities(result.data);
+        };
+        fetchData();
+    }, [code]);
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -54,12 +63,15 @@ function ActivityForm(props) {
 
             <br/>
 
-            <input 
+            {/* <input 
             name="subcode" 
             type="text" 
             onChange={handleChange} 
             placeholder="Subactivity" 
-            value={inputField.subcode}/>
+            value={inputField.subcode}/> */}
+            <select value={inputField.subactivity}>
+                {subactivities.map(subactivity => <option key={subactivity}>{subactivity}</option>)}
+            </select>
 
             <br/>
 

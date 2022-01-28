@@ -4,9 +4,13 @@ function getProjects() {
     return axios('/getprojects');
 };
 
-// function getSubactivities() {
-
-// }
+function getSubactivities(projectCode) {
+    return axios('/getsubactivities', { 
+        params: {
+            projectCode: projectCode
+        }
+    });
+}
 
 function getManagerProjects() {
     return axios('/getprojects'); // TODO: getmanagerprojects
@@ -83,7 +87,7 @@ function editActivity(username, oldActivity, newActivity) {
 }
 
 export { 
-    getProjects, 
+    getProjects, getSubactivities,
     getActivities, getDayActivities, getManagerProjects, getProjectActivities, 
     addActivity, deleteActivity, editActivity 
 };

@@ -15,6 +15,14 @@
             "budget": -1,
             "active": true,
             "subactivities": []
+        },
+        {
+            "code": "ALPHA",
+            "manager": "nowak",
+            "name": "Alpha",
+            "budget": 1000,
+            "active": true,
+            "subactivities": ["test1", "test2", "test3"]
         }
     ]
 }
