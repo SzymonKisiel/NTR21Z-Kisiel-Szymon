@@ -2,7 +2,7 @@
 ### Start frontend server <br/>
 `npm start` <br/>
 
-### Start frontend server <br/>
+### Start backend server <br/>
 `node ./src/backend/server.js develop` <br/>
 <br/>
 
