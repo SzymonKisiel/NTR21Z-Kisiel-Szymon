@@ -11,7 +11,6 @@ const UserProvider = ({children}) => {
     const [isLoggedIn, setLoggedIn] = useState(initialLoggedIn);
 
     const login = (name) => {
-        // console.log("login");
         localStorage.setItem("user", JSON.stringify(name));
         localStorage.setItem("isLoggedIn", JSON.stringify(true));
         setUsername(name);
@@ -20,7 +19,6 @@ const UserProvider = ({children}) => {
 
     const logout = () => {
         localStorage.clear();
-        // console.log("logout");
         setUsername("");
         setLoggedIn(false);
     };
