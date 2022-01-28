@@ -24,6 +24,13 @@ app.get('/getsubactivities', (req, res) => {
     res.json(subactivities);
 });
 
+app.get('/createproject', (req, res) => {
+    const project = JSON.parse(req.query.project);
+    
+    const result = model.addProject(project);
+    res.json(result);
+});
+
 app.get('/getactivities', (req, res) => {
     const activities = model.getActivities();
     res.json(activities);
@@ -90,3 +97,15 @@ const initMsg = develop
     ? "Development server starting. Listening on port 5000." 
     : "Production server starting. Listening on port 5000.";
 app.listen(5000, () => console.log(initMsg));
+
+// model.addProject({
+//     "code": "BETA",
+//     "manager": "smith",
+//     "name": "Beta",
+//     "budget": 1111,
+//     "active": true,
+//     "subactivities": []
+// });
+
+// const test = model.getProjects();
+// console.log(test);

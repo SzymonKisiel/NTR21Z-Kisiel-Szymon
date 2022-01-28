@@ -6,7 +6,10 @@
             "name": "Argus",
             "budget": 125,
             "active": true,
-            "subactivities": ["database",  "other"]
+            "subactivities": [
+                "database",
+                "other"
+            ]
         },
         {
             "code": "OTHER",
@@ -22,7 +25,19 @@
             "name": "Alpha",
             "budget": 1000,
             "active": true,
-            "subactivities": ["test1", "test2", "test3"]
+            "subactivities": [
+                "test1",
+                "test2",
+                "test3"
+            ]
+        },
+        {
+            "code": "BETA",
+            "manager": "smith",
+            "name": "Beta",
+            "budget": 1111,
+            "active": true,
+            "subactivities": []
         }
     ]
 }

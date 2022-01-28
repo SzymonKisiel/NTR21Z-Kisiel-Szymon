@@ -23,12 +23,38 @@ function createReportFile(username, month) {
     return newReport;
 };
 
-function getProjects() {
-    var data = require('./data/activity.json');
-    return data.projects;
+function loadProjectsFromFile() {
+    var result = {}
+    glob.sync(`./src/backend/data/activity.json`).forEach((file) => {
+        console.log(file);
+        const data = fs.readFileSync(file);
+        result = JSON.parse(data); 
+    });
+    // console.log(result.projects);
+    return result.projects;
 };
 
-function addProject(project) {};
+function saveProjectsToFile(projects) {
+    const data = { "projects": projects };
+    fs.writeFileSync(`./src/backend/data/activity.json`, JSON.stringify(data));
+};
+
+function getProjects() {
+    return loadProjectsFromFile();
+};
+
+function addProject(project) {
+    const projects = getProjects();
+    projects.push(project);
+    saveProjectsToFile(projects);
+    return true;
+};
+
+// function getManagerProjects(manager) {
+//     const projects = getProjects();
+//     projects.filter((project) => { return project.manager == manager });
+// }
+
 function editProject(projectCode, newProject) {};
 function deleteProject(projectCode) {};
 
@@ -159,6 +185,7 @@ function toProjectReport(report, projectCode) {
 
 module.exports = { 
     getProjects, getSubactivities,
+    addProject,
     getActivities, getMonthActivities, getDayActivities, getProjectActivities, 
     addActivity, deleteActivity, updateActivity
     // createReportFile, saveReportToFile 

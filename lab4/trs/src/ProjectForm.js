@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { UserContext } from './UserProvider';
 import './App.css';
 import { Fragment } from 'react';
+import { addProject } from './Data';
 
 function ProjectForm(props) {
     const { username, isLoggedIn } = useContext(UserContext);
@@ -59,9 +60,11 @@ function ProjectForm(props) {
     function handleSubmit(e) {
         if (editForm) {
             alert("Edit:\n" + JSON.stringify(inputField));
+
         }
         else {
             alert("Create:\n" + JSON.stringify(inputField));
+            addProject(inputField);
         }
         
     };
