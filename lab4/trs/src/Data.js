@@ -21,7 +21,6 @@ function getManagerProjects() {
 // }
 
 function getActivities(username, month) {
-    // console.log("front: " + username + " " + month);
     if (username && month) {
         return axios('/getmonthactivities', { 
             params: {
@@ -36,7 +35,6 @@ function getActivities(username, month) {
 }
 
 function getDayActivities(username, date) {
-    // console.log("frontend: " + username + " " + date);
     if (username && date) {
         return axios('/getdayactivities', { 
             params: {
@@ -48,7 +46,6 @@ function getDayActivities(username, date) {
 }
 
 function getProjectActivities(username, month, projectCode) {
-    // console.log("frontend: " + username + " " + month + " " + projectCode);
     return axios('/getprojectactivities', { 
         params: {
             username: username,
