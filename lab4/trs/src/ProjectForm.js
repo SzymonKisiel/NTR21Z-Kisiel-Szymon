@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 import { addProject } from './Data';
 
 function ProjectForm(props) {
-    const { username, isLoggedIn } = useContext(UserContext);
+    const { username } = useContext(UserContext);
 
     const [subactivity, setSubactivity] = useState('');
     const [inputField , setInputField] = useState(

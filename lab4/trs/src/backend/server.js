@@ -13,9 +13,17 @@ if (!develop) {
 app.get('/test', (req, res) => res.json({ "test": [ {"test1": "abc"}, {"test2": "def"}]}));
 
 app.get('/getprojects', (req, res) => {
-    const activities = model.getProjects();
-    res.json(activities);
+    const projects = model.getProjects();
+    res.json(projects);
 });
+
+app.get('/getmanagerprojects', (req, res) => {
+    const manager = req.query.manager;
+
+    const projects = model.getManagerProjects(manager);
+    res.json(projects);
+});
+
 
 app.get('/getsubactivities', (req, res) => {
     const projectCode = req.query.projectCode;
@@ -26,7 +34,7 @@ app.get('/getsubactivities', (req, res) => {
 
 app.get('/createproject', (req, res) => {
     const project = JSON.parse(req.query.project);
-    
+
     const result = model.addProject(project);
     res.json(result);
 });
@@ -97,15 +105,3 @@ const initMsg = develop
     ? "Development server starting. Listening on port 5000." 
     : "Production server starting. Listening on port 5000.";
 app.listen(5000, () => console.log(initMsg));
-
-// model.addProject({
-//     "code": "BETA",
-//     "manager": "smith",
-//     "name": "Beta",
-//     "budget": 1111,
-//     "active": true,
-//     "subactivities": []
-// });
-
-// const test = model.getProjects();
-// console.log(test);

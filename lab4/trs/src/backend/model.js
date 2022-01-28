@@ -50,10 +50,11 @@ function addProject(project) {
     return true;
 };
 
-// function getManagerProjects(manager) {
-//     const projects = getProjects();
-//     projects.filter((project) => { return project.manager == manager });
-// }
+function getManagerProjects(manager) {
+    const projects = getProjects();
+    const result = projects.filter((project) => { return project.manager == manager });
+    return result;
+}
 
 function editProject(projectCode, newProject) {};
 function deleteProject(projectCode) {};
@@ -184,7 +185,7 @@ function toProjectReport(report, projectCode) {
     
 
 module.exports = { 
-    getProjects, getSubactivities,
+    getProjects, getManagerProjects, getSubactivities,
     addProject,
     getActivities, getMonthActivities, getDayActivities, getProjectActivities, 
     addActivity, deleteActivity, updateActivity

@@ -15,7 +15,7 @@ function Manager() {
             setProjects(result.data);
         };
         fetchData();
-    }, []);
+    }, [username]);
 
     function addProject() {
         navigate("/addproject");

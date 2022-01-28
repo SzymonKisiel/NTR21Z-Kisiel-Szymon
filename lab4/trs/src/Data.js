@@ -4,6 +4,15 @@ function getProjects() {
     return axios('/getprojects');
 };
 
+
+function getManagerProjects(manager) {
+    return axios('/getmanagerprojects', { 
+        params: {
+            manager: manager
+        }
+    });
+}
+
 function getSubactivities(projectCode) {
     return axios('/getsubactivities', { 
         params: {
@@ -18,11 +27,6 @@ function addProject(project) {
             project: project
         }
     });
-}
-
-
-function getManagerProjects() {
-    return axios('/getprojects'); // TODO: getmanagerprojects
 }
 
 // function getActivities() {
