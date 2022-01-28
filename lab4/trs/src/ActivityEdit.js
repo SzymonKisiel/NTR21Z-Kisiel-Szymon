@@ -1,6 +1,4 @@
 import React from 'react';
-import { getProjects } from './Data';
-import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import ActivityForm from './ActivityForm';
 

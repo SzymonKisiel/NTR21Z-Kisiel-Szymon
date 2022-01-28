@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { getActivities } from './Data';
 import { Table } from 'react-bootstrap';
 import ActivityItem from './ActivityItem';
 

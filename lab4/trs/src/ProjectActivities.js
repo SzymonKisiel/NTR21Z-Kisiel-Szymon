@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { getProjectActivities } from './Data';
 import ActivitiesContent from './ActivitiesContent';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from './UserProvider';
 
 function ProjectActivities() {
@@ -37,7 +37,7 @@ function ProjectActivities() {
             }
         };
         fetchData();
-    }, [date]);
+    }, [type, username, date, projectCode]);
 
     function handleDateChange(e) {
         const { value } = e.target;

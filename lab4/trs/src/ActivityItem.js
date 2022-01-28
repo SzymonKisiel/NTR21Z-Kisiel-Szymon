@@ -28,8 +28,8 @@ function ActivityItem(props) {
             <td>{activity.description}</td>
             { editable &&
                 <>
-                <td><a href="" onClick={handleEdit}>Edit</a></td>
-                <td><a href="" onClick={handleDelete}>Delete</a></td>
+                <td><button onClick={handleEdit}>Edit</button></td>
+                <td><button onClick={handleDelete}>Delete</button></td>
                 </>
             }
         </tr>

@@ -4,7 +4,7 @@ import { UserContext } from "./UserProvider";
 
 function ActivityForm(props) {
     const { username } = useContext(UserContext);
-    const month = props.month;
+    // const month = props.month;
     const oldActivity = props.activity;
     const code = props.code || oldActivity.code;
 
@@ -56,6 +56,7 @@ function ActivityForm(props) {
 
     return (
         <div>
+            <label>Date: </label>
             <input 
             name="date" 
             type="date" 
@@ -65,6 +66,7 @@ function ActivityForm(props) {
 
             <br/>
 
+            <label>Subactivity: </label>
             <select name="subcode" value={inputField.subcode} onChange={handleChange} >
                 <option value="">-</option>
                 {subactivities.map(subactivity => <option key={subactivity} >{subactivity}</option>)}
@@ -72,6 +74,7 @@ function ActivityForm(props) {
 
             <br/>
 
+            <label>Time: </label>
             <input 
             name="time" 
             type="number" 
@@ -81,12 +84,7 @@ function ActivityForm(props) {
 
             <br/>
 
-            {/* <input 
-            name="description" 
-            type="textarea" 
-            onChange={handleChange} 
-            placeholder="Description" 
-            value={inputField.description}/> */}
+            <label>Description: </label>
             <textarea 
             name="description" 
             type="textarea" 
