@@ -84,9 +84,15 @@ function ActivityForm(props) {
 
             <br/>
 
-            <input 
+            {/* <input 
             name="description" 
-            type="textbox" 
+            type="textarea" 
+            onChange={handleChange} 
+            placeholder="Description" 
+            value={inputField.description}/> */}
+            <textarea 
+            name="description" 
+            type="textarea" 
             onChange={handleChange} 
             placeholder="Description" 
             value={inputField.description}/>
