@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { addActivity, editActivity, getSubactivities } from "./Data";
 import { UserContext } from "./UserProvider";
+import './App.css';
 
 function ActivityForm(props) {
     const { username } = useContext(UserContext);
@@ -55,7 +56,7 @@ function ActivityForm(props) {
     };
 
     return (
-        <div>
+        <div className="Form">
             <label>Date: </label>
             <input 
             name="date" 
@@ -64,15 +65,11 @@ function ActivityForm(props) {
             placeholder="Date" 
             value={inputField.date}/>
 
-            <br/>
-
             <label>Subactivity: </label>
             <select name="subcode" value={inputField.subcode} onChange={handleChange} >
                 <option value="">-</option>
                 {subactivities.map(subactivity => <option key={subactivity} >{subactivity}</option>)}
             </select>
-
-            <br/>
 
             <label>Time: </label>
             <input 
@@ -81,8 +78,6 @@ function ActivityForm(props) {
             onChange={handleChange} 
             placeholder="Time" 
             value={inputField.time}/>
-
-            <br/>
 
             <label>Description: </label>
             <textarea 

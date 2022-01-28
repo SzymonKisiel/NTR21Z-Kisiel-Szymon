@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from './UserProvider';
+import './App.css';
+import { Fragment } from 'react';
 
 function ProjectForm(props) {
     const { username, isLoggedIn } = useContext(UserContext);
@@ -65,7 +67,8 @@ function ProjectForm(props) {
     };
 
     return (
-        <div>
+        <div className="Form">
+            <label>Code: </label>
             <input 
             name="code" 
             type="text" 
@@ -73,17 +76,7 @@ function ProjectForm(props) {
             placeholder="Code" 
             value={inputField.code}/>
 
-            <br/>
-
-            {/* <input 
-            name="manager" 
-            type="text" 
-            onChange={handleChange} 
-            placeholder="Manager" 
-            value={inputField.manager}/>
-
-            <br/> */}
-
+            <label>Name: </label>
             <input 
             name="name" 
             type="text" 
@@ -91,8 +84,7 @@ function ProjectForm(props) {
             placeholder="Name" 
             value={inputField.name}/>
 
-            <br/>
-
+            <label>Budget: </label>
             <input 
             name="budget" 
             type="number" 
@@ -100,8 +92,7 @@ function ProjectForm(props) {
             placeholder="Budget" 
             value={inputField.budget}/>
 
-            <br/>
-
+            <label>Subactivity: </label>
             <input 
             name="subactivity" 
             type="text" 
@@ -109,15 +100,17 @@ function ProjectForm(props) {
             placeholder="Subactivity" 
             value={subactivity}/>
 
-            <button onClick={handleAddSubactivity}>Add subactivity</button>
-
             <br/>
+            <button onClick={handleAddSubactivity}>Add subactivity</button>
             
             {inputField.subactivities.map((name, index) => 
-                <div>
-                    {name} 
-                    <button onClick={e => handleDeleteSubactivity(index, e)}>-</button>
-                </div>)
+                <Fragment>
+                    <br/>
+                    <div>
+                        {name} 
+                        <button onClick={e => handleDeleteSubactivity(index, e)}>-</button>
+                    </div>
+                </Fragment>)
             }
 
             <br/>

@@ -46,3 +46,13 @@
   padding-left: 30px;
   padding-right: 30px;
 }
+
+.Form {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-gap: 5px;
+}
+
+.Form label {
+  text-align: right;
+}
