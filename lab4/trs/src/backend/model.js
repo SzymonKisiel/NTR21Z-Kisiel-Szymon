@@ -4,7 +4,6 @@ const fs = require("fs");
 function loadReportsFromFiles(searchPattern) {
     let result = [];
     glob.sync(`./src/backend/data/${searchPattern}.json`).forEach((file) => {
-        // console.log(file);
         const data = fs.readFileSync(file);
         result.push(JSON.parse(data)); 
     });
@@ -26,11 +25,9 @@ function createReportFile(username, month) {
 function loadProjectsFromFile() {
     var result = {}
     glob.sync(`./src/backend/data/activity.json`).forEach((file) => {
-        console.log(file);
         const data = fs.readFileSync(file);
         result = JSON.parse(data); 
     });
-    // console.log(result.projects);
     return result.projects;
 };
 
